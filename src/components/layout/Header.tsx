@@ -1,0 +1,155 @@
+import { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Menu, X, Search, Heart, ShoppingCart, Phone, MessageCircle } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { useCart } from '@/context/CartContext';
+
+const navItems = [
+  { name: 'Главная', href: '/' },
+  { name: 'Каталог', href: '/catalog' },
+  { name: 'Шоурум', href: '/showroom' },
+  { name: 'Проекты', href: '/projects' },
+  { name: 'Доставка', href: '/delivery' },
+  { name: 'Блог', href: '/blog' },
+  { name: 'Производство', href: '/production' },
+  { name: 'Подбор мебели', href: '/quiz' },
+  { name: 'Контакты', href: '/contacts' },
+];
+
+export const Header = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+  const { items } = useCart();
+  
+  const cartCount = items.reduce((sum, item) => sum + item.quantity, 0);
+
+  return (
+    <header className="sticky top-0 z-50 bg-card/95 backdrop-blur-md border-b border-border">
+      <div className="container-main">
+        <div className="flex items-center justify-between h-16 md:h-20">
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-2">
+            <span className="text-2xl md:text-3xl font-serif font-bold text-foreground">TULSY</span>
+          </Link>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center gap-6">
+            {navItems.slice(0, 7).map((item) => (
+              <Link
+                key={item.name}
+                to={item.href}
+                className={`text-sm font-medium transition-colors hover:text-primary ${
+                  location.pathname === item.href 
+                    ? 'text-primary' 
+                    : 'text-muted-foreground'
+                }`}
+              >
+                {item.name}
+              </Link>
+            ))}
+          </nav>
+
+          {/* Right side actions */}
+          <div className="flex items-center gap-2 md:gap-4">
+            {/* Phone - desktop only */}
+            <a 
+              href="tel:+74951234567" 
+              className="hidden xl:flex items-center gap-2 text-sm font-medium text-foreground hover:text-primary transition-colors"
+            >
+              <Phone className="w-4 h-4" />
+              +7 (495) 123-45-67
+            </a>
+
+            {/* Messengers */}
+            <div className="hidden md:flex items-center gap-2">
+              <a 
+                href="https://wa.me/74951234567" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-full hover:bg-secondary transition-colors text-muted-foreground hover:text-primary"
+              >
+                <MessageCircle className="w-5 h-5" />
+              </a>
+            </div>
+
+            {/* Search */}
+            <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary">
+              <Search className="w-5 h-5" />
+            </Button>
+
+            {/* Favorites */}
+            <Button variant="ghost" size="icon" className="hidden sm:flex text-muted-foreground hover:text-primary">
+              <Heart className="w-5 h-5" />
+            </Button>
+
+            {/* Cart */}
+            <Link to="/cart">
+              <Button variant="ghost" size="icon" className="relative text-muted-foreground hover:text-primary">
+                <ShoppingCart className="w-5 h-5" />
+                {cartCount > 0 && (
+                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-primary text-primary-foreground text-xs rounded-full flex items-center justify-center">
+                    {cartCount}
+                  </span>
+                )}
+              </Button>
+            </Link>
+
+            {/* Mobile menu */}
+            <Sheet open={isOpen} onOpenChange={setIsOpen}>
+              <SheetTrigger asChild className="lg:hidden">
+                <Button variant="ghost" size="icon">
+                  <Menu className="w-6 h-6" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-[300px] sm:w-[350px]">
+                <nav className="flex flex-col gap-4 mt-8">
+                  {navItems.map((item) => (
+                    <Link
+                      key={item.name}
+                      to={item.href}
+                      onClick={() => setIsOpen(false)}
+                      className={`text-lg font-medium py-2 transition-colors hover:text-primary ${
+                        location.pathname === item.href 
+                          ? 'text-primary' 
+                          : 'text-foreground'
+                      }`}
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                  <hr className="my-4" />
+                  <a 
+                    href="tel:+74951234567" 
+                    className="flex items-center gap-2 text-foreground hover:text-primary"
+                  >
+                    <Phone className="w-5 h-5" />
+                    +7 (495) 123-45-67
+                  </a>
+                  <div className="flex gap-4">
+                    <a 
+                      href="https://wa.me/74951234567" 
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-muted-foreground hover:text-primary"
+                    >
+                      WhatsApp
+                    </a>
+                    <a 
+                      href="https://t.me/tulsy" 
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-muted-foreground hover:text-primary"
+                    >
+                      Telegram
+                    </a>
+                  </div>
+                </nav>
+              </SheetContent>
+            </Sheet>
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+};
