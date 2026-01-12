@@ -1,10 +1,20 @@
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { ProductCardCatalog } from '@/components/ui/ProductCardCatalog';
-import { CategoryCard } from '@/components/ui/CategoryCard';
 import { categories, products } from '@/data/products';
 import { Button } from '@/components/ui/button';
-import { ChevronDown, SlidersHorizontal, Grid3X3, LayoutGrid } from 'lucide-react';
+import { ChevronDown, SlidersHorizontal, Grid3X3, LayoutGrid, Armchair, Table, Package, Square, Columns } from 'lucide-react';
+
+// Map category slugs to icons
+const categoryIcons: Record<string, React.ReactNode> = {
+  'stulya': <Armchair className="w-10 h-10 md:w-12 md:h-12" strokeWidth={1} />,
+  'kresla': <Armchair className="w-10 h-10 md:w-12 md:h-12" strokeWidth={1} />,
+  'divany': <Armchair className="w-10 h-10 md:w-12 md:h-12" strokeWidth={1} />,
+  'stoly': <Table className="w-10 h-10 md:w-12 md:h-12" strokeWidth={1} />,
+  'komplekty': <Package className="w-10 h-10 md:w-12 md:h-12" strokeWidth={1} />,
+  'stoleshnitsy': <Square className="w-10 h-10 md:w-12 md:h-12" strokeWidth={1} />,
+  'podstolya': <Columns className="w-10 h-10 md:w-12 md:h-12" strokeWidth={1} />,
+};
 
 export const CatalogPage = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -44,44 +54,47 @@ export const CatalogPage = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <section className="bg-muted/30 py-8 md:py-12">
+      <section className="py-6 md:py-8">
         <div className="container-main">
-          <h1 className="text-3xl md:text-4xl font-serif font-bold mb-2">
-            Каталог мебели
-          </h1>
-          <p className="text-muted-foreground">
-            {filteredProducts.length} товаров в наличии и под заказ
-          </p>
-        </div>
-      </section>
+          <div className="flex items-baseline gap-4 mb-6">
+            <h1 className="text-2xl md:text-3xl font-serif font-bold">
+              {selectedCategoryName}
+            </h1>
+            <span className="text-muted-foreground text-sm">
+              Найдено {filteredProducts.length}
+            </span>
+          </div>
 
-      {/* Categories horizontal scroll */}
-      <section className="border-b border-border sticky top-0 bg-background z-20">
-        <div className="container-main py-4">
-          <div className="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-hide">
-            <button
-              onClick={() => setSelectedCategory(null)}
-              className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                !selectedCategory 
-                  ? 'bg-primary text-primary-foreground' 
-                  : 'bg-muted hover:bg-muted/80 text-foreground'
-              }`}
-            >
-              Все товары
-            </button>
-            {categories.map((cat) => (
-              <button
-                key={cat.slug}
-                onClick={() => setSelectedCategory(cat.slug === selectedCategory ? null : cat.slug)}
-                className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                  selectedCategory === cat.slug 
-                    ? 'bg-primary text-primary-foreground' 
-                    : 'bg-muted hover:bg-muted/80 text-foreground'
-                }`}
-              >
-                {cat.name}
-              </button>
-            ))}
+          {/* Category Cards Grid */}
+          <div className="flex gap-4 md:gap-6 overflow-x-auto pb-4 scrollbar-hide">
+            {categories.map((cat) => {
+              const productCount = products.filter(p => p.categorySlug === cat.slug).length;
+              return (
+                <button
+                  key={cat.slug}
+                  onClick={() => setSelectedCategory(cat.slug === selectedCategory ? null : cat.slug)}
+                  className={`flex-shrink-0 flex flex-col items-center text-center group transition-all ${
+                    selectedCategory === cat.slug ? 'opacity-100' : 'opacity-70 hover:opacity-100'
+                  }`}
+                >
+                  <div className={`w-20 h-20 md:w-24 md:h-24 rounded-xl flex items-center justify-center mb-2 transition-all ${
+                    selectedCategory === cat.slug 
+                      ? 'bg-primary/10 text-primary' 
+                      : 'bg-muted/50 text-muted-foreground group-hover:bg-muted'
+                  }`}>
+                    {categoryIcons[cat.slug] || <Package className="w-10 h-10 md:w-12 md:h-12" strokeWidth={1} />}
+                  </div>
+                  <span className={`text-xs md:text-sm font-medium leading-tight max-w-[80px] md:max-w-[96px] ${
+                    selectedCategory === cat.slug ? 'text-foreground' : 'text-muted-foreground group-hover:text-foreground'
+                  }`}>
+                    {cat.name}
+                  </span>
+                  <span className="text-[10px] md:text-xs text-muted-foreground mt-0.5">
+                    {productCount}
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </div>
       </section>
