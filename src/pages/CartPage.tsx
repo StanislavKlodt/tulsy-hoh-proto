@@ -1,10 +1,13 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Minus, Plus, Trash2, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useCart } from '@/context/CartContext';
+import { DeliveryCalculator } from '@/components/ui/DeliveryCalculator';
 
 export const CartPage = () => {
   const { items, updateQuantity, removeItem, total } = useCart();
+  const [deliveryCost, setDeliveryCost] = useState<number | null>(null);
 
   const formatPrice = (price: number) =>
     new Intl.NumberFormat('ru-RU').format(price) + ' ₽';
@@ -91,7 +94,15 @@ export const CartPage = () => {
           </div>
 
           {/* Summary */}
-          <div>
+          <div className="space-y-4">
+            {/* Delivery Calculator */}
+            <DeliveryCalculator 
+              cartTotal={total}
+              itemsCount={items.length}
+              onDeliveryCalculated={(cost) => setDeliveryCost(cost)}
+            />
+
+            {/* Order Summary */}
             <div className="bg-card rounded-xl border p-6 sticky top-24">
               <h2 className="text-lg font-semibold mb-4">Итого</h2>
               
@@ -102,15 +113,26 @@ export const CartPage = () => {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Доставка</span>
-                  <span className="text-sm">Расчёт менеджером</span>
+                  {deliveryCost !== null ? (
+                    <span className={deliveryCost === 0 ? 'text-emerald-600 font-medium' : ''}>
+                      {deliveryCost === 0 ? 'Бесплатно' : formatPrice(deliveryCost)}
+                    </span>
+                  ) : (
+                    <span className="text-sm text-muted-foreground">Рассчитайте выше ↑</span>
+                  )}
                 </div>
               </div>
 
               <div className="border-t pt-4 mb-6">
                 <div className="flex justify-between text-lg font-semibold">
                   <span>К оплате</span>
-                  <span>{formatPrice(total)}</span>
+                  <span>{formatPrice(total + (deliveryCost || 0))}</span>
                 </div>
+                {deliveryCost === null && (
+                  <p className="text-xs text-muted-foreground mt-1">
+                    + стоимость доставки
+                  </p>
+                )}
               </div>
 
               <div className="space-y-3">
@@ -128,7 +150,7 @@ export const CartPage = () => {
               </div>
 
               <p className="text-xs text-muted-foreground mt-4 text-center">
-                Доставка рассчитывается менеджером после оформления заказа
+                Окончательная стоимость будет подтверждена менеджером
               </p>
             </div>
           </div>
