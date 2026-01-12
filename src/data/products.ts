@@ -15,6 +15,8 @@ export interface Product {
   isHit?: boolean;
   isNew?: boolean;
   isSale?: boolean;
+  colors?: string[]; // HEX colors for fabric/material variants
+  stockCount?: number;
 }
 
 export const products: Product[] = [
@@ -35,6 +37,8 @@ export const products: Product[] = [
     description: 'Классический диван Честер с каретной стяжкой. Идеален для респектабельных ресторанов и отелей.',
     isHit: true,
     isSale: true,
+    colors: ['#8B4513', '#2F4F4F', '#1A1A1A', '#4A3728', '#5C4033', '#6B3E26', '#3D2314', '#4A4A4A'],
+    stockCount: 3,
   },
   {
     id: 'sofa-2',
@@ -50,6 +54,8 @@ export const products: Product[] = [
     dimensions: '280×160×85 см',
     description: 'Модульный угловой диван для просторных залов. Можно комбинировать секции под любую планировку.',
     isNew: true,
+    colors: ['#4A5568', '#718096', '#2D3748', '#1A202C', '#A0AEC0'],
+    stockCount: 2,
   },
   {
     id: 'sofa-3',
@@ -65,6 +71,8 @@ export const products: Product[] = [
     dimensions: '160×75×80 см',
     description: 'Компактный диван в стиле лофт на металлическом каркасе. Отлично подходит для кафе и баров.',
     isHit: true,
+    colors: ['#2D3748', '#553C9A', '#744210', '#1A365D', '#285E61', '#702459'],
+    stockCount: 5,
   },
   {
     id: 'sofa-4',
@@ -79,6 +87,8 @@ export const products: Product[] = [
     upholstery: 'Рогожка',
     dimensions: '140×70×78 см',
     description: 'Уютный двухместный диван в скандинавском стиле. Идеален для лобби отелей и зон ожидания.',
+    colors: ['#E2E8F0', '#CBD5E0', '#A0AEC0', '#718096'],
+    stockCount: 1,
   },
   {
     id: 'sofa-5',
@@ -95,6 +105,8 @@ export const products: Product[] = [
     dimensions: '220×90×85 см',
     description: 'Премиальный кожаный диван для VIP-зон и дорогих интерьеров.',
     isSale: true,
+    colors: ['#1A1A1A', '#2D2D2D', '#4A3728', '#3D2314', '#5C4033'],
+    stockCount: 2,
   },
   // Кресла
   {
