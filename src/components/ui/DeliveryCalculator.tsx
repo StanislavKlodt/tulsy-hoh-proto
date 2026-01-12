@@ -7,16 +7,16 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
 // Список популярных городов с базовой стоимостью
 const cities = [
-  { name: 'Москва', basePrice: 0, days: '1-2 дня' },
-  { name: 'Санкт-Петербург', basePrice: 2500, days: '2-3 дня' },
-  { name: 'Казань', basePrice: 4000, days: '3-4 дня' },
-  { name: 'Нижний Новгород', basePrice: 3000, days: '2-3 дня' },
-  { name: 'Екатеринбург', basePrice: 6000, days: '4-5 дней' },
-  { name: 'Новосибирск', basePrice: 8000, days: '5-7 дней' },
-  { name: 'Краснодар', basePrice: 5000, days: '3-4 дня' },
-  { name: 'Сочи', basePrice: 5500, days: '4-5 дней' },
-  { name: 'Ростов-на-Дону', basePrice: 4500, days: '3-4 дня' },
-  { name: 'Воронеж', basePrice: 2500, days: '2-3 дня' },
+  { name: 'Москва', basePrice: 1500, days: '1-2 дня' },
+  { name: 'Санкт-Петербург', basePrice: 3500, days: '2-3 дня' },
+  { name: 'Казань', basePrice: 5000, days: '3-4 дня' },
+  { name: 'Нижний Новгород', basePrice: 4000, days: '2-3 дня' },
+  { name: 'Екатеринбург', basePrice: 7000, days: '4-5 дней' },
+  { name: 'Новосибирск', basePrice: 9500, days: '5-7 дней' },
+  { name: 'Краснодар', basePrice: 6000, days: '3-4 дня' },
+  { name: 'Сочи', basePrice: 6500, days: '4-5 дней' },
+  { name: 'Ростов-на-Дону', basePrice: 5500, days: '3-4 дня' },
+  { name: 'Воронеж', basePrice: 3500, days: '2-3 дня' },
 ];
 
 const deliveryMethods = [
