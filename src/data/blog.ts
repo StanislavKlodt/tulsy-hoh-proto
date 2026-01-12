@@ -13,7 +13,7 @@ export const blogPosts: BlogPost[] = [
     id: 'guide-restaurant-chairs',
     title: 'Руководство по выбору стульев для ресторанов и гостиниц',
     excerpt: 'Как подобрать идеальные стулья для вашего заведения: от материалов до эргономики.',
-    image: 'https://defrae.com/wp-content/uploads/2025/12/Guide-to-restaurant-chairs-DeFrae-Contract-Furniture-1024x512.jpg',
+    image: '/images/blog/restaurant-chairs-guide.jpg',
     date: '2025-01-05',
     category: 'Руководства',
     content: `
@@ -67,7 +67,7 @@ export const blogPosts: BlogPost[] = [
     id: 'crib-5-fire-safety',
     title: 'Тест пожарной безопасности CRIB 5',
     excerpt: 'Всё, что нужно знать о сертификации мебели для коммерческих объектов.',
-    image: 'https://defrae.com/wp-content/uploads/2025/11/Crib5-DeFrae-Contract-Furniture-and-Panaz-739x1024.jpg',
+    image: '/images/blog/crib5-fire-safety.jpg',
     date: '2024-12-20',
     category: 'Материалы',
     content: `
@@ -113,7 +113,7 @@ CRIB 5 — это британский стандарт огнестойкост
     id: 'milan-design-week',
     title: 'Выставка мебели в Милане: тренды 2024',
     excerpt: 'Главные тенденции мебельного дизайна с крупнейшей выставки мира.',
-    image: 'https://defrae.com/wp-content/uploads/2023/04/Milan-Trend-Report-feature-image-1-1024x614.jpg',
+    image: '/images/blog/milan-design-week.jpg',
     date: '2024-11-15',
     category: 'Тренды',
     content: `
