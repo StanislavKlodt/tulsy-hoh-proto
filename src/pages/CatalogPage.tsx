@@ -162,44 +162,67 @@ export const CatalogPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <section className="py-6 md:py-8">
+      {/* Breadcrumb */}
+      <section className="pt-4 pb-2">
         <div className="container-main">
-          <div className="flex items-baseline gap-4 mb-6">
-            <h1 className="text-2xl md:text-3xl font-serif font-bold">
-              {selectedCategoryName}
-            </h1>
-            <span className="text-muted-foreground text-sm">
-              Найдено {filteredProducts.length}
-            </span>
-          </div>
+          <nav className="text-xs text-muted-foreground uppercase tracking-wide">
+            <Link to="/" className="hover:text-foreground transition-colors">Главная</Link>
+            <span className="mx-2">/</span>
+            <span className="text-foreground">Каталог</span>
+          </nav>
+        </div>
+      </section>
 
-          {/* Category Cards Grid */}
-          <div className="flex gap-4 md:gap-6 overflow-x-auto pb-4 scrollbar-hide">
+      {/* Header */}
+      <section className="pb-6 md:pb-8">
+        <div className="container-main">
+          <h1 className="text-3xl md:text-4xl font-serif font-medium mb-3">
+            Мебель
+          </h1>
+          <p className="text-muted-foreground max-w-3xl leading-relaxed">
+            Откройте для себя нашу коллекцию мебели для HoReCa: <strong>стулья</strong> и <strong>кресла</strong>, <strong>столы</strong> и <strong>диваны</strong>. Выбирайте качественные изделия с оригинальным дизайном и возможностью кастомизации под ваш проект.
+          </p>
+        </div>
+      </section>
+
+      {/* Category Cards Grid - Artemest style */}
+      <section className="pb-6">
+        <div className="container-main">
+          <div className="flex gap-4 md:gap-5 overflow-x-auto pb-2 scrollbar-hide">
             {categories.map((cat) => {
-              const productCount = products.filter(p => p.categorySlug === cat.slug).length;
+              // Get first product image for this category
+              const categoryProduct = products.find(p => p.categorySlug === cat.slug);
+              const categoryImage = cat.image || categoryProduct?.image;
+              
               return (
                 <button
                   key={cat.slug}
                   onClick={() => setSelectedCategory(cat.slug === selectedCategory ? null : cat.slug)}
-                  className={`flex-shrink-0 flex flex-col items-center text-center group transition-all ${
-                    selectedCategory === cat.slug ? 'opacity-100' : 'opacity-70 hover:opacity-100'
-                  }`}
+                  className={`flex-shrink-0 flex flex-col items-center text-center group transition-all`}
                 >
-                  <div className={`w-20 h-20 md:w-24 md:h-24 rounded-xl flex items-center justify-center mb-2 transition-all ${
+                  <div className={`w-28 h-28 md:w-36 md:h-36 border overflow-hidden mb-3 transition-all ${
                     selectedCategory === cat.slug 
-                      ? 'bg-primary/10 text-primary' 
-                      : 'bg-muted/50 text-muted-foreground group-hover:bg-muted'
+                      ? 'border-foreground' 
+                      : 'border-border group-hover:border-muted-foreground'
                   }`}>
-                    {categoryIcons[cat.slug] || <Package className="w-10 h-10 md:w-12 md:h-12" strokeWidth={1} />}
+                    {categoryImage ? (
+                      <img 
+                        src={categoryImage} 
+                        alt={cat.name}
+                        className="w-full h-full object-contain p-3"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center bg-muted/30">
+                        <Package className="w-12 h-12 text-muted-foreground" strokeWidth={1} />
+                      </div>
+                    )}
                   </div>
-                  <span className={`text-xs md:text-sm font-medium leading-tight max-w-[80px] md:max-w-[96px] ${
-                    selectedCategory === cat.slug ? 'text-foreground' : 'text-muted-foreground group-hover:text-foreground'
+                  <span className={`text-xs md:text-sm uppercase tracking-wide font-medium transition-colors ${
+                    selectedCategory === cat.slug 
+                      ? 'text-foreground' 
+                      : 'text-muted-foreground group-hover:text-foreground'
                   }`}>
                     {cat.name}
-                  </span>
-                  <span className="text-[10px] md:text-xs text-muted-foreground mt-0.5">
-                    {productCount}
                   </span>
                 </button>
               );
