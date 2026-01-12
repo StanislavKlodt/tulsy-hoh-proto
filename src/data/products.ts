@@ -341,7 +341,7 @@ export const categories = [
   { name: 'Столы', slug: 'stoly', icon: 'table', count: 3, image: 'https://images.unsplash.com/photo-1611269154421-4e27233ac5c7?w=400&h=300&fit=crop&bg=f5f5f5' },
   { name: 'Комплекты', slug: 'komplekty', icon: 'package', count: 2, image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&h=300&fit=crop&bg=f5f5f5' },
   { name: 'Столешницы', slug: 'stoleshnitsy', icon: 'square', count: 2, image: 'https://images.unsplash.com/photo-1604074131665-7a4b13870ab4?w=400&h=300&fit=crop&bg=f5f5f5' },
-  { name: 'Подстолья', slug: 'podstolya', icon: 'pillar', count: 2, image: 'https://images.unsplash.com/photo-1604882406195-0d50e6a04d96?w=400&h=300&fit=crop&bg=f5f5f5' },
+  { name: 'Подстолья', slug: 'podstolya', icon: 'pillar', count: 2, image: '/images/categories/podstolya.jpg' },
 ];
 
 export const getProductsByCategory = (categorySlug: string) => 
