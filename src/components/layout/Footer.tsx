@@ -6,30 +6,6 @@ import { Input } from '@/components/ui/input';
 export const Footer = () => {
   return (
     <footer className="bg-foreground text-background">
-      {/* CTA Section */}
-      <div className="border-b border-background/10">
-        <div className="container-main py-12">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div>
-              <h3 className="text-2xl font-serif font-semibold mb-2">
-                Нужен расчёт комплектации?
-              </h3>
-              <p className="text-background/70">
-                Оставьте заявку — менеджер подготовит подборку под ваш проект
-              </p>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
-              <Input 
-                placeholder="Ваш телефон" 
-                className="bg-background/10 border-background/20 text-background placeholder:text-background/50 w-full sm:w-48"
-              />
-              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground whitespace-nowrap">
-                Получить расчёт
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
 
       {/* Main Footer */}
       <div className="container-main py-12">
