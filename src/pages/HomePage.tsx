@@ -94,10 +94,10 @@ export const HomePage = () => {
                   <ChevronRight className="ml-2 w-5 h-5" />
                 </Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="text-base">
-                <Link to="/quiz">
+              <Button variant="outline" size="lg" className="text-base" asChild>
+                <a href="#consultation-form">
                   Подобрать мебель под зал
-                </Link>
+                </a>
               </Button>
             </div>
           </motion.div>
@@ -196,7 +196,7 @@ export const HomePage = () => {
       </section>
 
       {/* Consultation Form */}
-      <section className="section-padding bg-secondary/50">
+      <section id="consultation-form" className="section-padding bg-secondary/50 scroll-mt-20">
         <div className="container-main">
           <div className="max-w-3xl mx-auto bg-card rounded-2xl p-8 md:p-12 shadow-card">
             <h2 className="text-2xl md:text-3xl font-serif font-bold mb-2 text-center">
