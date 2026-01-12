@@ -4,7 +4,7 @@ import { ChevronRight, Check, Truck, FileText, UserCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ProductCard } from '@/components/ui/ProductCard';
-import { ConsultationForm } from '@/components/ui/ConsultationForm';
+import { QuoteRequestDialog } from '@/components/ui/QuoteRequestDialog';
 import { getProductById, products } from '@/data/products';
 import { useCart } from '@/context/CartContext';
 import { toast } from 'sonner';
@@ -23,6 +23,7 @@ export const ProductPage = () => {
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedFabric, setSelectedFabric] = useState(0);
   const [quantity, setQuantity] = useState(1);
+  const [quoteDialogOpen, setQuoteDialogOpen] = useState(false);
 
   const product = getProductById(id || '');
 
@@ -186,7 +187,7 @@ export const ProductPage = () => {
                 <Button size="lg" onClick={handleAddToCart} className="flex-1 sm:flex-none">
                   В корзину
                 </Button>
-                <Button variant="outline" size="lg">
+                <Button variant="outline" size="lg" onClick={() => setQuoteDialogOpen(true)}>
                   Запросить КП
                 </Button>
               </div>
@@ -346,6 +347,14 @@ export const ProductPage = () => {
           </Button>
         </div>
       </section>
+
+      {/* Quote Request Dialog */}
+      <QuoteRequestDialog 
+        open={quoteDialogOpen} 
+        onOpenChange={setQuoteDialogOpen}
+        productName={product.name}
+        productId={product.id}
+      />
     </div>
   );
 };
