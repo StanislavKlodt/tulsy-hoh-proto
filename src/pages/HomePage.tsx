@@ -424,10 +424,10 @@ export const HomePage = () => {
         <div className="container-main">
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4">
-              Получите каталог и консультацию менеджера
+              Нужен расчёт комплектации?
             </h2>
             <p className="text-background/70 mb-8">
-              Оставьте заявку — отправим каталог и ответим на вопросы
+              Оставьте заявку — менеджер подготовит подборку под ваш проект
             </p>
             <div className="bg-background/10 rounded-2xl p-6 md:p-8">
               <ConsultationForm variant="compact" />

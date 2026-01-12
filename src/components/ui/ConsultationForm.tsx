@@ -46,7 +46,7 @@ export const ConsultationForm = ({ variant = 'full', title }: ConsultationFormPr
             </div>
           </RadioGroup>
         </div>
-        <Button type="submit" className="w-full">Получить каталог</Button>
+        <Button type="submit" className="w-full">Получить расчёт</Button>
       </form>
     );
   }
