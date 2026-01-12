@@ -335,13 +335,13 @@ export const products: Product[] = [
 ];
 
 export const categories = [
-  { name: 'Диваны', slug: 'divany', icon: 'sofa', count: 5 },
-  { name: 'Кресла', slug: 'kresla', icon: 'armchair', count: 3 },
-  { name: 'Стулья', slug: 'stulya', icon: 'chair', count: 4 },
-  { name: 'Столы', slug: 'stoly', icon: 'table', count: 3 },
-  { name: 'Комплекты', slug: 'komplekty', icon: 'package', count: 2 },
-  { name: 'Столешницы', slug: 'stoleshnitsy', icon: 'square', count: 2 },
-  { name: 'Подстолья', slug: 'podstolya', icon: 'pillar', count: 2 },
+  { name: 'Диваны', slug: 'divany', icon: 'sofa', count: 5, image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&h=300&fit=crop&bg=f5f5f5' },
+  { name: 'Кресла', slug: 'kresla', icon: 'armchair', count: 3, image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=300&fit=crop&bg=f5f5f5' },
+  { name: 'Стулья', slug: 'stulya', icon: 'chair', count: 4, image: 'https://images.unsplash.com/photo-1503602642458-232111445657?w=400&h=300&fit=crop&bg=f5f5f5' },
+  { name: 'Столы', slug: 'stoly', icon: 'table', count: 3, image: 'https://images.unsplash.com/photo-1611269154421-4e27233ac5c7?w=400&h=300&fit=crop&bg=f5f5f5' },
+  { name: 'Комплекты', slug: 'komplekty', icon: 'package', count: 2, image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&h=300&fit=crop&bg=f5f5f5' },
+  { name: 'Столешницы', slug: 'stoleshnitsy', icon: 'square', count: 2, image: 'https://images.unsplash.com/photo-1604074131665-7a4b13870ab4?w=400&h=300&fit=crop&bg=f5f5f5' },
+  { name: 'Подстолья', slug: 'podstolya', icon: 'pillar', count: 2, image: 'https://images.unsplash.com/photo-1604882406195-0d50e6a04d96?w=400&h=300&fit=crop&bg=f5f5f5' },
 ];
 
 export const getProductsByCategory = (categorySlug: string) => 
