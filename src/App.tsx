@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartProvider } from "@/context/CartContext";
 import { Layout } from "@/components/layout/Layout";
 import HomePage from "./pages/HomePage";
+import { HomePageV2 } from "./pages/HomePageV2";
 import CatalogPage from "./pages/CatalogPage";
 import CategoryPage from "./pages/CategoryPage";
 import ProductPage from "./pages/ProductPage";
@@ -32,6 +33,7 @@ const App = () => (
           <Layout>
             <Routes>
               <Route path="/" element={<HomePage />} />
+              <Route path="/mainV2" element={<HomePageV2 />} />
               <Route path="/catalog" element={<CatalogPage />} />
               <Route path="/catalog/:slug" element={<CategoryPage />} />
               <Route path="/product/:id" element={<ProductPage />} />
