@@ -166,91 +166,6 @@ export const HomePage = () => {
         </div>
       </section>
 
-      {/* Reviews */}
-      <section className="section-padding bg-background">
-        <div className="container-main">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="text-3xl font-serif font-bold">Отзывы клиентов</h2>
-            <div className="flex gap-2">
-              <Button 
-                variant="outline" 
-                size="icon"
-                onClick={() => setReviewIndex(Math.max(0, reviewIndex - 1))}
-                disabled={reviewIndex === 0}
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </Button>
-              <Button 
-                variant="outline" 
-                size="icon"
-                onClick={() => setReviewIndex(Math.min(reviews.length - 3, reviewIndex + 1))}
-                disabled={reviewIndex >= reviews.length - 3}
-              >
-                <ChevronRight className="w-5 h-5" />
-              </Button>
-            </div>
-          </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            {visibleReviews.map((review, i) => (
-              <motion.div
-                key={review.name}
-                className="bg-card p-6 rounded-xl shadow-card"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.1 }}
-              >
-                <div className="flex gap-1 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-primary text-primary" />
-                  ))}
-                </div>
-                <p className="text-foreground mb-4">"{review.text}"</p>
-                <div className="text-sm">
-                  <p className="font-medium">{review.name}</p>
-                  <p className="text-muted-foreground">{review.city}, {review.type}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Projects */}
-      <section className="section-padding bg-muted/30">
-        <div className="container-main">
-          <h2 className="text-3xl font-serif font-bold mb-2">
-            Как мебель TULSY выглядит в реальных интерьерах
-          </h2>
-          <p className="text-muted-foreground mb-8">Проекты наших клиентов</p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.slice(0, 6).map((project) => (
-              <Link 
-                key={project.id}
-                to={`/projects/${project.id}`}
-                className="group card-product"
-              >
-                <div className="aspect-[4/3] overflow-hidden">
-                  <img 
-                    src={project.image} 
-                    alt={project.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                <div className="p-4">
-                  <h3 className="font-medium group-hover:text-primary transition-colors">{project.title}</h3>
-                  <p className="text-sm text-muted-foreground">{project.city} • {project.type}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
-          <div className="text-center mt-10">
-            <Button asChild variant="outline" size="lg">
-              <Link to="/projects">Посмотреть все проекты</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
-
       {/* Production */}
       <section className="section-padding bg-background">
         <div className="container-main">
@@ -308,6 +223,91 @@ export const HomePage = () => {
                 <Link to="/production">Подробнее о производстве</Link>
               </Button>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Reviews */}
+      <section className="section-padding bg-muted/30">
+        <div className="container-main">
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="text-3xl font-serif font-bold">Отзывы клиентов</h2>
+            <div className="flex gap-2">
+              <Button 
+                variant="outline" 
+                size="icon"
+                onClick={() => setReviewIndex(Math.max(0, reviewIndex - 1))}
+                disabled={reviewIndex === 0}
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </Button>
+              <Button 
+                variant="outline" 
+                size="icon"
+                onClick={() => setReviewIndex(Math.min(reviews.length - 3, reviewIndex + 1))}
+                disabled={reviewIndex >= reviews.length - 3}
+              >
+                <ChevronRight className="w-5 h-5" />
+              </Button>
+            </div>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {visibleReviews.map((review, i) => (
+              <motion.div
+                key={review.name}
+                className="bg-card p-6 rounded-xl shadow-card"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.1 }}
+              >
+                <div className="flex gap-1 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-primary text-primary" />
+                  ))}
+                </div>
+                <p className="text-foreground mb-4">"{review.text}"</p>
+                <div className="text-sm">
+                  <p className="font-medium">{review.name}</p>
+                  <p className="text-muted-foreground">{review.city}, {review.type}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Projects */}
+      <section className="section-padding bg-background">
+        <div className="container-main">
+          <h2 className="text-3xl font-serif font-bold mb-2">
+            Как мебель TULSY выглядит в реальных интерьерах
+          </h2>
+          <p className="text-muted-foreground mb-8">Проекты наших клиентов</p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {projects.slice(0, 6).map((project) => (
+              <Link 
+                key={project.id}
+                to={`/projects/${project.id}`}
+                className="group card-product"
+              >
+                <div className="aspect-[4/3] overflow-hidden">
+                  <img 
+                    src={project.image} 
+                    alt={project.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+                <div className="p-4">
+                  <h3 className="font-medium group-hover:text-primary transition-colors">{project.title}</h3>
+                  <p className="text-sm text-muted-foreground">{project.city} • {project.type}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+          <div className="text-center mt-10">
+            <Button asChild variant="outline" size="lg">
+              <Link to="/projects">Посмотреть все проекты</Link>
+            </Button>
           </div>
         </div>
       </section>
