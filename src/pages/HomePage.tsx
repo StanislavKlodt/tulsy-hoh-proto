@@ -19,12 +19,14 @@ const fadeIn = {
 };
 
 const reviews = [
-  { name: 'Алексей К.', city: 'Москва', type: 'Ресторан', text: 'Отличное качество мебели и оперативная доставка. Полностью укомплектовали зал за 2 недели.' },
-  { name: 'Мария С.', city: 'СПб', type: 'Кафе', text: 'Работаем с TULSY уже 3 года. Всегда довольны качеством и сервисом.' },
-  { name: 'Дмитрий В.', city: 'Казань', type: 'Отель', text: 'Заказывали мебель для лобби и ресторана. Всё сделали в срок и без нареканий.' },
-  { name: 'Елена П.', city: 'Сочи', type: 'Бар', text: 'Понравился индивидуальный подход и возможность кастомизации под наш интерьер.' },
-  { name: 'Игорь Н.', city: 'Екатеринбург', type: 'Столовая', text: 'Большой выбор штабелируемых стульев. Очень удобно для хранения.' },
-  { name: 'Анна Р.', city: 'Новосибирск', type: 'Кафе', text: 'Выезд менеджера с образцами очень помог определиться с тканями.' },
+  { id: 1, author: 'Алексей К.', date: '15 января 2025', platform: 'yandex' as const, rating: 5, text: 'Отличное качество мебели и оперативная доставка. Полностью укомплектовали зал за 2 недели. Рекомендую всем, кто ищет надёжного поставщика.', hasMore: true },
+  { id: 2, author: 'Мария С.', date: '12 января 2025', platform: '2gis' as const, rating: 5, text: 'Работаем с TULSY уже 3 года. Всегда довольны качеством и сервисом. Менеджеры всегда на связи и помогают с выбором.' },
+  { id: 3, author: 'Дмитрий В.', date: '8 января 2025', platform: 'yandex' as const, rating: 5, text: 'Заказывали мебель для лобби и ресторана. Всё сделали в срок и без нареканий. Качество материалов на высоте.' },
+  { id: 4, author: 'Елена П.', date: '5 января 2025', platform: '2gis' as const, rating: 5, text: 'Понравился индивидуальный подход и возможность кастомизации под наш интерьер. Подобрали идеальные ткани.' },
+  { id: 5, author: 'Игорь Н.', date: '28 декабря 2024', platform: 'yandex' as const, rating: 5, text: 'Большой выбор штабелируемых стульев. Очень удобно для хранения. Быстрая доставка по России.' },
+  { id: 6, author: 'Анна Р.', date: '20 декабря 2024', platform: '2gis' as const, rating: 5, text: 'Выезд менеджера с образцами очень помог определиться с тканями. Профессиональный подход к клиенту.' },
+  { id: 7, author: 'Сергей М.', date: '15 декабря 2024', platform: 'yandex' as const, rating: 5, text: 'Заказали диваны для ресторана. Качество превзошло ожидания, гости постоянно хвалят интерьер.' },
+  { id: 8, author: 'Ольга К.', date: '10 декабря 2024', platform: '2gis' as const, rating: 5, text: 'Отличный шоурум в Москве! Можно потрогать все материалы и посидеть на мебели перед заказом.' },
 ];
 
 const faqItemsLeft = [
@@ -53,7 +55,7 @@ export const HomePage = () => {
     sale: getSaleProducts(),
   };
 
-  const visibleReviews = reviews.slice(reviewIndex, reviewIndex + 3);
+  const visibleReviews = reviews.slice(reviewIndex, reviewIndex + 4);
 
   return (
     <div>
@@ -232,47 +234,85 @@ export const HomePage = () => {
       {/* Reviews */}
       <section className="section-padding bg-muted/30">
         <div className="container-main">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="text-3xl font-serif font-bold">Отзывы клиентов</h2>
-            <div className="flex gap-2">
-              <Button 
-                variant="outline" 
-                size="icon"
-                onClick={() => setReviewIndex(Math.max(0, reviewIndex - 1))}
-                disabled={reviewIndex === 0}
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </Button>
-              <Button 
-                variant="outline" 
-                size="icon"
-                onClick={() => setReviewIndex(Math.min(reviews.length - 3, reviewIndex + 1))}
-                disabled={reviewIndex >= reviews.length - 3}
-              >
-                <ChevronRight className="w-5 h-5" />
-              </Button>
+          <h2 className="text-2xl md:text-3xl font-serif font-bold mb-2">Почему выбирают "Tulsy"</h2>
+          <p className="text-muted-foreground mb-8">Лучше всего о нас расскажут отзывы наших клиентов</p>
+          
+          {/* Rating and stats */}
+          <div className="flex flex-wrap items-center gap-6 mb-8">
+            <div className="flex items-center gap-2">
+              <span className="text-xl font-bold text-primary">5.0</span>
+              <Star className="w-5 h-5 fill-primary text-primary" />
+              <span className="text-muted-foreground">| 204 отзывов</span>
+            </div>
+            
+            <div className="flex items-center gap-4">
+              <span className="text-sm text-muted-foreground">Яндекс 5.0</span>
+              <span className="text-sm text-muted-foreground">2GIS 5.0</span>
             </div>
           </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            {visibleReviews.map((review, i) => (
-              <motion.div
-                key={review.name}
-                className="bg-card p-6 rounded-xl shadow-card"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.1 }}
-              >
-                <div className="flex gap-1 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-primary text-primary" />
-                  ))}
-                </div>
-                <p className="text-foreground mb-4">"{review.text}"</p>
-                <div className="text-sm">
-                  <p className="font-medium">{review.name}</p>
-                  <p className="text-muted-foreground">{review.city}, {review.type}</p>
-                </div>
-              </motion.div>
+          
+          {/* Reviews Grid */}
+          <div className="relative">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {visibleReviews.map((review, i) => (
+                <motion.div 
+                  key={review.id} 
+                  className="bg-muted/30 rounded-xl p-5"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                >
+                  <div className="mb-3">
+                    <p className="font-medium">{review.author}</p>
+                    <p className="text-xs text-muted-foreground">
+                      {review.date} на <span className="text-primary">{review.platform === 'yandex' ? 'Яндекс' : '2GIS'}</span>
+                    </p>
+                  </div>
+                  <div className="flex gap-0.5 mb-3">
+                    {[...Array(5)].map((_, starIndex) => (
+                      <Star 
+                        key={starIndex} 
+                        className={`w-4 h-4 ${starIndex < review.rating ? 'fill-amber-400 text-amber-400' : 'text-muted-foreground'}`} 
+                      />
+                    ))}
+                  </div>
+                  <p className="text-foreground text-sm leading-relaxed mb-2">{review.text}</p>
+                  {review.hasMore && (
+                    <button className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                      Читать дальше
+                    </button>
+                  )}
+                </motion.div>
+              ))}
+            </div>
+            
+            {/* Navigation arrows */}
+            <button 
+              onClick={() => setReviewIndex(Math.max(0, reviewIndex - 1))}
+              disabled={reviewIndex === 0}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 w-10 h-10 bg-background border border-border rounded-full flex items-center justify-center shadow-md hover:bg-muted transition-colors hidden lg:flex disabled:opacity-50"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button 
+              onClick={() => setReviewIndex(Math.min(reviews.length - 4, reviewIndex + 1))}
+              disabled={reviewIndex >= reviews.length - 4}
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 w-10 h-10 bg-background border border-border rounded-full flex items-center justify-center shadow-md hover:bg-muted transition-colors hidden lg:flex disabled:opacity-50"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
+          
+          {/* Pagination dots */}
+          <div className="flex justify-center gap-2 mt-6">
+            {[...Array(Math.ceil(reviews.length / 4))].map((_, dotIndex) => (
+              <span 
+                key={dotIndex} 
+                className={`w-2 h-2 rounded-full cursor-pointer transition-colors ${
+                  Math.floor(reviewIndex / 4) === dotIndex ? 'bg-foreground' : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
+                }`}
+                onClick={() => setReviewIndex(dotIndex * 4)}
+              ></span>
             ))}
           </div>
         </div>
