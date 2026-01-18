@@ -384,77 +384,6 @@ export const ProductPage = () => {
       </section>
 
 
-
-      {/* What You Get Section */}
-      <section className="section-padding">
-        <div className="container-main">
-          <h2 className="text-2xl md:text-3xl font-serif font-bold mb-8">Что вы получаете</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:grid-rows-2">
-            {/* Левая колонка - 2 карточки друг под другом */}
-            <div className="flex flex-col gap-4 md:row-span-2">
-              {/* Проверено профессионалами */}
-              <div className="relative rounded-xl overflow-hidden flex-1 min-h-[200px] group">
-                <img 
-                  src={benefits[0].image} 
-                  alt={benefits[0].title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-                <div className="absolute bottom-6 left-6 right-6">
-                  <p className="text-white font-medium text-lg mb-2">{benefits[0].title}</p>
-                  <p className="text-white/80 text-sm">{benefits[0].description}</p>
-                </div>
-              </div>
-              
-              {/* Лёгкая чистка, износостойкие ткани */}
-              <div className="relative rounded-xl overflow-hidden flex-1 min-h-[200px] group">
-                <img 
-                  src={benefits[4].image} 
-                  alt={benefits[4].title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-                <div className="absolute bottom-6 left-6 right-6">
-                  <p className="text-white font-medium text-lg mb-2">{benefits[4].title}</p>
-                  <p className="text-white/80 text-sm">{benefits[4].description}</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Средняя колонка - 2 текстовые карточки */}
-            <div className="flex flex-col gap-4 md:row-span-2">
-              {/* Поставка за 10 дней */}
-              <div className="relative rounded-xl overflow-hidden bg-primary p-6 flex flex-col justify-end flex-1 min-h-[200px]">
-                <p className="text-primary-foreground font-medium text-lg mb-2">{benefits[1].title}</p>
-                <p className="text-primary-foreground/80 text-sm">{benefits[1].description}</p>
-              </div>
-
-              {/* Усиленный каркас для HoReCa */}
-              <div className="relative rounded-xl overflow-hidden bg-primary p-6 flex flex-col justify-end flex-1 min-h-[200px]">
-                <p className="text-primary-foreground font-medium text-lg mb-2">{benefits[3].title}</p>
-                <p className="text-primary-foreground/80 text-sm">{benefits[3].description}</p>
-              </div>
-            </div>
-
-            {/* Правая колонка - большая карточка на всю высоту */}
-            {/* Любые размеры и цвета на заказ */}
-            <div className="relative rounded-xl overflow-hidden md:row-span-2 min-h-[400px] md:min-h-0 group">
-              <img 
-                src={benefits[2].image} 
-                alt={benefits[2].title}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-              <div className="absolute bottom-6 left-6 right-6">
-                <p className="text-white font-medium text-lg mb-2">{benefits[2].title}</p>
-                <p className="text-white/80 text-sm">{benefits[2].description}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Tabs */}
       <section className="pb-16">
         <div className="container-main">
@@ -539,6 +468,76 @@ export const ProductPage = () => {
               </p>
             </TabsContent>
           </Tabs>
+        </div>
+      </section>
+
+      {/* What You Get Section */}
+      <section className="section-padding">
+        <div className="container-main">
+          <h2 className="text-2xl md:text-3xl font-serif font-bold mb-8">Что вы получаете</h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:grid-rows-2">
+            {/* Левая колонка - 2 карточки друг под другом */}
+            <div className="flex flex-col gap-4 md:row-span-2">
+              {/* Проверено профессионалами */}
+              <div className="relative rounded-xl overflow-hidden flex-1 min-h-[200px] group">
+                <img 
+                  src={benefits[0].image} 
+                  alt={benefits[0].title}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                <div className="absolute bottom-6 left-6 right-6">
+                  <p className="text-white font-medium text-lg mb-2">{benefits[0].title}</p>
+                  <p className="text-white/80 text-sm">{benefits[0].description}</p>
+                </div>
+              </div>
+              
+              {/* Лёгкая чистка, износостойкие ткани */}
+              <div className="relative rounded-xl overflow-hidden flex-1 min-h-[200px] group">
+                <img 
+                  src={benefits[4].image} 
+                  alt={benefits[4].title}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                <div className="absolute bottom-6 left-6 right-6">
+                  <p className="text-white font-medium text-lg mb-2">{benefits[4].title}</p>
+                  <p className="text-white/80 text-sm">{benefits[4].description}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Средняя колонка - 2 текстовые карточки */}
+            <div className="flex flex-col gap-4 md:row-span-2">
+              {/* Поставка за 10 дней */}
+              <div className="relative rounded-xl overflow-hidden bg-primary p-6 flex flex-col justify-end flex-1 min-h-[200px]">
+                <p className="text-primary-foreground font-medium text-lg mb-2">{benefits[1].title}</p>
+                <p className="text-primary-foreground/80 text-sm">{benefits[1].description}</p>
+              </div>
+
+              {/* Усиленный каркас для HoReCa */}
+              <div className="relative rounded-xl overflow-hidden bg-primary p-6 flex flex-col justify-end flex-1 min-h-[200px]">
+                <p className="text-primary-foreground font-medium text-lg mb-2">{benefits[3].title}</p>
+                <p className="text-primary-foreground/80 text-sm">{benefits[3].description}</p>
+              </div>
+            </div>
+
+            {/* Правая колонка - большая карточка на всю высоту */}
+            {/* Любые размеры и цвета на заказ */}
+            <div className="relative rounded-xl overflow-hidden md:row-span-2 min-h-[400px] md:min-h-0 group">
+              <img 
+                src={benefits[2].image} 
+                alt={benefits[2].title}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+              <div className="absolute bottom-6 left-6 right-6">
+                <p className="text-white font-medium text-lg mb-2">{benefits[2].title}</p>
+                <p className="text-white/80 text-sm">{benefits[2].description}</p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
