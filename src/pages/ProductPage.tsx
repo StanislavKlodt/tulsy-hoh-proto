@@ -97,7 +97,7 @@ const benefits = [
     id: 1,
     title: 'Проверено профессионалами',
     description: 'Мебель, созданная с учётом практики и обратной связи от реальных клиентов — то, что работает в зале каждый день',
-    image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&h=600&fit=crop',
+    image: '/images/benefits/provereno-professionalami.png',
     type: 'image' as const,
   },
   {
@@ -111,7 +111,7 @@ const benefits = [
     id: 3,
     title: 'Любые размеры и цвета на заказ',
     description: 'Индивидуальное исполнение под ваш проект: подберем размеры, формы, обивку',
-    image: 'https://images.unsplash.com/photo-1567016432779-094069958ea5?w=400&h=300&fit=crop',
+    image: '/images/benefits/lyubye-razmery.jpg',
     type: 'image' as const,
   },
   {
@@ -125,7 +125,7 @@ const benefits = [
     id: 5,
     title: 'Лёгкая чистка, износостойкие ткани',
     description: 'Специальная обивка для профессионального сегмента - всегда аккуратный вид, даже после сотен уборок',
-    image: 'https://images.unsplash.com/photo-1558171813-4c088753af8f?w=400&h=400&fit=crop',
+    image: '/images/benefits/legkaya-chistka.jpg',
     type: 'image' as const,
   },
 ];
