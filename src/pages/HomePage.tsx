@@ -27,15 +27,20 @@ const reviews = [
   { name: 'Анна Р.', city: 'Новосибирск', type: 'Кафе', text: 'Выезд менеджера с образцами очень помог определиться с тканями.' },
 ];
 
-const faqItems = [
-  { q: 'Есть ли товары в наличии?', a: 'Да, у нас более 1500 единиц мебели в шоуруме в Москве. Многие позиции доступны к отгрузке в течение 1-2 дней.' },
-  { q: 'Какие сроки изготовления под заказ?', a: 'Стандартный срок изготовления — до 10 рабочих дней. Для срочных заказов возможно сокращение до 5-7 дней.' },
-  { q: 'Можно ли изменить размер или ткань?', a: 'Да, мы предлагаем кастомизацию под ваш проект: изменение габаритов, выбор из 300+ тканей, нестандартные цвета каркаса.' },
-  { q: 'Как получить оптовую цену?', a: 'При заказе от 200 000 ₽ предоставляются оптовые цены. Запросите персональный расчёт у менеджера.' },
-  { q: 'Как увидеть мебель вживую?', a: 'Приглашаем в наш шоурум в Москве (более 1000 м²) или закажите онлайн-обзор по видеосвязи.' },
-  { q: 'Чем вы лучше маркетплейсов?', a: 'Мы — производитель. Это значит гарантия качества, кастомизация под проект, оптовые цены и персональный менеджер.' },
-  { q: 'Работаете ли с юрлицами?', a: 'Да, предоставляем полный пакет документов: счёт, договор, УПД, акты. Безналичная оплата.' },
-  { q: 'Есть ли выезд менеджера с образцами?', a: 'Да, для крупных проектов менеджер может приехать с образцами тканей и каталогами. Согласуйте визит при оформлении заявки.' },
+const faqItemsLeft = [
+  { q: 'Как легко оформить заказ и выбрать нужную комплектацию?', a: 'Оставьте заявку на сайте или позвоните — менеджер поможет подобрать оптимальную комплектацию под ваш бюджет и требования.' },
+  { q: 'Можно ли сразу купить мебель без ожидания производства?', a: 'Да, у нас более 1500 единиц мебели в наличии в шоуруме в Москве. Многие позиции доступны к отгрузке в течение 1-2 дней.' },
+  { q: 'Когда у нас бывают скидки и как не пропустить акции?', a: 'Подпишитесь на нашу рассылку или следите за обновлениями в Telegram — мы регулярно проводим акции и сезонные распродажи.' },
+  { q: 'Какие модели угловых и модульных диванов есть в наличии?', a: 'В наличии более 50 моделей угловых и модульных диванов. Посмотрите каталог или запросите подборку у менеджера.' },
+  { q: 'Где можно вживую увидеть мебель и оценить качество?', a: 'Приглашаем в наш шоурум в Москве (более 1000 м²) или закажите онлайн-обзор по видеосвязи.' },
+];
+
+const faqItemsRight = [
+  { q: 'Сколько времени занимает производство мебели под заказ?', a: 'Стандартный срок изготовления — до 10 рабочих дней. Для срочных заказов возможно сокращение до 5-7 дней.' },
+  { q: 'Можно ли изменить конфигурацию или цвет под себя?', a: 'Да, мы предлагаем кастомизацию под ваш проект: изменение габаритов, выбор из 300+ тканей, нестандартные цвета каркаса.' },
+  { q: 'Из каких материалов мы изготавливаем нашу мебель?', a: 'Используем массив бука и берёзы, высокоплотный ППУ, коммерческие ткани с высокой износостойкостью.' },
+  { q: 'В каком городе и на какой фабрике мы производим мебель?', a: 'Наше производство находится в Москве. Полный цикл от проектирования до сборки — под нашим контролем.' },
+  { q: 'Чем наша мебель выгоднее, чем предложения на маркетплейсах?', a: 'Мы — производитель. Это значит гарантия качества, кастомизация под проект, оптовые цены и персональный менеджер.' },
 ];
 
 export const HomePage = () => {
@@ -357,20 +362,44 @@ export const HomePage = () => {
       {/* FAQ */}
       <section className="section-padding bg-background">
         <div className="container-main">
-          <h2 className="text-3xl font-serif font-bold mb-8 text-center">Частые вопросы</h2>
-          <div className="max-w-3xl mx-auto">
-            <Accordion type="single" collapsible className="space-y-3">
-              {faqItems.map((item, i) => (
-                <AccordionItem key={i} value={`item-${i}`} className="bg-card rounded-lg px-6 border">
-                  <AccordionTrigger className="text-left hover:no-underline">
-                    {item.q}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">
-                    {item.a}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
+          <h2 className="text-3xl font-serif font-bold mb-8 uppercase tracking-wide">Полезно знать перед заказом</h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Left column */}
+            <div>
+              <p className="text-primary font-medium mb-4 flex items-center gap-2">
+                <span>✦</span> Как выбрать и заказать?
+              </p>
+              <Accordion type="single" collapsible className="space-y-3">
+                {faqItemsLeft.map((item, i) => (
+                  <AccordionItem key={i} value={`left-${i}`} className="bg-card rounded-lg px-6 border">
+                    <AccordionTrigger className="text-left hover:no-underline">
+                      {item.q}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground">
+                      {item.a}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
+            {/* Right column */}
+            <div>
+              <p className="text-primary font-medium mb-4 flex items-center gap-2">
+                <span>✦</span> Производство и преимущества!
+              </p>
+              <Accordion type="single" collapsible className="space-y-3">
+                {faqItemsRight.map((item, i) => (
+                  <AccordionItem key={i} value={`right-${i}`} className="bg-card rounded-lg px-6 border">
+                    <AccordionTrigger className="text-left hover:no-underline">
+                      {item.q}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground">
+                      {item.a}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
           </div>
         </div>
       </section>
