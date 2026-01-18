@@ -345,7 +345,10 @@ export const ProductPage = () => {
                     />
                   ))}
                 </div>
-                <button className="text-primary text-sm font-medium mt-3 hover:underline">
+                <button 
+                  onClick={() => document.getElementById('consultation-form')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="text-primary text-sm font-medium mt-3 hover:underline"
+                >
                   Ещё 200+ вариантов — подобрать с менеджером
                 </button>
               </div>
@@ -532,7 +535,7 @@ export const ProductPage = () => {
       </section>
 
       {/* Consultation Form Section */}
-      <section className="section-padding">
+      <section id="consultation-form" className="section-padding">
         <div className="container-main">
           <div className="grid lg:grid-cols-2 gap-8 items-center">
             <div>
