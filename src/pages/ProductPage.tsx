@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ChevronRight, Check, Truck, FileText, UserCheck, Star, Quote, Package, Shield, Clock, Palette, ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronRight, Check, Truck, FileText, UserCheck, Star, Quote, Package, Shield, Clock, Palette } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ProductCard } from '@/components/ui/ProductCard';
 import { QuoteRequestDialog } from '@/components/ui/QuoteRequestDialog';
 import { ConsultationForm } from '@/components/ui/ConsultationForm';
 import { CustomSizeDialog } from '@/components/ui/CustomSizeDialog';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+
 import { getProductById, products } from '@/data/products';
 import { useCart } from '@/context/CartContext';
 import { toast } from 'sonner';
@@ -33,17 +33,24 @@ interface SizeOption {
 const sizeOptions: SizeOption[] = [
   {
     id: 'size-1',
-    label: '75×80 см',
-    dimensions: '75×80×90 см',
+    label: '145×75×80 см',
+    dimensions: '145×75×80 см',
     retailPrice: 89900,
     wholesalePrice: 76415,
   },
   {
     id: 'size-2',
-    label: '54×90 см',
-    dimensions: '54×90×90 см',
-    retailPrice: 104900,
-    wholesalePrice: 89165,
+    label: '145×75×80 см',
+    dimensions: '145×75×80 см',
+    retailPrice: 99900,
+    wholesalePrice: 84915,
+  },
+  {
+    id: 'size-3',
+    label: '155×75×80 см',
+    dimensions: '155×75×80 см',
+    retailPrice: 109900,
+    wholesalePrice: 93415,
   },
   {
     id: 'size-custom',
@@ -131,7 +138,7 @@ export const ProductPage = () => {
   const [quantity, setQuantity] = useState(1);
   const [quoteDialogOpen, setQuoteDialogOpen] = useState(false);
   const [customSizeDialogOpen, setCustomSizeDialogOpen] = useState(false);
-  const [sizeOpen, setSizeOpen] = useState(true);
+  
 
   const product = getProductById(id || '');
 
@@ -285,36 +292,27 @@ export const ProductPage = () => {
                 <span className="text-sm font-medium">{availability.text}</span>
               </div>
 
-              {/* Size Selection - Herman Miller style */}
-              <Collapsible open={sizeOpen} onOpenChange={setSizeOpen} className="mb-6 border rounded-xl">
-                <CollapsibleTrigger className="flex items-center justify-between w-full p-4 hover:bg-muted/30 transition-colors">
-                  <div className="flex items-center gap-3">
-                    <span className="flex items-center justify-center w-6 h-6 rounded-full bg-foreground text-background text-sm font-medium">1</span>
-                    <span className="font-medium">Размер</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-muted-foreground">{currentSize.label}</span>
-                    {sizeOpen ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
-                  </div>
-                </CollapsibleTrigger>
-                <CollapsibleContent>
-                  <div className="p-4 pt-0 grid grid-cols-3 gap-2">
-                    {sizeOptions.map((size, i) => (
-                      <button
-                        key={size.id}
-                        onClick={() => handleSizeSelect(i)}
-                        className={`px-4 py-3 rounded-lg text-sm font-medium transition-all border-2 ${
-                          selectedSize === i && !size.isCustom
-                            ? 'bg-foreground text-background border-foreground'
-                            : 'bg-background hover:border-foreground border-border'
-                        }`}
-                      >
-                        {size.label}
-                      </button>
-                    ))}
-                  </div>
-                </CollapsibleContent>
-              </Collapsible>
+              {/* Size Selection */}
+              <div className="mb-6 border rounded-xl">
+                <div className="p-4 border-b">
+                  <span className="font-medium">Размер</span>
+                </div>
+                <div className="p-4 grid grid-cols-2 sm:grid-cols-4 gap-2">
+                  {sizeOptions.map((size, i) => (
+                    <button
+                      key={size.id}
+                      onClick={() => handleSizeSelect(i)}
+                      className={`px-4 py-3 rounded-lg text-sm font-medium transition-all border-2 ${
+                        selectedSize === i && !size.isCustom
+                          ? 'bg-foreground text-background border-foreground'
+                          : 'bg-background hover:border-foreground border-border'
+                      }`}
+                    >
+                      {size.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
 
               {/* Fabric selection */}
               <div className="mb-6">
