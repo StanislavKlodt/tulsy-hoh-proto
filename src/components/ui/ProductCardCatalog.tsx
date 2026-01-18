@@ -69,8 +69,8 @@ export const ProductCardCatalog = ({ product }: ProductCardCatalogProps) => {
               {isCustomizable && (
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <span className="w-7 h-7 bg-primary text-primary-foreground rounded flex items-center justify-center cursor-help">
-                      <Scissors className="w-4 h-4" />
+                    <span className="w-9 h-9 bg-background/80 backdrop-blur-sm rounded-full flex items-center justify-center cursor-help hover:bg-background transition-colors">
+                      <Scissors className="w-5 h-5 text-muted-foreground" />
                     </span>
                   </TooltipTrigger>
                   <TooltipContent side="bottom" className="bg-foreground text-background">
