@@ -3,11 +3,9 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Checkbox } from '@/components/ui/checkbox';
 import { toast } from 'sonner';
-import { FileText, Phone, Mail, MessageSquare } from 'lucide-react';
+import { FileText } from 'lucide-react';
 
 interface QuoteRequestDialogProps {
   open: boolean;
@@ -22,7 +20,6 @@ export const QuoteRequestDialog = ({
   productName,
   productId 
 }: QuoteRequestDialogProps) => {
-  const [contactMethod, setContactMethod] = useState('phone');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [privacyConsent, setPrivacyConsent] = useState(false);
   const [marketingConsent, setMarketingConsent] = useState(false);
@@ -91,15 +88,6 @@ export const QuoteRequestDialog = ({
             />
           </div>
 
-          {/* Company */}
-          <div className="space-y-2">
-            <Label htmlFor="company">Компания / Заведение</Label>
-            <Input 
-              id="company" 
-              placeholder="Название компании или заведения" 
-            />
-          </div>
-
           {/* Quantity */}
           <div className="space-y-2">
             <Label htmlFor="quantity">Примерное количество</Label>
@@ -109,45 +97,6 @@ export const QuoteRequestDialog = ({
               min="1"
               placeholder="Сколько единиц вас интересует?" 
             />
-          </div>
-
-          {/* Comment */}
-          <div className="space-y-2">
-            <Label htmlFor="comment">Комментарий</Label>
-            <Textarea 
-              id="comment" 
-              placeholder="Дополнительные пожелания или вопросы" 
-              rows={3}
-            />
-          </div>
-
-          {/* Preferred contact method */}
-          <div className="space-y-3">
-            <Label>Как удобнее связаться?</Label>
-            <RadioGroup 
-              value={contactMethod} 
-              onValueChange={setContactMethod}
-              className="flex flex-wrap gap-3"
-            >
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="phone" id="method-phone" />
-                <Label htmlFor="method-phone" className="flex items-center gap-1.5 cursor-pointer font-normal">
-                  <Phone className="w-4 h-4" /> Звонок
-                </Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="telegram" id="method-telegram" />
-                <Label htmlFor="method-telegram" className="flex items-center gap-1.5 cursor-pointer font-normal">
-                  <MessageSquare className="w-4 h-4" /> Telegram
-                </Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="email" id="method-email" />
-                <Label htmlFor="method-email" className="flex items-center gap-1.5 cursor-pointer font-normal">
-                  <Mail className="w-4 h-4" /> Email
-                </Label>
-              </div>
-            </RadioGroup>
           </div>
 
           {/* Consent checkboxes */}
