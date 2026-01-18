@@ -9,7 +9,7 @@ export const Footer = () => {
 
       {/* Main Footer */}
       <div className="container-main py-12">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-8">
           {/* Catalog */}
           <div>
             <h4 className="font-semibold mb-4">Каталог</h4>
@@ -45,21 +45,8 @@ export const Footer = () => {
             </ul>
           </div>
 
-          {/* Documents */}
-          <div>
-            <h4 className="font-semibold mb-4">Документы</h4>
-            <ul className="space-y-2 text-sm text-background/70">
-              <li><Link to="/offer-legal" className="hover:text-background transition-colors">Оферта для юридических лиц</Link></li>
-              <li><Link to="/offer-individual" className="hover:text-background transition-colors">Оферта для физических лиц</Link></li>
-              <li><Link to="/privacy" className="hover:text-background transition-colors">Политика конфиденциальности</Link></li>
-              <li><Link to="/cookies" className="hover:text-background transition-colors">Информация о файлах cookies</Link></li>
-              <li><Link to="/gost-declaration" className="hover:text-background transition-colors">Декларация ГОСТ 16371-2014</Link></li>
-              <li><Link to="/partners-list" className="hover:text-background transition-colors">Перечень партнеров ПД</Link></li>
-            </ul>
-          </div>
-
           {/* Contacts */}
-          <div className="col-span-2 lg:col-span-2">
+          <div>
             <h4 className="font-semibold mb-4">Контакты</h4>
             <ul className="space-y-3 text-sm">
               <li>
@@ -94,15 +81,23 @@ export const Footer = () => {
         </div>
 
         {/* Bottom */}
-        <div className="border-t border-background/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-background/50">
-          <div className="flex items-center gap-2">
+        <div className="border-t border-background/10 mt-12 pt-8 text-sm text-background/50">
+          <div className="flex flex-wrap justify-center gap-x-4 gap-y-2 mb-6 text-xs">
+            <Link to="/offer-legal" className="hover:text-background transition-colors">Оферта для юридических лиц</Link>
+            <span className="text-background/30">•</span>
+            <Link to="/offer-individual" className="hover:text-background transition-colors">Оферта для физических лиц</Link>
+            <span className="text-background/30">•</span>
+            <Link to="/privacy" className="hover:text-background transition-colors">Политика конфиденциальности</Link>
+            <span className="text-background/30">•</span>
+            <Link to="/cookies" className="hover:text-background transition-colors">Информация о файлах cookies</Link>
+            <span className="text-background/30">•</span>
+            <Link to="/gost-declaration" className="hover:text-background transition-colors">Декларация ГОСТ 16371-2014</Link>
+            <span className="text-background/30">•</span>
+            <Link to="/partners-list" className="hover:text-background transition-colors">Перечень партнеров ПД</Link>
+          </div>
+          <div className="flex justify-center items-center gap-2">
             <span className="text-xl font-serif font-bold text-background">TULSY</span>
             <span>© 2025 Все права защищены</span>
-          </div>
-          <div className="flex gap-4 text-xs">
-            <Link to="/privacy" className="hover:text-background transition-colors">Политика конфиденциальности</Link>
-            <Link to="/offer-legal" className="hover:text-background transition-colors">Оферта (юр. лица)</Link>
-            <Link to="/offer-individual" className="hover:text-background transition-colors">Оферта (физ. лица)</Link>
           </div>
         </div>
       </div>
