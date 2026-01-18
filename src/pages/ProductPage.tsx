@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ProductCard } from '@/components/ui/ProductCard';
 import { QuoteRequestDialog } from '@/components/ui/QuoteRequestDialog';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { ConsultationForm } from '@/components/ui/ConsultationForm';
 import { CustomSizeDialog } from '@/components/ui/CustomSizeDialog';
 
@@ -281,9 +282,23 @@ export const ProductPage = () => {
                     </div>
                   </div>
                 </div>
-                <p className="text-sm text-muted-foreground mt-3 pt-3 border-t">
-                  💰 Скидка на заказы от 200 000 ₽ — оптовая цена на всё!
-                </p>
+                <div className="mt-3 pt-3 border-t">
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <button className="text-sm text-primary hover:underline font-medium">
+                        Условия предоставления оптовых скидок
+                      </button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-80 text-sm">
+                      <p className="font-medium mb-2">❗ При заказе на сумму от 200 000 ₽ действует оптовая цена на все товары -5%.</p>
+                      <p className="font-medium mb-2">Дополнительная скидка на диваны:</p>
+                      <ul className="space-y-1 text-muted-foreground">
+                        <li>-10% от общей суммы заказа 500 000 ₽</li>
+                        <li>-15% от общей суммы заказа 1 000 000 ₽</li>
+                      </ul>
+                    </PopoverContent>
+                  </Popover>
+                </div>
               </div>
 
               {/* Availability */}
