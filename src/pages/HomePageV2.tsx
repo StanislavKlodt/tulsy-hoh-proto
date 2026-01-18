@@ -1,16 +1,10 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ChevronRight, Factory, Warehouse, Clock } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { ChevronRight } from 'lucide-react';
 import { ProductCard } from '@/components/ui/ProductCard';
 import { ConsultationForm } from '@/components/ui/ConsultationForm';
+import { HeroSlider } from '@/components/ui/HeroSlider';
 import { categories, getProductsByCategory } from '@/data/products';
-
-const fadeIn = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.5 }
-};
 
 // Секция с превью категории
 const CategorySection = ({ 
@@ -60,58 +54,8 @@ const CategorySection = ({
 export const HomePageV2 = () => {
   return (
     <div>
-      {/* Hero Section */}
-      <section className="relative min-h-[500px] md:min-h-[600px] flex items-center gradient-hero">
-        <div 
-          className="absolute inset-0 bg-cover bg-center opacity-20"
-          style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1920&h=1080&fit=crop)' }}
-        />
-        <div className="container-main relative z-10 py-16">
-          <motion.div 
-            className="max-w-3xl"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-          >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-foreground mb-6 leading-tight">
-              Мебель для кафе, ресторанов и гостиниц
-            </h1>
-            <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl">
-              Комплектуем залы под ключ: в наличии 1500+ позиций и быстрое изготовление под проект.
-            </p>
-            
-            {/* Benefits chips */}
-            <div className="flex flex-wrap gap-3 mb-10">
-              <div className="flex items-center gap-2 px-4 py-2 bg-card rounded-full shadow-sm">
-                <Factory className="w-5 h-5 text-primary" />
-                <span className="text-sm font-medium">Собственное производство</span>
-              </div>
-              <div className="flex items-center gap-2 px-4 py-2 bg-card rounded-full shadow-sm">
-                <Warehouse className="w-5 h-5 text-primary" />
-                <span className="text-sm font-medium">1500+ в наличии</span>
-              </div>
-              <div className="flex items-center gap-2 px-4 py-2 bg-card rounded-full shadow-sm">
-                <Clock className="w-5 h-5 text-primary" />
-                <span className="text-sm font-medium">До 10 дней</span>
-              </div>
-            </div>
-
-            <div className="flex flex-wrap gap-4">
-              <Button asChild size="lg" className="text-base">
-                <Link to="/catalog">
-                  Перейти в каталог
-                  <ChevronRight className="ml-2 w-5 h-5" />
-                </Link>
-              </Button>
-              <Button variant="outline" size="lg" className="text-base" asChild>
-                <a href="#consultation-form-v2">
-                  Подобрать мебель под зал
-                </a>
-              </Button>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      {/* Hero Slider */}
+      <HeroSlider />
 
       {/* Category Sections - каждая категория как отдельный блок */}
       {categories.map((category) => (
