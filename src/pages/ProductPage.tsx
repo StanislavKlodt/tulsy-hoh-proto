@@ -346,7 +346,7 @@ export const ProductPage = () => {
                   ))}
                 </div>
                 <button className="text-primary text-sm font-medium mt-3 hover:underline">
-                  Ещё 300+ вариантов — подобрать с менеджером
+                  Ещё 200+ вариантов — подобрать с менеджером
                 </button>
               </div>
 
@@ -583,7 +583,7 @@ export const ProductPage = () => {
               <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
                 <Palette className="w-8 h-8 text-primary" />
               </div>
-              <h4 className="font-medium mb-2">300+ вариантов ткани</h4>
+              <h4 className="font-medium mb-2">200+ вариантов ткани</h4>
               <p className="text-sm text-muted-foreground">Огромный выбор обивки и цветов</p>
             </div>
             <div className="text-center p-6">

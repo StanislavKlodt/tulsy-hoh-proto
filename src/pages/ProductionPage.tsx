@@ -101,7 +101,7 @@ export const ProductionPage = () => {
               <p className="text-background/70">дней — максимальный срок изготовления</p>
             </div>
             <div>
-              <p className="text-4xl font-bold text-primary mb-2">300+</p>
+              <p className="text-4xl font-bold text-primary mb-2">200+</p>
               <p className="text-background/70">вариантов тканей и цветов</p>
             </div>
             <div>
