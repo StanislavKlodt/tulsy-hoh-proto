@@ -9,7 +9,7 @@ export const Footer = () => {
 
       {/* Main Footer */}
       <div className="container-main py-12">
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
           {/* Catalog */}
           <div>
             <h4 className="font-semibold mb-4">Каталог</h4>
@@ -42,6 +42,19 @@ export const Footer = () => {
               <li><Link to="/delivery" className="hover:text-background transition-colors">Доставка и оплата</Link></li>
               <li><Link to="/quiz" className="hover:text-background transition-colors">Подбор мебели</Link></li>
               <li><Link to="/contacts" className="hover:text-background transition-colors">Контакты</Link></li>
+            </ul>
+          </div>
+
+          {/* Documents */}
+          <div>
+            <h4 className="font-semibold mb-4">Документы</h4>
+            <ul className="space-y-2 text-sm text-background/70">
+              <li><Link to="/offer-legal" className="hover:text-background transition-colors">Оферта для юридических лиц</Link></li>
+              <li><Link to="/offer-individual" className="hover:text-background transition-colors">Оферта для физических лиц</Link></li>
+              <li><Link to="/privacy" className="hover:text-background transition-colors">Политика конфиденциальности</Link></li>
+              <li><Link to="/cookies" className="hover:text-background transition-colors">Информация о файлах cookies</Link></li>
+              <li><Link to="/gost-declaration" className="hover:text-background transition-colors">Декларация ГОСТ 16371-2014</Link></li>
+              <li><Link to="/partners-list" className="hover:text-background transition-colors">Перечень партнеров ПД</Link></li>
             </ul>
           </div>
 
@@ -86,9 +99,10 @@ export const Footer = () => {
             <span className="text-xl font-serif font-bold text-background">TULSY</span>
             <span>© 2025 Все права защищены</span>
           </div>
-          <div className="flex gap-6">
+          <div className="flex gap-4 text-xs">
             <Link to="/privacy" className="hover:text-background transition-colors">Политика конфиденциальности</Link>
-            <Link to="/offer" className="hover:text-background transition-colors">Оферта</Link>
+            <Link to="/offer-legal" className="hover:text-background transition-colors">Оферта (юр. лица)</Link>
+            <Link to="/offer-individual" className="hover:text-background transition-colors">Оферта (физ. лица)</Link>
           </div>
         </div>
       </div>
