@@ -117,7 +117,7 @@ export const ShowroomPage = () => {
               </div>
               <h3 className="font-medium mb-2">Потрогать ткани</h3>
               <p className="text-sm text-muted-foreground">
-                300+ образцов обивочных материалов
+                200+ образцов обивочных материалов
               </p>
             </div>
             <div className="bg-card p-6 rounded-xl text-center">
