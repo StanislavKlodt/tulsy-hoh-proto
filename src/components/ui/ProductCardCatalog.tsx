@@ -1,9 +1,14 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Heart, Ruler } from 'lucide-react';
+import { Heart, Ruler, Settings2 } from 'lucide-react';
 import { Product } from '@/data/products';
 import { Button } from '@/components/ui/button';
 import { useCart } from '@/context/CartContext';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 
 interface ProductCardCatalogProps {
   product: Product;
@@ -27,6 +32,9 @@ export const ProductCardCatalog = ({ product }: ProductCardCatalogProps) => {
   const extraColorsCount = colors.length > 6 ? colors.length - 6 : 0;
 
   const stockCount = product.stockCount || Math.floor(Math.random() * 12) + 1;
+  
+  // Check if product is customizable (sofas/divany)
+  const isCustomizable = product.categorySlug === 'divany';
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -67,6 +75,19 @@ export const ProductCardCatalog = ({ product }: ProductCardCatalogProps) => {
                 <span className="px-2 py-1 bg-accent text-accent-foreground text-xs font-medium rounded">
                   Новинка
                 </span>
+              )}
+              {isCustomizable && (
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span className="px-2 py-1 bg-primary text-primary-foreground text-xs font-medium rounded flex items-center gap-1 cursor-help">
+                      <Settings2 className="w-3 h-3" />
+                      <span className="hidden sm:inline">Кастом</span>
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom" className="bg-foreground text-background">
+                    <p>Можем изготовить под Ваш размер</p>
+                  </TooltipContent>
+                </Tooltip>
               )}
             </div>
 
