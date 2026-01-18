@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Heart, Ruler, Settings2 } from 'lucide-react';
+import { Heart, Ruler, Scissors } from 'lucide-react';
 import { Product } from '@/data/products';
 import { Button } from '@/components/ui/button';
 import { useCart } from '@/context/CartContext';
@@ -69,9 +69,8 @@ export const ProductCardCatalog = ({ product }: ProductCardCatalogProps) => {
               {isCustomizable && (
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <span className="px-2 py-1 bg-primary text-primary-foreground text-xs font-medium rounded flex items-center gap-1 cursor-help">
-                      <Settings2 className="w-3 h-3" />
-                      <span className="hidden sm:inline">Кастом</span>
+                    <span className="w-7 h-7 bg-primary text-primary-foreground rounded flex items-center justify-center cursor-help">
+                      <Scissors className="w-4 h-4" />
                     </span>
                   </TooltipTrigger>
                   <TooltipContent side="bottom" className="bg-foreground text-background">
