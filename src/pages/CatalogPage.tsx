@@ -169,6 +169,25 @@ export const CatalogPage = () => {
     ? categories.find(c => c.slug === selectedCategory)?.name 
     : 'Все товары';
 
+  // Category descriptions
+  const categoryDescriptions: Record<string, string> = {
+    divany: 'Коллекция диванов для ресторанов, отелей и лобби. Классические и современные модели с возможностью выбора обивки и размеров.',
+    kresla: 'Комфортные кресла для зон отдыха, лобби отелей и кафе. Широкий выбор стилей от классики до модерна.',
+    stulya: 'Стулья для ресторанов, кафе и баров. Штабелируемые, мягкие и деревянные модели под любой интерьер.',
+    stoly: 'Обеденные и барные столы различных форм и размеров. Круглые, прямоугольные, высокие и стандартные.',
+    komplekty: 'Готовые комплекты мебели для кафе и ресторанов. Экономия до 15% при покупке набором.',
+    stoleshnitsy: 'Столешницы из ЛДСП и массива дерева. Различные декоры и размеры под заказ.',
+    podstolya: 'Чугунные и металлические подстолья для столов. Устойчивые основания под любой размер столешницы.',
+  };
+
+  const pageTitle = selectedCategory 
+    ? categories.find(c => c.slug === selectedCategory)?.name || 'Каталог'
+    : 'Мебель';
+    
+  const pageDescription = selectedCategory 
+    ? categoryDescriptions[selectedCategory] || 'Выбирайте качественные изделия с оригинальным дизайном и возможностью кастомизации под ваш проект.'
+    : 'Откройте для себя нашу коллекцию мебели для HoReCa: стулья и кресла, столы и диваны. Выбирайте качественные изделия с оригинальным дизайном и возможностью кастомизации под ваш проект.';
+
   return (
     <div className="min-h-screen bg-background">
       {/* Breadcrumb */}
@@ -177,7 +196,15 @@ export const CatalogPage = () => {
           <nav className="text-xs text-muted-foreground uppercase tracking-wide">
             <Link to="/" className="hover:text-foreground transition-colors">Главная</Link>
             <span className="mx-2">/</span>
-            <span className="text-foreground">Каталог</span>
+            {selectedCategory ? (
+              <>
+                <Link to="/catalog" className="hover:text-foreground transition-colors">Каталог</Link>
+                <span className="mx-2">/</span>
+                <span className="text-foreground">{pageTitle}</span>
+              </>
+            ) : (
+              <span className="text-foreground">Каталог</span>
+            )}
           </nav>
         </div>
       </section>
@@ -186,10 +213,10 @@ export const CatalogPage = () => {
       <section className="pb-6 md:pb-8">
         <div className="container-main">
           <h1 className="text-3xl md:text-4xl font-serif font-medium mb-3">
-            Мебель
+            {pageTitle}
           </h1>
           <p className="text-muted-foreground max-w-3xl leading-relaxed">
-            Откройте для себя нашу коллекцию мебели для HoReCa: <strong>стулья</strong> и <strong>кресла</strong>, <strong>столы</strong> и <strong>диваны</strong>. Выбирайте качественные изделия с оригинальным дизайном и возможностью кастомизации под ваш проект.
+            {pageDescription}
           </p>
         </div>
       </section>
