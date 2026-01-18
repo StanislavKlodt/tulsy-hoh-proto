@@ -47,7 +47,7 @@ const slides: SlideData[] = [
     description: 'Приезжайте посмотреть мебель вживую и получить консультацию наших специалистов.',
     buttonText: 'Посетить шоурум',
     buttonLink: '/showroom',
-    image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1920&h=1080&fit=crop',
+    image: 'https://static.tildacdn.com/tild6139-6335-4461-b363-636532346166/5785.jpg',
   },
 ];
 
