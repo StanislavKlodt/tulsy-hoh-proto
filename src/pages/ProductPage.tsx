@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ChevronRight, Check, Truck, FileText, UserCheck, Star, Quote, Package, Shield, Clock, Palette } from 'lucide-react';
+import { ChevronRight, ChevronLeft, Check, Truck, FileText, UserCheck, Star, Quote, Package, Shield, Clock, Palette } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ProductCard } from '@/components/ui/ProductCard';
@@ -117,7 +117,7 @@ const reviews = [
   },
 ];
 
-const reviewTags = ['сервис', 'качество', 'доставка', 'цены', 'сроки', 'менеджер', 'выбор'];
+
 
 // "Что вы получаете" блоки
 const benefits = [
@@ -558,11 +558,11 @@ export const ProductPage = () => {
       {/* Reviews Section */}
       <section className="section-padding bg-background">
         <div className="container-main">
-          <h2 className="text-2xl md:text-3xl font-serif font-bold mb-2">ПОЧЕМУ ВЫБИРАЮТ "TULSY"</h2>
+          <h2 className="text-2xl md:text-3xl font-serif font-bold mb-2">Почему выбирают "Tulsy"</h2>
           <p className="text-muted-foreground mb-8">Лучше всего о нас расскажут отзывы наших клиентов</p>
           
           {/* Rating and Platform filters */}
-          <div className="flex flex-wrap items-center gap-6 mb-6">
+          <div className="flex flex-wrap items-center gap-6 mb-8">
             <div className="flex items-center gap-2">
               <span className="text-xl font-bold text-primary">5.0</span>
               <Star className="w-5 h-5 fill-primary text-primary" />
@@ -593,50 +593,48 @@ export const ProductPage = () => {
             </div>
           </div>
           
-          {/* Tags */}
-          <div className="flex flex-wrap gap-2 mb-8">
-            {reviewTags.map((tag) => (
-              <span 
-                key={tag}
-                className="px-4 py-2 border border-border rounded-full text-sm hover:bg-muted cursor-pointer transition-colors"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-          
-          {/* Reviews Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {reviews
-              .filter(review => platformFilter === 'all' || review.platform === platformFilter)
-              .map((review) => (
-              <div key={review.id} className="bg-muted/30 rounded-xl p-5">
-                <div className="mb-3">
-                  <p className="font-medium">{review.author}</p>
-                  <p className="text-xs text-muted-foreground">
-                    {review.date} на <span className="text-primary">{review.platform === 'yandex' ? 'Яндекс' : '2GIS'}</span>
-                  </p>
+          {/* Reviews Carousel */}
+          <div className="relative">
+            <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory">
+              {reviews
+                .filter(review => platformFilter === 'all' || review.platform === platformFilter)
+                .map((review) => (
+                <div key={review.id} className="bg-muted/30 rounded-xl p-5 min-w-[280px] md:min-w-[300px] flex-shrink-0 snap-start">
+                  <div className="mb-3">
+                    <p className="font-medium">{review.author}</p>
+                    <p className="text-xs text-muted-foreground">
+                      {review.date} на <span className="text-primary">{review.platform === 'yandex' ? 'Яндекс' : '2GIS'}</span>
+                    </p>
+                  </div>
+                  <div className="flex gap-0.5 mb-3">
+                    {[...Array(5)].map((_, i) => (
+                      <Star 
+                        key={i} 
+                        className={`w-4 h-4 ${i < review.rating ? 'fill-amber-400 text-amber-400' : 'text-muted-foreground'}`} 
+                      />
+                    ))}
+                  </div>
+                  <p className="text-foreground text-sm leading-relaxed mb-2">{review.text}</p>
+                  {review.hasMore && (
+                    <button className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                      Читать дальше
+                    </button>
+                  )}
                 </div>
-                <div className="flex gap-0.5 mb-3">
-                  {[...Array(5)].map((_, i) => (
-                    <Star 
-                      key={i} 
-                      className={`w-4 h-4 ${i < review.rating ? 'fill-amber-400 text-amber-400' : 'text-muted-foreground'}`} 
-                    />
-                  ))}
-                </div>
-                <p className="text-foreground text-sm leading-relaxed mb-2">{review.text}</p>
-                {review.hasMore && (
-                  <button className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                    Читать дальше
-                  </button>
-                )}
-              </div>
-            ))}
+              ))}
+            </div>
+            
+            {/* Navigation arrows */}
+            <button className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 w-10 h-10 bg-background border border-border rounded-full flex items-center justify-center shadow-md hover:bg-muted transition-colors hidden md:flex">
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 w-10 h-10 bg-background border border-border rounded-full flex items-center justify-center shadow-md hover:bg-muted transition-colors hidden md:flex">
+              <ChevronRight className="w-5 h-5" />
+            </button>
           </div>
           
           {/* Pagination dots */}
-          <div className="flex justify-center gap-2 mt-8">
+          <div className="flex justify-center gap-2 mt-6">
             <span className="w-2 h-2 rounded-full bg-foreground"></span>
             <span className="w-2 h-2 rounded-full bg-muted-foreground/30"></span>
             <span className="w-2 h-2 rounded-full bg-muted-foreground/30"></span>
