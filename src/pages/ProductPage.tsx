@@ -375,44 +375,12 @@ export const ProductPage = () => {
                 </Button>
               </div>
 
-              {/* Info badges */}
-              <div className="grid sm:grid-cols-3 gap-4 p-4 bg-muted/30 rounded-xl">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                    <FileText className="w-5 h-5 text-primary" />
-                  </div>
-                  <span className="text-sm">Безнал для юрлиц</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                    <Truck className="w-5 h-5 text-primary" />
-                  </div>
-                  <span className="text-sm">Помощь в комплектации</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                    <UserCheck className="w-5 h-5 text-primary" />
-                  </div>
-                  <span className="text-sm">Выезд с образцами</span>
-                </div>
-              </div>
             </div>
           </div>
         </div>
       </section>
 
 
-      {/* Discount Banner */}
-      <div className="bg-primary/5 py-4 overflow-hidden">
-        <div className="container-main">
-          <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 text-sm text-muted-foreground">
-            <span>💰 Заказ от 50 000 ₽ — скидка 5%</span>
-            <span>💰 Заказ от 100 000 ₽ — скидка 10%</span>
-            <span>💰 Заказ от 200 000 ₽ — скидка 15%</span>
-            <span>💰 Заказ от 500 000 ₽ — скидка 20%</span>
-          </div>
-        </div>
-      </div>
 
       {/* What You Get Section */}
       <section className="section-padding">
