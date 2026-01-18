@@ -67,29 +67,57 @@ const sizeOptions: SizeOption[] = [
 const reviews = [
   {
     id: 1,
-    author: 'Анна Смирнова',
-    company: 'Ресторан "Оливье"',
+    author: 'Екатерина',
+    date: '17 января',
+    platform: 'yandex' as const,
     rating: 5,
-    text: 'Заказывали диваны для обновления интерьера ресторана. Качество превосходное, доставка точно в срок. Менеджер помог с подбором обивки под наш интерьер.',
-    date: '15 декабря 2024',
+    text: 'Отличный продавец, особенные слова благодарности, менеджеру Игорю. Все рассказал, снял видео, помог с выбором. Хорошо упаковал и отправил нам. Работа выше всяких похвал!!!',
   },
   {
     id: 2,
-    author: 'Михаил Петров',
-    company: 'Отель "Гранд"',
+    author: 'АМ',
+    date: '27.12.2025',
+    platform: 'yandex' as const,
     rating: 5,
-    text: 'Уже третий раз заказываем мебель в Tulsy. Отличное соотношение цены и качества. Рекомендую для HoReCa.',
-    date: '3 января 2025',
+    text: 'Отличное место, большой выбор живой мебели, потрогать и посидеть можно, большой выбор материалов. Несколько месяцев искали мебель для зоны отдыха, когда приехали Николай мгновенно понял...',
+    hasMore: true,
   },
   {
     id: 3,
-    author: 'Елена Козлова',
-    company: 'Кафе "Уют"',
-    rating: 4,
-    text: 'Хорошая мебель, удобная. Единственное — доставка заняла чуть дольше, чем ожидали, но результатом довольны.',
-    date: '20 ноября 2024',
+    author: 'Татьяна Турти',
+    date: '27.12.2025',
+    platform: 'yandex' as const,
+    rating: 5,
+    text: 'Всем доброго дня! Мы заказали в Tulsy диванчик для кухни. Сделали быстро и качественно! Диванчик получился супер классный! А менеджер Ленара - потрясающий специалист - вежливая, очень приятная в...',
+    hasMore: true,
+  },
+  {
+    id: 4,
+    author: 'Ольга Буланова',
+    date: '20.12.2025',
+    platform: 'yandex' as const,
+    rating: 5,
+    text: 'Отличная компания, отличная мебель. Заказывали для кухни полубарные стулья. Посоветовали какой лучше материал выбрать, цвет. Заказ выполнили быстро. Всем советую, спасибо Вам большое! 👍',
+  },
+  {
+    id: 5,
+    author: 'Алексей Морозов',
+    date: '15.12.2025',
+    platform: '2gis' as const,
+    rating: 5,
+    text: 'Заказывали мебель для нового ресторана. Очень довольны качеством и сроками. Менеджер Николай помог с выбором и учел все наши пожелания. Рекомендуем!',
+  },
+  {
+    id: 6,
+    author: 'Марина Волкова',
+    date: '10.12.2025',
+    platform: '2gis' as const,
+    rating: 5,
+    text: 'Прекрасная компания! Сделали диваны для нашего кафе точно по размерам. Качество на высоте, цены адекватные. Спасибо за оперативность!',
   },
 ];
+
+const reviewTags = ['сервис', 'качество', 'доставка', 'цены', 'сроки', 'менеджер', 'выбор'];
 
 // "Что вы получаете" блоки
 const benefits = [
@@ -139,6 +167,7 @@ export const ProductPage = () => {
   const [quantity, setQuantity] = useState(1);
   const [quoteDialogOpen, setQuoteDialogOpen] = useState(false);
   const [customSizeDialogOpen, setCustomSizeDialogOpen] = useState(false);
+  const [platformFilter, setPlatformFilter] = useState<'all' | 'yandex' | '2gis'>('all');
   
 
   const product = getProductById(id || '');
@@ -527,14 +556,68 @@ export const ProductPage = () => {
       </section>
 
       {/* Reviews Section */}
-      <section className="section-padding bg-muted/30">
+      <section className="section-padding bg-background">
         <div className="container-main">
-          <h2 className="text-2xl md:text-3xl font-serif font-bold mb-8">ОТЗЫВЫ</h2>
+          <h2 className="text-2xl md:text-3xl font-serif font-bold mb-2">ПОЧЕМУ ВЫБИРАЮТ "TULSY"</h2>
+          <p className="text-muted-foreground mb-8">Лучше всего о нас расскажут отзывы наших клиентов</p>
           
-          <div className="grid md:grid-cols-3 gap-6">
-            {reviews.map((review) => (
-              <div key={review.id} className="bg-background rounded-xl p-6">
-                <div className="flex gap-1 mb-3">
+          {/* Rating and Platform filters */}
+          <div className="flex flex-wrap items-center gap-6 mb-6">
+            <div className="flex items-center gap-2">
+              <span className="text-xl font-bold text-primary">5.0</span>
+              <Star className="w-5 h-5 fill-primary text-primary" />
+              <span className="text-muted-foreground">| 204 отзывов</span>
+            </div>
+            
+            <div className="flex items-center gap-4">
+              <button
+                onClick={() => setPlatformFilter('yandex')}
+                className={`text-sm transition-colors ${platformFilter === 'yandex' ? 'text-foreground font-medium' : 'text-muted-foreground hover:text-foreground'}`}
+              >
+                Яндекс 5.0
+              </button>
+              <button
+                onClick={() => setPlatformFilter('2gis')}
+                className={`text-sm transition-colors ${platformFilter === '2gis' ? 'text-foreground font-medium' : 'text-muted-foreground hover:text-foreground'}`}
+              >
+                2GIS 5.0
+              </button>
+              {platformFilter !== 'all' && (
+                <button
+                  onClick={() => setPlatformFilter('all')}
+                  className="text-sm text-primary hover:underline"
+                >
+                  Показать все
+                </button>
+              )}
+            </div>
+          </div>
+          
+          {/* Tags */}
+          <div className="flex flex-wrap gap-2 mb-8">
+            {reviewTags.map((tag) => (
+              <span 
+                key={tag}
+                className="px-4 py-2 border border-border rounded-full text-sm hover:bg-muted cursor-pointer transition-colors"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+          
+          {/* Reviews Grid */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {reviews
+              .filter(review => platformFilter === 'all' || review.platform === platformFilter)
+              .map((review) => (
+              <div key={review.id} className="bg-muted/30 rounded-xl p-5">
+                <div className="mb-3">
+                  <p className="font-medium">{review.author}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {review.date} на <span className="text-primary">{review.platform === 'yandex' ? 'Яндекс' : '2GIS'}</span>
+                  </p>
+                </div>
+                <div className="flex gap-0.5 mb-3">
                   {[...Array(5)].map((_, i) => (
                     <Star 
                       key={i} 
@@ -542,15 +625,32 @@ export const ProductPage = () => {
                     />
                   ))}
                 </div>
-                <Quote className="w-8 h-8 text-primary/20 mb-2" />
-                <p className="text-foreground mb-4">{review.text}</p>
-                <div className="border-t pt-4">
-                  <p className="font-medium">{review.author}</p>
-                  <p className="text-sm text-muted-foreground">{review.company}</p>
-                  <p className="text-xs text-muted-foreground mt-1">{review.date}</p>
-                </div>
+                <p className="text-foreground text-sm leading-relaxed mb-2">{review.text}</p>
+                {review.hasMore && (
+                  <button className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                    Читать дальше
+                  </button>
+                )}
               </div>
             ))}
+          </div>
+          
+          {/* Pagination dots */}
+          <div className="flex justify-center gap-2 mt-8">
+            <span className="w-2 h-2 rounded-full bg-foreground"></span>
+            <span className="w-2 h-2 rounded-full bg-muted-foreground/30"></span>
+            <span className="w-2 h-2 rounded-full bg-muted-foreground/30"></span>
+            <span className="w-2 h-2 rounded-full bg-muted-foreground/30"></span>
+            <span className="w-2 h-2 rounded-full bg-muted-foreground/30"></span>
+            <span className="w-2 h-2 rounded-full bg-muted-foreground/30"></span>
+            <span className="w-2 h-2 rounded-full bg-muted-foreground/30"></span>
+          </div>
+          
+          {/* Leave review button */}
+          <div className="flex justify-end mt-6">
+            <Button variant="default">
+              Оставить отзыв
+            </Button>
           </div>
         </div>
       </section>
