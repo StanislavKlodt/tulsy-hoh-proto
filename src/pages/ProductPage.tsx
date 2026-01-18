@@ -595,11 +595,12 @@ export const ProductPage = () => {
           
           {/* Reviews Carousel */}
           <div className="relative">
-            <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {reviews
                 .filter(review => platformFilter === 'all' || review.platform === platformFilter)
+                .slice(0, 4)
                 .map((review) => (
-                <div key={review.id} className="bg-muted/30 rounded-xl p-5 min-w-[280px] md:min-w-[300px] flex-shrink-0 snap-start">
+                <div key={review.id} className="bg-muted/30 rounded-xl p-5">
                   <div className="mb-3">
                     <p className="font-medium">{review.author}</p>
                     <p className="text-xs text-muted-foreground">
@@ -625,10 +626,10 @@ export const ProductPage = () => {
             </div>
             
             {/* Navigation arrows */}
-            <button className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 w-10 h-10 bg-background border border-border rounded-full flex items-center justify-center shadow-md hover:bg-muted transition-colors hidden md:flex">
+            <button className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 w-10 h-10 bg-background border border-border rounded-full flex items-center justify-center shadow-md hover:bg-muted transition-colors hidden lg:flex">
               <ChevronLeft className="w-5 h-5" />
             </button>
-            <button className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 w-10 h-10 bg-background border border-border rounded-full flex items-center justify-center shadow-md hover:bg-muted transition-colors hidden md:flex">
+            <button className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 w-10 h-10 bg-background border border-border rounded-full flex items-center justify-center shadow-md hover:bg-muted transition-colors hidden lg:flex">
               <ChevronRight className="w-5 h-5" />
             </button>
           </div>
