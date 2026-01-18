@@ -66,16 +66,6 @@ export const ProductCardCatalog = ({ product }: ProductCardCatalogProps) => {
             
             {/* Top badges */}
             <div className="absolute top-3 left-3 flex flex-wrap gap-2">
-              {discountPercent && (
-                <span className="px-2 py-1 bg-destructive text-destructive-foreground text-xs font-medium rounded">
-                  -{discountPercent}%
-                </span>
-              )}
-              {product.isNew && (
-                <span className="px-2 py-1 bg-accent text-accent-foreground text-xs font-medium rounded">
-                  Новинка
-                </span>
-              )}
               {isCustomizable && (
                 <Tooltip>
                   <TooltipTrigger asChild>
