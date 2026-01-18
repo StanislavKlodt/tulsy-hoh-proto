@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Checkbox } from '@/components/ui/checkbox';
 import { toast } from 'sonner';
 
 const showroomImages = [
@@ -14,9 +15,15 @@ const showroomImages = [
 
 export const ShowroomPage = () => {
   const [selectedImage, setSelectedImage] = useState(0);
+  const [privacyConsent, setPrivacyConsent] = useState(false);
+  const [marketingConsent, setMarketingConsent] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!privacyConsent) {
+      toast.error('Необходимо дать согласие на обработку персональных данных');
+      return;
+    }
     toast.success('Заявка на посещение отправлена! Менеджер свяжется для подтверждения.');
   };
 
@@ -161,6 +168,28 @@ export const ShowroomPage = () => {
                     <option>16:00</option>
                     <option>18:00</option>
                   </select>
+                </div>
+              </div>
+              <div className="space-y-3 pt-2">
+                <div className="flex items-start gap-2">
+                  <Checkbox 
+                    id="privacy-showroom" 
+                    checked={privacyConsent}
+                    onCheckedChange={(checked) => setPrivacyConsent(checked as boolean)}
+                  />
+                  <Label htmlFor="privacy-showroom" className="text-sm cursor-pointer leading-tight">
+                    Я даю согласие на обработку своих персональных данных
+                  </Label>
+                </div>
+                <div className="flex items-start gap-2">
+                  <Checkbox 
+                    id="marketing-showroom" 
+                    checked={marketingConsent}
+                    onCheckedChange={(checked) => setMarketingConsent(checked as boolean)}
+                  />
+                  <Label htmlFor="marketing-showroom" className="text-sm cursor-pointer leading-tight">
+                    Я даю согласие на рекламную рассылку
+                  </Label>
                 </div>
               </div>
               <div className="flex gap-4 pt-4">
