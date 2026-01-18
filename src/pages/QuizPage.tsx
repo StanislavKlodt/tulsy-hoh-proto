@@ -58,6 +58,8 @@ export const QuizPage = () => {
   const [city, setCity] = useState('');
   const [channel, setChannel] = useState('telegram');
   const [needVisit, setNeedVisit] = useState(false);
+  const [privacyConsent, setPrivacyConsent] = useState(false);
+  const [marketingConsent, setMarketingConsent] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
   const step = steps[currentStep];
@@ -73,6 +75,10 @@ export const QuizPage = () => {
   const handleSubmit = () => {
     if (!name || !phone) {
       toast.error('Заполните имя и телефон');
+      return;
+    }
+    if (!privacyConsent) {
+      toast.error('Необходимо дать согласие на обработку персональных данных');
       return;
     }
     setSubmitted(true);
@@ -213,6 +219,26 @@ export const QuizPage = () => {
                   />
                   <Label htmlFor="visit" className="text-sm cursor-pointer leading-tight">
                     Нужен выезд менеджера с образцами
+                  </Label>
+                </div>
+                <div className="flex items-start gap-2">
+                  <Checkbox 
+                    id="privacy-quiz" 
+                    checked={privacyConsent}
+                    onCheckedChange={(checked) => setPrivacyConsent(checked as boolean)}
+                  />
+                  <Label htmlFor="privacy-quiz" className="text-sm cursor-pointer leading-tight">
+                    Я даю согласие на обработку своих персональных данных
+                  </Label>
+                </div>
+                <div className="flex items-start gap-2">
+                  <Checkbox 
+                    id="marketing-quiz" 
+                    checked={marketingConsent}
+                    onCheckedChange={(checked) => setMarketingConsent(checked as boolean)}
+                  />
+                  <Label htmlFor="marketing-quiz" className="text-sm cursor-pointer leading-tight">
+                    Я даю согласие на рекламную рассылку
                   </Label>
                 </div>
                 <Button onClick={handleSubmit} size="lg" className="w-full mt-4">

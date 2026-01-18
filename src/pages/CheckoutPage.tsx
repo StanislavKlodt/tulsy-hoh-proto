@@ -15,6 +15,8 @@ export const CheckoutPage = () => {
   const [customerType, setCustomerType] = useState('individual');
   const [channel, setChannel] = useState('telegram');
   const [needVisit, setNeedVisit] = useState(false);
+  const [privacyConsent, setPrivacyConsent] = useState(false);
+  const [marketingConsent, setMarketingConsent] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
   const formatPrice = (price: number) =>
@@ -22,6 +24,10 @@ export const CheckoutPage = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!privacyConsent) {
+      toast.error('Необходимо дать согласие на обработку персональных данных');
+      return;
+    }
     setSubmitted(true);
     clearCart();
     toast.success('Заявка успешно отправлена!');
@@ -160,6 +166,26 @@ export const CheckoutPage = () => {
                     Нужен выезд менеджера с образцами тканей (для крупных проектов)
                   </Label>
                 </div>
+                <div className="flex items-start gap-2 mt-3">
+                  <Checkbox 
+                    id="privacy-checkout" 
+                    checked={privacyConsent}
+                    onCheckedChange={(checked) => setPrivacyConsent(checked as boolean)}
+                  />
+                  <Label htmlFor="privacy-checkout" className="text-sm cursor-pointer leading-tight">
+                    Я даю согласие на обработку своих персональных данных
+                  </Label>
+                </div>
+                <div className="flex items-start gap-2 mt-3">
+                  <Checkbox 
+                    id="marketing-checkout" 
+                    checked={marketingConsent}
+                    onCheckedChange={(checked) => setMarketingConsent(checked as boolean)}
+                  />
+                  <Label htmlFor="marketing-checkout" className="text-sm cursor-pointer leading-tight">
+                    Я даю согласие на рекламную рассылку
+                  </Label>
+                </div>
               </div>
             </div>
 
@@ -207,10 +233,6 @@ export const CheckoutPage = () => {
                 <Button type="submit" className="w-full" size="lg">
                   Оформить заявку
                 </Button>
-
-                <p className="text-xs text-muted-foreground mt-4 text-center">
-                  Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности
-                </p>
               </div>
             </div>
           </div>

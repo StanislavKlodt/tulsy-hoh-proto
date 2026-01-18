@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Checkbox } from '@/components/ui/checkbox';
 import { toast } from 'sonner';
 import { FileText, Phone, Mail, MessageSquare } from 'lucide-react';
 
@@ -23,9 +24,15 @@ export const QuoteRequestDialog = ({
 }: QuoteRequestDialogProps) => {
   const [contactMethod, setContactMethod] = useState('phone');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [privacyConsent, setPrivacyConsent] = useState(false);
+  const [marketingConsent, setMarketingConsent] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!privacyConsent) {
+      toast.error('Необходимо дать согласие на обработку персональных данных');
+      return;
+    }
     setIsSubmitting(true);
     
     // Simulate API call
@@ -143,13 +150,33 @@ export const QuoteRequestDialog = ({
             </RadioGroup>
           </div>
 
+          {/* Consent checkboxes */}
+          <div className="space-y-3">
+            <div className="flex items-start gap-2">
+              <Checkbox 
+                id="privacy-quote" 
+                checked={privacyConsent}
+                onCheckedChange={(checked) => setPrivacyConsent(checked as boolean)}
+              />
+              <Label htmlFor="privacy-quote" className="text-sm cursor-pointer leading-tight">
+                Я даю согласие на обработку своих персональных данных
+              </Label>
+            </div>
+            <div className="flex items-start gap-2">
+              <Checkbox 
+                id="marketing-quote" 
+                checked={marketingConsent}
+                onCheckedChange={(checked) => setMarketingConsent(checked as boolean)}
+              />
+              <Label htmlFor="marketing-quote" className="text-sm cursor-pointer leading-tight">
+                Я даю согласие на рекламную рассылку
+              </Label>
+            </div>
+          </div>
+
           <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
             {isSubmitting ? 'Отправка...' : 'Отправить заявку'}
           </Button>
-
-          <p className="text-xs text-muted-foreground text-center">
-            Нажимая кнопку, вы соглашаетесь с обработкой персональных данных
-          </p>
         </form>
       </DialogContent>
     </Dialog>
