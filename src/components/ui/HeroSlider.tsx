@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Factory, Warehouse, Building2, Clock } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Factory, Warehouse, Building2, Clock, Percent, Truck } from 'lucide-react';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 import { Button } from '@/components/ui/button';
@@ -32,10 +32,13 @@ const slides: SlideData[] = [
   },
   {
     id: 2,
-    title: 'Собственное производство',
-    description: 'Изготавливаем мебель на своей фабрике с полным контролем качества на каждом этапе.',
-    buttonText: 'О производстве',
-    buttonLink: '/production',
+    title: 'Готовые комплекты с выгодой до 20%',
+    triggers: [
+      { icon: Percent, text: 'Экономим бюджет без потери качества' },
+      { icon: Truck, text: 'Отгружаем в день заказа (при наличии на складе)' },
+    ],
+    buttonText: 'Выбрать комплект',
+    buttonLink: '/catalog',
     image: 'https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=1920&h=1080&fit=crop',
   },
   {
