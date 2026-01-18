@@ -1,4 +1,4 @@
-import { Phone, Mail, MapPin, MessageCircle } from 'lucide-react';
+import { Phone, Mail, MapPin, Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ConsultationForm } from '@/components/ui/ConsultationForm';
 
@@ -41,16 +41,16 @@ export const ContactsPage = () => {
                 </a>
 
                 <a 
-                  href="https://wa.me/74951234567"
+                  href="https://t.me/tulsy"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-start gap-4 p-4 bg-card rounded-xl border hover:border-primary/50 transition-colors"
                 >
                   <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
-                    <MessageCircle className="w-6 h-6 text-primary" />
+                    <Send className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-medium">WhatsApp / Telegram</h3>
+                    <h3 className="font-medium">Telegram</h3>
                     <p className="text-muted-foreground">Быстрые ответы на вопросы</p>
                   </div>
                 </a>

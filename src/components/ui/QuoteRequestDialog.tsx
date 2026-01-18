@@ -129,9 +129,9 @@ export const QuoteRequestDialog = ({
                 </Label>
               </div>
               <div className="flex items-center space-x-2">
-                <RadioGroupItem value="whatsapp" id="method-whatsapp" />
-                <Label htmlFor="method-whatsapp" className="flex items-center gap-1.5 cursor-pointer font-normal">
-                  <MessageSquare className="w-4 h-4" /> WhatsApp
+                <RadioGroupItem value="telegram" id="method-telegram" />
+                <Label htmlFor="method-telegram" className="flex items-center gap-1.5 cursor-pointer font-normal">
+                  <MessageSquare className="w-4 h-4" /> Telegram
                 </Label>
               </div>
               <div className="flex items-center space-x-2">

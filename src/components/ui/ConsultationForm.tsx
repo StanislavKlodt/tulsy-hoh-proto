@@ -13,7 +13,7 @@ interface ConsultationFormProps {
 }
 
 export const ConsultationForm = ({ variant = 'full', title }: ConsultationFormProps) => {
-  const [channel, setChannel] = useState('whatsapp');
+  const [channel, setChannel] = useState('telegram');
   const [needVisit, setNeedVisit] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -32,10 +32,6 @@ export const ConsultationForm = ({ variant = 'full', title }: ConsultationFormPr
         <div className="flex items-center gap-4">
           <span className="text-sm text-muted-foreground">Ответить в:</span>
           <RadioGroup value={channel} onValueChange={setChannel} className="flex gap-4">
-            <div className="flex items-center gap-1.5">
-              <RadioGroupItem value="whatsapp" id="wa-compact" />
-              <Label htmlFor="wa-compact" className="text-sm cursor-pointer">WhatsApp</Label>
-            </div>
             <div className="flex items-center gap-1.5">
               <RadioGroupItem value="telegram" id="tg-compact" />
               <Label htmlFor="tg-compact" className="text-sm cursor-pointer">Telegram</Label>
@@ -94,10 +90,6 @@ export const ConsultationForm = ({ variant = 'full', title }: ConsultationFormPr
       <div>
         <Label className="mb-3 block">Куда отправить подборку?</Label>
         <RadioGroup value={channel} onValueChange={setChannel} className="flex flex-wrap gap-4">
-          <div className="flex items-center gap-2">
-            <RadioGroupItem value="whatsapp" id="whatsapp" />
-            <Label htmlFor="whatsapp" className="cursor-pointer">WhatsApp</Label>
-          </div>
           <div className="flex items-center gap-2">
             <RadioGroupItem value="telegram" id="telegram" />
             <Label htmlFor="telegram" className="cursor-pointer">Telegram</Label>
