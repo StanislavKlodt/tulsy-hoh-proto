@@ -46,7 +46,7 @@ const slides: SlideData[] = [
     buttonLink: '/catalog',
     secondaryButtonText: 'Смотреть диван',
     secondaryButtonLink: '/product/sofa-1',
-    image: 'https://static.tildacdn.com/tild3763-6464-4133-b664-356636316631/file_00000000e044624.png',
+    image: '/images/slider/riga-sofa.jpg',
     promo: {
       productName: 'Диван «Рига»',
       oldPrice: '89 900 ₽',
