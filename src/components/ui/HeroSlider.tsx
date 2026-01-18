@@ -148,36 +148,27 @@ export const HeroSlider = () => {
         </div>
       </div>
 
-      {/* Navigation arrows */}
-      <button
-        onClick={scrollPrev}
-        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center text-foreground hover:bg-background transition-colors shadow-lg"
-        aria-label="Предыдущий слайд"
-      >
-        <ChevronLeft className="w-6 h-6" />
-      </button>
-      <button
-        onClick={scrollNext}
-        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center text-foreground hover:bg-background transition-colors shadow-lg"
-        aria-label="Следующий слайд"
-      >
-        <ChevronRight className="w-6 h-6" />
-      </button>
+      {/* Navigation arrows - bottom right */}
+      <div className="absolute bottom-8 right-8 flex gap-2">
+        <button
+          onClick={scrollPrev}
+          className="w-12 h-12 bg-background/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-background/40 transition-colors border border-white/20"
+          aria-label="Предыдущий слайд"
+        >
+          <ChevronLeft className="w-5 h-5" />
+        </button>
+        <button
+          onClick={scrollNext}
+          className="w-12 h-12 bg-background/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-background/40 transition-colors border border-white/20"
+          aria-label="Следующий слайд"
+        >
+          <ChevronRight className="w-5 h-5" />
+        </button>
+      </div>
 
-      {/* Dot indicators */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3">
-        {slides.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => scrollTo(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
-              index === selectedIndex
-                ? 'bg-primary w-8'
-                : 'bg-foreground/30 hover:bg-foreground/50'
-            }`}
-            aria-label={`Перейти к слайду ${index + 1}`}
-          />
-        ))}
+      {/* Slide counter - bottom left */}
+      <div className="absolute bottom-8 left-8 text-white/60 text-sm font-medium">
+        <span className="text-white">{selectedIndex + 1}</span> / {slides.length}
       </div>
     </section>
   );
