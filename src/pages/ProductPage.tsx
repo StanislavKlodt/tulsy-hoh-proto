@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ChevronRight, Check, Truck, FileText, UserCheck } from 'lucide-react';
+import { ChevronRight, Check, Truck, FileText, UserCheck, Star, Quote, Package, Shield, Clock, Palette } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ProductCard } from '@/components/ui/ProductCard';
 import { QuoteRequestDialog } from '@/components/ui/QuoteRequestDialog';
+import { ConsultationForm } from '@/components/ui/ConsultationForm';
 import { getProductById, products } from '@/data/products';
 import { useCart } from '@/context/CartContext';
 import { toast } from 'sonner';
@@ -17,11 +18,116 @@ const fabricSwatches = [
   { name: 'Эко-кожа коричневая', color: '#78350F' },
 ];
 
+// Конфигурации товара
+interface ProductConfiguration {
+  id: string;
+  name: string;
+  dimensions: string;
+  retailPrice: number;
+  wholesalePrice: number;
+  blueprintDescription: string;
+}
+
+const productConfigurations: ProductConfiguration[] = [
+  {
+    id: 'config-1',
+    name: '4шт 75x80 см',
+    dimensions: '75×80×90 см',
+    retailPrice: 89900,
+    wholesalePrice: 76415,
+    blueprintDescription: 'Габариты изделия: 1450×450 см\nМаксимальная нагрузка: 150 кг\nУпаковка: картон + плёнка',
+  },
+  {
+    id: 'config-2',
+    name: '6шт 54x90 см',
+    dimensions: '54×90×90 см',
+    retailPrice: 104900,
+    wholesalePrice: 89165,
+    blueprintDescription: 'Габариты изделия: 1600×540 см\nМаксимальная нагрузка: 200 кг\nУпаковка: картон + плёнка',
+  },
+  {
+    id: 'config-3',
+    name: 'Ваш размер',
+    dimensions: 'По вашим размерам',
+    retailPrice: 0,
+    wholesalePrice: 0,
+    blueprintDescription: 'Изготовим по вашим индивидуальным размерам.\nСвяжитесь с нами для расчёта стоимости.',
+  },
+];
+
+// Отзывы
+const reviews = [
+  {
+    id: 1,
+    author: 'Анна Смирнова',
+    company: 'Ресторан "Оливье"',
+    rating: 5,
+    text: 'Заказывали диваны для обновления интерьера ресторана. Качество превосходное, доставка точно в срок. Менеджер помог с подбором обивки под наш интерьер.',
+    date: '15 декабря 2024',
+  },
+  {
+    id: 2,
+    author: 'Михаил Петров',
+    company: 'Отель "Гранд"',
+    rating: 5,
+    text: 'Уже третий раз заказываем мебель в Tulsy. Отличное соотношение цены и качества. Рекомендую для HoReCa.',
+    date: '3 января 2025',
+  },
+  {
+    id: 3,
+    author: 'Елена Козлова',
+    company: 'Кафе "Уют"',
+    rating: 4,
+    text: 'Хорошая мебель, удобная. Единственное — доставка заняла чуть дольше, чем ожидали, но результатом довольны.',
+    date: '20 ноября 2024',
+  },
+];
+
+// "Что вы получаете" блоки
+const benefits = [
+  {
+    id: 1,
+    title: 'Производство прошедшее',
+    subtitle: 'аттестацию',
+    image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&h=300&fit=crop',
+    position: 'bottom-left' as const,
+  },
+  {
+    id: 2,
+    title: 'Поставка за 10 дней',
+    subtitle: '',
+    image: 'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=400&h=300&fit=crop',
+    position: 'top-right' as const,
+  },
+  {
+    id: 3,
+    title: 'Огромный выбор ткани',
+    subtitle: '',
+    image: 'https://images.unsplash.com/photo-1558171813-4c088753af8f?w=400&h=300&fit=crop',
+    position: 'center' as const,
+  },
+  {
+    id: 4,
+    title: 'Уникальный каркас для HoReCa',
+    subtitle: '',
+    image: 'https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?w=400&h=300&fit=crop',
+    position: 'bottom-left' as const,
+  },
+  {
+    id: 5,
+    title: 'Любые размеры и цвета на заказ',
+    subtitle: '',
+    image: 'https://images.unsplash.com/photo-1567016432779-094069958ea5?w=400&h=300&fit=crop',
+    position: 'bottom-right' as const,
+  },
+];
+
 export const ProductPage = () => {
   const { id } = useParams<{ id: string }>();
   const { addItem } = useCart();
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedFabric, setSelectedFabric] = useState(0);
+  const [selectedConfig, setSelectedConfig] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [quoteDialogOpen, setQuoteDialogOpen] = useState(false);
 
@@ -55,13 +161,25 @@ export const ProductPage = () => {
   };
 
   const availability = getAvailabilityText();
+  const currentConfig = productConfigurations[selectedConfig];
+  const isCustomConfig = currentConfig.id === 'config-3';
+
+  const displayRetailPrice = isCustomConfig ? product.price : currentConfig.retailPrice;
+  const displayWholesalePrice = isCustomConfig ? Math.round(product.price * 0.85) : currentConfig.wholesalePrice;
 
   const relatedProducts = products
     .filter(p => p.categorySlug === product.categorySlug && p.id !== product.id)
     .slice(0, 4);
 
   const handleAddToCart = () => {
-    addItem(product, quantity, { upholstery: fabricSwatches[selectedFabric].name });
+    if (isCustomConfig) {
+      setQuoteDialogOpen(true);
+      return;
+    }
+    addItem(product, quantity, { 
+      upholstery: fabricSwatches[selectedFabric].name,
+      configuration: currentConfig.name 
+    });
     toast.success('Товар добавлен в корзину');
   };
 
@@ -125,18 +243,28 @@ export const ProductPage = () => {
                 {product.name}
               </h1>
 
-              {/* Price */}
-              <div className="mb-6">
-                <div className="flex items-baseline gap-3">
-                  <span className="text-3xl font-bold">{formatPrice(product.price)}</span>
-                  {product.oldPrice && (
-                    <span className="text-lg text-muted-foreground line-through">
-                      {formatPrice(product.oldPrice)}
-                    </span>
-                  )}
+              {/* Prices - Retail & Wholesale */}
+              <div className="mb-6 p-4 bg-muted/30 rounded-xl">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-sm text-muted-foreground mb-1">Цена розница</p>
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-2xl font-bold">
+                        {isCustomConfig ? 'По запросу' : formatPrice(displayRetailPrice)}
+                      </span>
+                    </div>
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground mb-1">Цена оптовая</p>
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-2xl font-bold text-primary">
+                        {isCustomConfig ? 'По запросу' : formatPrice(displayWholesalePrice)}
+                      </span>
+                    </div>
+                  </div>
                 </div>
-                <p className="text-sm text-muted-foreground mt-1">
-                  Оптовая цена при заказе от 200 000 ₽
+                <p className="text-sm text-muted-foreground mt-3 pt-3 border-t">
+                  💰 Скидка на заказы от 200 000 ₽ — оптовая цена на всё!
                 </p>
               </div>
 
@@ -185,7 +313,7 @@ export const ProductPage = () => {
                   </button>
                 </div>
                 <Button size="lg" onClick={handleAddToCart} className="flex-1 sm:flex-none">
-                  В корзину
+                  {isCustomConfig ? 'Запросить расчёт' : 'В корзину'}
                 </Button>
                 <Button variant="outline" size="lg" onClick={() => setQuoteDialogOpen(true)}>
                   Запросить КП
@@ -214,6 +342,128 @@ export const ProductPage = () => {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Configurations Section */}
+      <section className="py-8 bg-muted/20">
+        <div className="container-main">
+          <h2 className="text-2xl font-serif font-bold mb-6">КОНФИГУРАЦИИ</h2>
+          
+          {/* Config tabs */}
+          <div className="flex flex-wrap gap-2 mb-6">
+            {productConfigurations.map((config, i) => (
+              <button
+                key={config.id}
+                onClick={() => setSelectedConfig(i)}
+                className={`px-6 py-3 rounded-lg font-medium transition-all ${
+                  selectedConfig === i 
+                    ? 'bg-foreground text-background' 
+                    : 'bg-background border hover:border-foreground'
+                }`}
+              >
+                {config.name}
+              </button>
+            ))}
+          </div>
+
+          {/* Config details */}
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Blueprint / Illustration */}
+            <div className="bg-background rounded-xl p-6 flex items-center justify-center min-h-[300px]">
+              <div className="text-center">
+                <div className="w-48 h-32 mx-auto mb-4 border-2 border-dashed border-muted-foreground/30 rounded-lg flex items-center justify-center">
+                  <Package className="w-16 h-16 text-muted-foreground/50" />
+                </div>
+                <p className="text-sm text-muted-foreground">Схема конфигурации {currentConfig.name}</p>
+              </div>
+            </div>
+
+            {/* Config info */}
+            <div className="bg-background rounded-xl p-6">
+              <div className="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                  <p className="text-sm text-muted-foreground">Цена розница</p>
+                  <p className="text-xl font-bold">
+                    {isCustomConfig ? 'По запросу' : `от ${formatPrice(displayRetailPrice)}`}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Цена оптовая</p>
+                  <p className="text-xl font-bold text-primary">
+                    {isCustomConfig ? 'По запросу' : `от ${formatPrice(displayWholesalePrice)}`}
+                  </p>
+                </div>
+              </div>
+
+              <div className="space-y-2 mb-6">
+                <p className="text-sm"><span className="text-muted-foreground">Габариты:</span> {currentConfig.dimensions}</p>
+                <p className="text-sm"><span className="text-muted-foreground">Материал обивки:</span> велюр</p>
+                <p className="text-sm"><span className="text-muted-foreground">Материал основания:</span> массив, фанера, ДВП</p>
+              </div>
+
+              <div className="bg-muted/30 rounded-lg p-4 mb-6">
+                <p className="text-sm whitespace-pre-line">{currentConfig.blueprintDescription}</p>
+              </div>
+
+              <p className="text-xs text-muted-foreground mb-4">
+                * При заказе от 200 000 ₽ — скидка на весь заказ уже включена в оптовую цену
+              </p>
+
+              <Button 
+                size="lg" 
+                className="w-full"
+                onClick={handleAddToCart}
+              >
+                {isCustomConfig ? 'Запросить расчёт' : 'В корзину'}
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Discount Banner */}
+      <div className="bg-primary/5 py-4 overflow-hidden">
+        <div className="container-main">
+          <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 text-sm text-muted-foreground">
+            <span>💰 Заказ от 50 000 ₽ — скидка 5%</span>
+            <span>💰 Заказ от 100 000 ₽ — скидка 10%</span>
+            <span>💰 Заказ от 200 000 ₽ — скидка 15%</span>
+            <span>💰 Заказ от 500 000 ₽ — скидка 20%</span>
+          </div>
+        </div>
+      </div>
+
+      {/* What You Get Section */}
+      <section className="section-padding">
+        <div className="container-main">
+          <h2 className="text-2xl md:text-3xl font-serif font-bold mb-8">ЧТО ВЫ ПОЛУЧАЕТЕ</h2>
+          
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {benefits.map((benefit, i) => (
+              <div 
+                key={benefit.id}
+                className={`relative rounded-xl overflow-hidden aspect-[4/3] group ${
+                  i === 0 ? 'md:row-span-2 md:aspect-auto' : ''
+                }`}
+              >
+                <img 
+                  src={benefit.image} 
+                  alt={benefit.title}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4">
+                  <p className="text-white font-medium text-sm md:text-base">
+                    {benefit.title}
+                  </p>
+                  {benefit.subtitle && (
+                    <p className="text-white/80 text-sm">{benefit.subtitle}</p>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -305,8 +555,103 @@ export const ProductPage = () => {
         </div>
       </section>
 
+      {/* Reviews Section */}
+      <section className="section-padding bg-muted/30">
+        <div className="container-main">
+          <h2 className="text-2xl md:text-3xl font-serif font-bold mb-8">ОТЗЫВЫ</h2>
+          
+          <div className="grid md:grid-cols-3 gap-6">
+            {reviews.map((review) => (
+              <div key={review.id} className="bg-background rounded-xl p-6">
+                <div className="flex gap-1 mb-3">
+                  {[...Array(5)].map((_, i) => (
+                    <Star 
+                      key={i} 
+                      className={`w-4 h-4 ${i < review.rating ? 'fill-amber-400 text-amber-400' : 'text-muted-foreground'}`} 
+                    />
+                  ))}
+                </div>
+                <Quote className="w-8 h-8 text-primary/20 mb-2" />
+                <p className="text-foreground mb-4">{review.text}</p>
+                <div className="border-t pt-4">
+                  <p className="font-medium">{review.author}</p>
+                  <p className="text-sm text-muted-foreground">{review.company}</p>
+                  <p className="text-xs text-muted-foreground mt-1">{review.date}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Consultation Form Section */}
+      <section className="section-padding">
+        <div className="container-main">
+          <div className="grid lg:grid-cols-2 gap-8 items-center">
+            <div>
+              <h2 className="text-2xl md:text-3xl font-serif font-bold mb-4">
+                Подскажем лучшее решение
+              </h2>
+              <p className="text-muted-foreground mb-6">
+                Оставьте заявку — мы перезвоним, чтобы уточнить детали, и подготовим подходящее решение.
+              </p>
+              <ConsultationForm variant="compact" />
+            </div>
+            <div className="hidden lg:block">
+              <div className="aspect-[4/3] rounded-xl overflow-hidden">
+                <img 
+                  src={product.image}
+                  alt="Консультация"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Section */}
+      <section className="section-padding bg-muted/20">
+        <div className="container-main">
+          <h2 className="text-2xl md:text-3xl font-serif font-bold mb-8 text-center">
+            ПОЧЕМУ ВЫБИРАЮТ "TULSY"
+          </h2>
+          
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="text-center p-6">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
+                <Shield className="w-8 h-8 text-primary" />
+              </div>
+              <h4 className="font-medium mb-2">Гарантия 12 месяцев</h4>
+              <p className="text-sm text-muted-foreground">На всю продукцию и комплектующие</p>
+            </div>
+            <div className="text-center p-6">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
+                <Clock className="w-8 h-8 text-primary" />
+              </div>
+              <h4 className="font-medium mb-2">Быстрое производство</h4>
+              <p className="text-sm text-muted-foreground">От 7 до 14 дней на изготовление</p>
+            </div>
+            <div className="text-center p-6">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
+                <Palette className="w-8 h-8 text-primary" />
+              </div>
+              <h4 className="font-medium mb-2">300+ вариантов ткани</h4>
+              <p className="text-sm text-muted-foreground">Огромный выбор обивки и цветов</p>
+            </div>
+            <div className="text-center p-6">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
+                <Truck className="w-8 h-8 text-primary" />
+              </div>
+              <h4 className="font-medium mb-2">Доставка по всей РФ</h4>
+              <p className="text-sm text-muted-foreground">Работаем со всеми ТК страны</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Tags */}
-      <section className="pb-8">
+      <section className="py-8">
         <div className="container-main">
           <div className="flex flex-wrap items-center gap-4">
             <span className="text-sm text-muted-foreground">Идеально для:</span>

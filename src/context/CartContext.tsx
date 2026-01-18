@@ -6,11 +6,12 @@ interface CartItem {
   quantity: number;
   selectedSize?: string;
   selectedUpholstery?: string;
+  selectedConfiguration?: string;
 }
 
 interface CartContextType {
   items: CartItem[];
-  addItem: (product: Product, quantity?: number, options?: { size?: string; upholstery?: string }) => void;
+  addItem: (product: Product, quantity?: number, options?: { size?: string; upholstery?: string; configuration?: string }) => void;
   removeItem: (productId: string) => void;
   updateQuantity: (productId: string, quantity: number) => void;
   clearCart: () => void;
@@ -22,7 +23,7 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [items, setItems] = useState<CartItem[]>([]);
 
-  const addItem = (product: Product, quantity = 1, options?: { size?: string; upholstery?: string }) => {
+  const addItem = (product: Product, quantity = 1, options?: { size?: string; upholstery?: string; configuration?: string }) => {
     setItems(prev => {
       const existing = prev.find(item => item.product.id === product.id);
       if (existing) {
@@ -36,7 +37,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         product, 
         quantity, 
         selectedSize: options?.size, 
-        selectedUpholstery: options?.upholstery 
+        selectedUpholstery: options?.upholstery,
+        selectedConfiguration: options?.configuration
       }];
     });
   };
