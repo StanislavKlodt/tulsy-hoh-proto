@@ -23,7 +23,7 @@ export const products: Product[] = [
   // Диваны
   {
     id: 'sofa-1',
-    name: 'Диван Честер для ресторана',
+    name: 'Диван Честер',
     category: 'Диваны',
     categorySlug: 'divany',
     price: 89900,
