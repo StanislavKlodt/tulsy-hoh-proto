@@ -407,12 +407,6 @@ export const ProductPage = () => {
               >
                 Доставка
               </TabsTrigger>
-              <TabsTrigger 
-                value="warranty"
-                className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent py-3"
-              >
-                Гарантия
-              </TabsTrigger>
             </TabsList>
             <TabsContent value="description" className="pt-6">
               <div className="prose max-w-none">
@@ -457,15 +451,6 @@ export const ProductPage = () => {
               <Link to="/delivery" className="text-primary hover:underline inline-block mt-4">
                 Подробнее о доставке →
               </Link>
-            </TabsContent>
-            <TabsContent value="warranty" className="pt-6">
-              <p className="text-foreground mb-4">
-                Гарантия на мебель — 12 месяцев с момента покупки.
-              </p>
-              <p className="text-muted-foreground">
-                Рекомендации по уходу: регулярная сухая чистка, избегать прямых солнечных лучей,
-                не использовать агрессивные моющие средства.
-              </p>
             </TabsContent>
           </Tabs>
         </div>
