@@ -77,8 +77,8 @@ export const ShowroomPage = () => {
                     <p className="text-sm text-muted-foreground">м. Водный стадион, 10 мин пешком</p>
                   </div>
                   <div>
-                    <p className="font-medium">Пн-Сб: 10:00 — 20:00</p>
-                    <p className="text-sm text-muted-foreground">Вс: по предварительной записи</p>
+                    <p className="font-medium">Ежедневно с 10:00 до 18:00</p>
+                    <p className="text-sm text-muted-foreground">Без перерывов и выходных</p>
                   </div>
                 </div>
                 <div className="border-t pt-4">

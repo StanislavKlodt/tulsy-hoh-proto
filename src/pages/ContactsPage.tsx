@@ -36,7 +36,7 @@ export const ContactsPage = () => {
                   <div>
                     <h3 className="font-medium">Телефон</h3>
                     <p className="text-lg">+7 (495) 123-45-67</p>
-                    <p className="text-sm text-muted-foreground">Пн-Сб 10:00-20:00</p>
+                    <p className="text-sm text-muted-foreground">Ежедневно с 10:00 до 18:00</p>
                   </div>
                 </a>
 
@@ -76,7 +76,7 @@ export const ContactsPage = () => {
                     <h3 className="font-medium">Шоурум</h3>
                     <p>Москва, ул. Выборгская, 16к2</p>
                     <p className="text-sm text-muted-foreground">м. Водный стадион</p>
-                    <p className="text-sm text-muted-foreground">Пн-Сб 10:00-20:00</p>
+                    <p className="text-sm text-muted-foreground">Ежедневно с 10:00 до 18:00</p>
                   </div>
                 </div>
               </div>
