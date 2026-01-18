@@ -95,38 +95,38 @@ const reviews = [
 const benefits = [
   {
     id: 1,
-    title: 'Производство прошедшее',
-    subtitle: 'аттестацию',
-    image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&h=300&fit=crop',
-    position: 'bottom-left' as const,
+    title: 'Проверено профессионалами',
+    description: 'Мебель, созданная с учётом практики и обратной связи от реальных клиентов — то, что работает в зале каждый день',
+    image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&h=600&fit=crop',
+    type: 'image' as const,
   },
   {
     id: 2,
     title: 'Поставка за 10 дней',
-    subtitle: '',
-    image: 'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=400&h=300&fit=crop',
-    position: 'top-right' as const,
+    description: 'Доставим стандартные модели из наличия или изготовим индивидуальный вариант всего за 10 дней',
+    image: '',
+    type: 'text' as const,
   },
   {
     id: 3,
-    title: 'Огромный выбор ткани',
-    subtitle: '',
-    image: 'https://images.unsplash.com/photo-1558171813-4c088753af8f?w=400&h=300&fit=crop',
-    position: 'center' as const,
+    title: 'Любые размеры и цвета на заказ',
+    description: 'Индивидуальное исполнение под ваш проект: подберем размеры, формы, обивку',
+    image: 'https://images.unsplash.com/photo-1567016432779-094069958ea5?w=400&h=300&fit=crop',
+    type: 'image' as const,
   },
   {
     id: 4,
-    title: 'Уникальный каркас для HoReCa',
-    subtitle: '',
-    image: 'https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?w=400&h=300&fit=crop',
-    position: 'bottom-left' as const,
+    title: 'Усиленный каркас для HoReCa',
+    description: 'Надёжность, рассчитанная на ежедневную интенсивную эксплуатацию',
+    image: '',
+    type: 'text' as const,
   },
   {
     id: 5,
-    title: 'Любые размеры и цвета на заказ',
-    subtitle: '',
-    image: 'https://images.unsplash.com/photo-1567016432779-094069958ea5?w=400&h=300&fit=crop',
-    position: 'bottom-right' as const,
+    title: 'Лёгкая чистка, износостойкие ткани',
+    description: 'Специальная обивка для профессионального сегмента - всегда аккуратный вид, даже после сотен уборок',
+    image: 'https://images.unsplash.com/photo-1558171813-4c088753af8f?w=400&h=400&fit=crop',
+    type: 'image' as const,
   },
 ];
 
@@ -388,32 +388,64 @@ export const ProductPage = () => {
       {/* What You Get Section */}
       <section className="section-padding">
         <div className="container-main">
-          <h2 className="text-2xl md:text-3xl font-serif font-bold mb-8">ЧТО ВЫ ПОЛУЧАЕТЕ</h2>
+          <h2 className="text-2xl md:text-3xl font-serif font-bold mb-8">Что вы получаете</h2>
           
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {benefits.map((benefit, i) => (
-              <div 
-                key={benefit.id}
-                className={`relative rounded-xl overflow-hidden aspect-[4/3] group ${
-                  i === 0 ? 'md:row-span-2 md:aspect-auto' : ''
-                }`}
-              >
-                <img 
-                  src={benefit.image} 
-                  alt={benefit.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                <div className="absolute bottom-4 left-4 right-4">
-                  <p className="text-white font-medium text-sm md:text-base">
-                    {benefit.title}
-                  </p>
-                  {benefit.subtitle && (
-                    <p className="text-white/80 text-sm">{benefit.subtitle}</p>
-                  )}
-                </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Row 1 */}
+            {/* Проверено профессионалами - большая карточка слева, занимает 2 строки */}
+            <div className="relative rounded-xl overflow-hidden md:row-span-2 aspect-[4/3] md:aspect-auto group">
+              <img 
+                src={benefits[0].image} 
+                alt={benefits[0].title}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+              <div className="absolute bottom-6 left-6 right-6">
+                <p className="text-white font-medium text-lg mb-2">{benefits[0].title}</p>
+                <p className="text-white/80 text-sm">{benefits[0].description}</p>
               </div>
-            ))}
+            </div>
+
+            {/* Поставка за 10 дней - текстовая карточка */}
+            <div className="relative rounded-xl overflow-hidden bg-primary p-6 flex flex-col justify-end aspect-[4/3]">
+              <p className="text-primary-foreground font-medium text-lg mb-2">{benefits[1].title}</p>
+              <p className="text-primary-foreground/80 text-sm">{benefits[1].description}</p>
+            </div>
+
+            {/* Любые размеры и цвета на заказ - карточка с изображением справа, занимает 2 строки */}
+            <div className="relative rounded-xl overflow-hidden md:row-span-2 aspect-[4/3] md:aspect-auto group">
+              <img 
+                src={benefits[2].image} 
+                alt={benefits[2].title}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+              <div className="absolute bottom-6 left-6 right-6">
+                <p className="text-white font-medium text-lg mb-2">{benefits[2].title}</p>
+                <p className="text-white/80 text-sm">{benefits[2].description}</p>
+              </div>
+            </div>
+
+            {/* Row 2 */}
+            {/* Усиленный каркас для HoReCa - текстовая карточка */}
+            <div className="relative rounded-xl overflow-hidden bg-primary p-6 flex flex-col justify-end aspect-[4/3]">
+              <p className="text-primary-foreground font-medium text-lg mb-2">{benefits[3].title}</p>
+              <p className="text-primary-foreground/80 text-sm">{benefits[3].description}</p>
+            </div>
+
+            {/* Лёгкая чистка, износостойкие ткани - карточка с изображением по центру */}
+            <div className="relative rounded-xl overflow-hidden aspect-[4/3] group">
+              <img 
+                src={benefits[4].image} 
+                alt={benefits[4].title}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+              <div className="absolute bottom-6 left-6 right-6">
+                <p className="text-white font-medium text-lg mb-2">{benefits[4].title}</p>
+                <p className="text-white/80 text-sm">{benefits[4].description}</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
