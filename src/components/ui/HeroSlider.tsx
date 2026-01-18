@@ -9,22 +9,31 @@ import { Button } from '@/components/ui/button';
 interface SlideData {
   id: number;
   title: string;
-  description?: string;
+  subtitle?: string;
   triggers?: { icon: React.ElementType; text: string }[];
   buttonText: string;
   buttonLink: string;
+  secondaryButtonText?: string;
+  secondaryButtonLink?: string;
   image: string;
+  promo?: {
+    oldPrice: string;
+    newPrice: string;
+    discount: string;
+    productName: string;
+  };
 }
 
 const slides: SlideData[] = [
   {
     id: 1,
-    title: 'Мебель для кафе, ресторанов и гостиниц',
+    title: 'Мебель для кафе, ресторанов и гостиниц от производителя',
+    subtitle: 'Комплектуем залы под ключ: износостойкая мебель специально для HoReCa, быстрое изготовление под проект.',
     triggers: [
-      { icon: Factory, text: 'Собственное производство и шоу-рум' },
-      { icon: Warehouse, text: 'Складской запас — более 1500 единиц' },
-      { icon: Building2, text: 'Для коммерческого использования' },
-      { icon: Clock, text: 'Индивидуальные заказы — до 10 дней' },
+      { icon: Factory, text: 'Собственное производство' },
+      { icon: Warehouse, text: '1500+ единиц в наличии' },
+      { icon: Clock, text: 'Изготовление до 10 дней' },
+      { icon: Building2, text: 'Оптом и в розницу' },
     ],
     buttonText: 'Перейти в каталог',
     buttonLink: '/catalog',
@@ -32,22 +41,18 @@ const slides: SlideData[] = [
   },
   {
     id: 2,
-    title: 'Готовые комплекты с выгодой до 20%',
-    triggers: [
-      { icon: Percent, text: 'Экономим бюджет без потери качества' },
-      { icon: Truck, text: 'Отгружаем в день заказа (при наличии на складе)' },
-    ],
-    buttonText: 'Выбрать комплект',
+    title: 'Снижение цен на актуальные модели: скидки до 15%',
+    buttonText: 'Смотреть акции',
     buttonLink: '/catalog',
+    secondaryButtonText: 'Смотреть диван',
+    secondaryButtonLink: '/product/sofa-1',
     image: 'https://static.tildacdn.com/tild3763-6464-4133-b664-356636316631/file_00000000e044624.png',
-  },
-  {
-    id: 3,
-    title: '1500+ позиций в шоуруме',
-    description: 'Приезжайте посмотреть мебель вживую и получить консультацию наших специалистов.',
-    buttonText: 'Посетить шоурум',
-    buttonLink: '/showroom',
-    image: 'https://static.tildacdn.com/tild6139-6335-4461-b363-636532346166/5785.jpg',
+    promo: {
+      productName: 'Диван «Рига»',
+      oldPrice: '89 900 ₽',
+      newPrice: '78 800 ₽',
+      discount: '-11 100 ₽',
+    },
   },
 ];
 
@@ -133,13 +138,24 @@ export const HeroSlider = () => {
                       exit="exit"
                     >
                       <motion.h1
-                        className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-foreground mb-6 leading-tight"
+                        className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-foreground mb-4 leading-tight"
                         variants={textVariants}
                         custom={0.2}
                       >
                         {slide.title}
                       </motion.h1>
-                      {slide.triggers ? (
+                      
+                      {slide.subtitle && (
+                        <motion.p
+                          className="text-lg md:text-xl text-muted-foreground mb-6 max-w-xl"
+                          variants={textVariants}
+                          custom={0.3}
+                        >
+                          {slide.subtitle}
+                        </motion.p>
+                      )}
+                      
+                      {slide.triggers && (
                         <motion.div
                           className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8"
                           variants={textVariants}
@@ -152,16 +168,25 @@ export const HeroSlider = () => {
                             </div>
                           ))}
                         </motion.div>
-                      ) : (
-                        <motion.p
-                          className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl"
+                      )}
+                      
+                      {slide.promo && (
+                        <motion.div
+                          className="mb-8 inline-flex flex-col gap-2"
                           variants={textVariants}
                           custom={0.4}
                         >
-                          {slide.description}
-                        </motion.p>
+                          <p className="text-lg font-medium text-foreground">{slide.promo.productName}</p>
+                          <div className="flex items-center gap-3">
+                            <span className="text-2xl md:text-3xl font-bold text-foreground">{slide.promo.newPrice}</span>
+                            <span className="text-lg text-muted-foreground line-through">{slide.promo.oldPrice}</span>
+                            <span className="px-3 py-1 bg-red-500 text-white text-sm font-medium rounded-full">{slide.promo.discount}</span>
+                          </div>
+                        </motion.div>
                       )}
+                      
                       <motion.div
+                        className="flex flex-wrap gap-3"
                         variants={textVariants}
                         custom={0.6}
                       >
@@ -171,6 +196,13 @@ export const HeroSlider = () => {
                             <ChevronRight className="ml-2 w-5 h-5" />
                           </Link>
                         </Button>
+                        {slide.secondaryButtonText && slide.secondaryButtonLink && (
+                          <Button asChild size="lg" variant="outline" className="text-base">
+                            <Link to={slide.secondaryButtonLink}>
+                              {slide.secondaryButtonText}
+                            </Link>
+                          </Button>
+                        )}
                       </motion.div>
                     </motion.div>
                   )}
