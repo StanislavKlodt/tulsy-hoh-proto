@@ -70,6 +70,11 @@ export const HomePage = () => {
               </motion.div>
             ))}
           </div>
+          <div className="text-center mt-8">
+            <Button asChild size="lg" className="px-12 py-6 text-base uppercase tracking-wide">
+              <Link to="/catalog">В каталог</Link>
+            </Button>
+          </div>
         </div>
       </section>
 
