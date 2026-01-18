@@ -3,7 +3,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import { ProductCardCatalog } from '@/components/ui/ProductCardCatalog';
 import { categories, products } from '@/data/products';
 import { Button } from '@/components/ui/button';
-import { ChevronDown, ChevronUp, X, Armchair, Table, Package, Square, Columns, LayoutGrid } from 'lucide-react';
+import { ChevronDown, ChevronUp, ChevronLeft, ChevronRight, X, Armchair, Table, Package, Square, Columns, LayoutGrid } from 'lucide-react';
 
 // Map category slugs to icons
 const categoryIcons: Record<string, React.ReactNode> = {
@@ -98,6 +98,7 @@ export const CatalogPage = () => {
   const { slug, subcategory } = useParams();
   const navigate = useNavigate();
   const [sortBy, setSortBy] = useState<'popular' | 'price-asc' | 'price-desc' | 'new'>('popular');
+  const categoriesScrollRef = useRef<HTMLDivElement>(null);
   
   // Get selected category from URL
   const selectedCategory = slug || null;
@@ -112,6 +113,16 @@ export const CatalogPage = () => {
   const [widthRange, setWidthRange] = useState<{ min: string; max: string }>({ min: '', max: '' });
   const [heightRange, setHeightRange] = useState<{ min: string; max: string }>({ min: '', max: '' });
   const [inStockOnly, setInStockOnly] = useState(false);
+
+  const scrollCategories = (direction: 'left' | 'right') => {
+    if (categoriesScrollRef.current) {
+      const scrollAmount = 300;
+      categoriesScrollRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
   
   // Get current category with subcategories
   const currentCategory = categories.find(c => c.slug === selectedCategory);
@@ -288,7 +299,28 @@ export const CatalogPage = () => {
       {/* Category Cards Grid - Artemest style */}
       <section className="pb-6">
         <div className="container-main">
-          <div className="flex gap-4 md:gap-5 overflow-x-auto pb-2 scrollbar-hide">
+          {/* Header with arrows */}
+          <div className="flex items-center justify-end gap-2 mb-4">
+            <button
+              onClick={() => scrollCategories('left')}
+              className="w-10 h-10 border border-border rounded-full flex items-center justify-center hover:bg-muted transition-colors"
+              aria-label="Прокрутить влево"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button
+              onClick={() => scrollCategories('right')}
+              className="w-10 h-10 border border-border rounded-full flex items-center justify-center hover:bg-muted transition-colors"
+              aria-label="Прокрутить вправо"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
+          
+          <div 
+            ref={categoriesScrollRef}
+            className="flex gap-4 md:gap-5 overflow-x-auto pb-2 scrollbar-hide"
+          >
             {/* "Вся мебель" - all products */}
             <Link
               to="/catalog"
