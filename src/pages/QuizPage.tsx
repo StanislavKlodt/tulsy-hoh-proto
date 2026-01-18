@@ -56,7 +56,7 @@ export const QuizPage = () => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [city, setCity] = useState('');
-  const [channel, setChannel] = useState('whatsapp');
+  const [channel, setChannel] = useState('telegram');
   const [needVisit, setNeedVisit] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
@@ -195,10 +195,6 @@ export const QuizPage = () => {
                 <div>
                   <Label className="mb-2 block">Куда отправить подборку?</Label>
                   <RadioGroup value={channel} onValueChange={setChannel} className="flex flex-wrap gap-4">
-                    <div className="flex items-center gap-2">
-                      <RadioGroupItem value="whatsapp" id="q-wa" />
-                      <Label htmlFor="q-wa" className="cursor-pointer">WhatsApp</Label>
-                    </div>
                     <div className="flex items-center gap-2">
                       <RadioGroupItem value="telegram" id="q-tg" />
                       <Label htmlFor="q-tg" className="cursor-pointer">Telegram</Label>

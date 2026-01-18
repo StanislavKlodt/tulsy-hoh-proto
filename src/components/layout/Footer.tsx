@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Phone, MessageCircle, Mail, MapPin } from 'lucide-react';
+import { Phone, Send, Mail, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
@@ -67,19 +67,12 @@ export const Footer = () => {
               </li>
               <li className="flex gap-3 pt-2">
                 <a 
-                  href="https://wa.me/74951234567" 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1 text-background/70 hover:text-background transition-colors"
-                >
-                  <MessageCircle className="w-5 h-5" />
-                </a>
-                <a 
                   href="https://t.me/tulsy" 
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-background/70 hover:text-background transition-colors text-sm"
+                  className="flex items-center gap-2 text-background/70 hover:text-background transition-colors"
                 >
+                  <Send className="w-5 h-5" />
                   Telegram
                 </a>
               </li>

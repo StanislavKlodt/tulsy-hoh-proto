@@ -13,7 +13,7 @@ import { toast } from 'sonner';
 export const CheckoutPage = () => {
   const { items, total, clearCart } = useCart();
   const [customerType, setCustomerType] = useState('individual');
-  const [channel, setChannel] = useState('whatsapp');
+  const [channel, setChannel] = useState('telegram');
   const [needVisit, setNeedVisit] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
@@ -95,10 +95,6 @@ export const CheckoutPage = () => {
               <div className="bg-card rounded-xl border p-6">
                 <h2 className="text-lg font-semibold mb-4">Способ связи</h2>
                 <RadioGroup value={channel} onValueChange={setChannel} className="flex flex-wrap gap-4">
-                  <div className="flex items-center gap-2">
-                    <RadioGroupItem value="whatsapp" id="ch-wa" />
-                    <Label htmlFor="ch-wa" className="cursor-pointer">WhatsApp</Label>
-                  </div>
                   <div className="flex items-center gap-2">
                     <RadioGroupItem value="telegram" id="ch-tg" />
                     <Label htmlFor="ch-tg" className="cursor-pointer">Telegram</Label>

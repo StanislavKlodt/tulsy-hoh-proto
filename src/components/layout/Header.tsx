@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Search, Heart, ShoppingCart, Phone, MessageCircle } from 'lucide-react';
+import { Menu, X, Search, Heart, ShoppingCart, Phone, Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { useCart } from '@/context/CartContext';
@@ -64,12 +64,12 @@ export const Header = () => {
             {/* Messengers */}
             <div className="hidden md:flex items-center gap-2">
               <a 
-                href="https://wa.me/74951234567" 
+                href="https://t.me/tulsy" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-full hover:bg-secondary transition-colors text-muted-foreground hover:text-primary"
               >
-                <MessageCircle className="w-5 h-5" />
+                <Send className="w-5 h-5" />
               </a>
             </div>
 
@@ -126,24 +126,14 @@ export const Header = () => {
                     <Phone className="w-5 h-5" />
                     +7 (495) 123-45-67
                   </a>
-                  <div className="flex gap-4">
-                    <a 
-                      href="https://wa.me/74951234567" 
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-muted-foreground hover:text-primary"
-                    >
-                      WhatsApp
-                    </a>
-                    <a 
-                      href="https://t.me/tulsy" 
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-muted-foreground hover:text-primary"
-                    >
-                      Telegram
-                    </a>
-                  </div>
+                  <a 
+                    href="https://t.me/tulsy" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-muted-foreground hover:text-primary"
+                  >
+                    Telegram
+                  </a>
                 </nav>
               </SheetContent>
             </Sheet>
