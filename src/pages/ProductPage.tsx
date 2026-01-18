@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ChevronRight, Check, Truck, FileText, UserCheck, Star, Quote, Package, Shield, Clock, Palette } from 'lucide-react';
+import { ChevronRight, Check, Truck, FileText, UserCheck, Star, Quote, Package, Shield, Clock, Palette, ChevronDown, ChevronUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ProductCard } from '@/components/ui/ProductCard';
 import { QuoteRequestDialog } from '@/components/ui/QuoteRequestDialog';
 import { ConsultationForm } from '@/components/ui/ConsultationForm';
+import { CustomSizeDialog } from '@/components/ui/CustomSizeDialog';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { getProductById, products } from '@/data/products';
 import { useCart } from '@/context/CartContext';
 import { toast } from 'sonner';
@@ -18,40 +20,38 @@ const fabricSwatches = [
   { name: 'Эко-кожа коричневая', color: '#78350F' },
 ];
 
-// Конфигурации товара
-interface ProductConfiguration {
+// Конфигурации размеров товара
+interface SizeOption {
   id: string;
-  name: string;
+  label: string;
   dimensions: string;
   retailPrice: number;
   wholesalePrice: number;
-  blueprintDescription: string;
+  isCustom?: boolean;
 }
 
-const productConfigurations: ProductConfiguration[] = [
+const sizeOptions: SizeOption[] = [
   {
-    id: 'config-1',
-    name: '4шт 75x80 см',
+    id: 'size-1',
+    label: '75×80 см',
     dimensions: '75×80×90 см',
     retailPrice: 89900,
     wholesalePrice: 76415,
-    blueprintDescription: 'Габариты изделия: 1450×450 см\nМаксимальная нагрузка: 150 кг\nУпаковка: картон + плёнка',
   },
   {
-    id: 'config-2',
-    name: '6шт 54x90 см',
+    id: 'size-2',
+    label: '54×90 см',
     dimensions: '54×90×90 см',
     retailPrice: 104900,
     wholesalePrice: 89165,
-    blueprintDescription: 'Габариты изделия: 1600×540 см\nМаксимальная нагрузка: 200 кг\nУпаковка: картон + плёнка',
   },
   {
-    id: 'config-3',
-    name: 'Ваш размер',
+    id: 'size-custom',
+    label: 'Ваш размер',
     dimensions: 'По вашим размерам',
     retailPrice: 0,
     wholesalePrice: 0,
-    blueprintDescription: 'Изготовим по вашим индивидуальным размерам.\nСвяжитесь с нами для расчёта стоимости.',
+    isCustom: true,
   },
 ];
 
@@ -127,9 +127,11 @@ export const ProductPage = () => {
   const { addItem } = useCart();
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedFabric, setSelectedFabric] = useState(0);
-  const [selectedConfig, setSelectedConfig] = useState(0);
+  const [selectedSize, setSelectedSize] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [quoteDialogOpen, setQuoteDialogOpen] = useState(false);
+  const [customSizeDialogOpen, setCustomSizeDialogOpen] = useState(false);
+  const [sizeOpen, setSizeOpen] = useState(true);
 
   const product = getProductById(id || '');
 
@@ -161,24 +163,33 @@ export const ProductPage = () => {
   };
 
   const availability = getAvailabilityText();
-  const currentConfig = productConfigurations[selectedConfig];
-  const isCustomConfig = currentConfig.id === 'config-3';
+  const currentSize = sizeOptions[selectedSize];
+  const isCustomSize = currentSize.isCustom;
 
-  const displayRetailPrice = isCustomConfig ? product.price : currentConfig.retailPrice;
-  const displayWholesalePrice = isCustomConfig ? Math.round(product.price * 0.85) : currentConfig.wholesalePrice;
+  const displayRetailPrice = isCustomSize ? product.price : currentSize.retailPrice;
+  const displayWholesalePrice = isCustomSize ? Math.round(product.price * 0.85) : currentSize.wholesalePrice;
 
   const relatedProducts = products
     .filter(p => p.categorySlug === product.categorySlug && p.id !== product.id)
     .slice(0, 4);
 
+  const handleSizeSelect = (index: number) => {
+    const size = sizeOptions[index];
+    if (size.isCustom) {
+      setCustomSizeDialogOpen(true);
+    } else {
+      setSelectedSize(index);
+    }
+  };
+
   const handleAddToCart = () => {
-    if (isCustomConfig) {
-      setQuoteDialogOpen(true);
+    if (isCustomSize) {
+      setCustomSizeDialogOpen(true);
       return;
     }
     addItem(product, quantity, { 
       upholstery: fabricSwatches[selectedFabric].name,
-      configuration: currentConfig.name 
+      configuration: currentSize.label 
     });
     toast.success('Товар добавлен в корзину');
   };
@@ -250,7 +261,7 @@ export const ProductPage = () => {
                     <p className="text-sm text-muted-foreground mb-1">Цена розница</p>
                     <div className="flex items-baseline gap-2">
                       <span className="text-2xl font-bold">
-                        {isCustomConfig ? 'По запросу' : formatPrice(displayRetailPrice)}
+                        {isCustomSize ? 'По запросу' : formatPrice(displayRetailPrice)}
                       </span>
                     </div>
                   </div>
@@ -258,7 +269,7 @@ export const ProductPage = () => {
                     <p className="text-sm text-muted-foreground mb-1">Цена оптовая</p>
                     <div className="flex items-baseline gap-2">
                       <span className="text-2xl font-bold text-primary">
-                        {isCustomConfig ? 'По запросу' : formatPrice(displayWholesalePrice)}
+                        {isCustomSize ? 'По запросу' : formatPrice(displayWholesalePrice)}
                       </span>
                     </div>
                   </div>
@@ -273,6 +284,37 @@ export const ProductPage = () => {
                 <Check className="w-4 h-4" />
                 <span className="text-sm font-medium">{availability.text}</span>
               </div>
+
+              {/* Size Selection - Herman Miller style */}
+              <Collapsible open={sizeOpen} onOpenChange={setSizeOpen} className="mb-6 border rounded-xl">
+                <CollapsibleTrigger className="flex items-center justify-between w-full p-4 hover:bg-muted/30 transition-colors">
+                  <div className="flex items-center gap-3">
+                    <span className="flex items-center justify-center w-6 h-6 rounded-full bg-foreground text-background text-sm font-medium">1</span>
+                    <span className="font-medium">Размер</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-muted-foreground">{currentSize.label}</span>
+                    {sizeOpen ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
+                  </div>
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <div className="p-4 pt-0 grid grid-cols-3 gap-2">
+                    {sizeOptions.map((size, i) => (
+                      <button
+                        key={size.id}
+                        onClick={() => handleSizeSelect(i)}
+                        className={`px-4 py-3 rounded-lg text-sm font-medium transition-all border-2 ${
+                          selectedSize === i && !size.isCustom
+                            ? 'bg-foreground text-background border-foreground'
+                            : 'bg-background hover:border-foreground border-border'
+                        }`}
+                      >
+                        {size.label}
+                      </button>
+                    ))}
+                  </div>
+                </CollapsibleContent>
+              </Collapsible>
 
               {/* Fabric selection */}
               <div className="mb-6">
@@ -313,7 +355,7 @@ export const ProductPage = () => {
                   </button>
                 </div>
                 <Button size="lg" onClick={handleAddToCart} className="flex-1 sm:flex-none">
-                  {isCustomConfig ? 'Запросить расчёт' : 'В корзину'}
+                  {isCustomSize ? 'Запросить расчёт' : 'В корзину'}
                 </Button>
                 <Button variant="outline" size="lg" onClick={() => setQuoteDialogOpen(true)}>
                   Запросить КП
@@ -346,82 +388,6 @@ export const ProductPage = () => {
         </div>
       </section>
 
-      {/* Configurations Section */}
-      <section className="py-8 bg-muted/20">
-        <div className="container-main">
-          <h2 className="text-2xl font-serif font-bold mb-6">КОНФИГУРАЦИИ</h2>
-          
-          {/* Config tabs */}
-          <div className="flex flex-wrap gap-2 mb-6">
-            {productConfigurations.map((config, i) => (
-              <button
-                key={config.id}
-                onClick={() => setSelectedConfig(i)}
-                className={`px-6 py-3 rounded-lg font-medium transition-all ${
-                  selectedConfig === i 
-                    ? 'bg-foreground text-background' 
-                    : 'bg-background border hover:border-foreground'
-                }`}
-              >
-                {config.name}
-              </button>
-            ))}
-          </div>
-
-          {/* Config details */}
-          <div className="grid md:grid-cols-2 gap-6">
-            {/* Blueprint / Illustration */}
-            <div className="bg-background rounded-xl p-6 flex items-center justify-center min-h-[300px]">
-              <div className="text-center">
-                <div className="w-48 h-32 mx-auto mb-4 border-2 border-dashed border-muted-foreground/30 rounded-lg flex items-center justify-center">
-                  <Package className="w-16 h-16 text-muted-foreground/50" />
-                </div>
-                <p className="text-sm text-muted-foreground">Схема конфигурации {currentConfig.name}</p>
-              </div>
-            </div>
-
-            {/* Config info */}
-            <div className="bg-background rounded-xl p-6">
-              <div className="grid grid-cols-2 gap-4 mb-4">
-                <div>
-                  <p className="text-sm text-muted-foreground">Цена розница</p>
-                  <p className="text-xl font-bold">
-                    {isCustomConfig ? 'По запросу' : `от ${formatPrice(displayRetailPrice)}`}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-sm text-muted-foreground">Цена оптовая</p>
-                  <p className="text-xl font-bold text-primary">
-                    {isCustomConfig ? 'По запросу' : `от ${formatPrice(displayWholesalePrice)}`}
-                  </p>
-                </div>
-              </div>
-
-              <div className="space-y-2 mb-6">
-                <p className="text-sm"><span className="text-muted-foreground">Габариты:</span> {currentConfig.dimensions}</p>
-                <p className="text-sm"><span className="text-muted-foreground">Материал обивки:</span> велюр</p>
-                <p className="text-sm"><span className="text-muted-foreground">Материал основания:</span> массив, фанера, ДВП</p>
-              </div>
-
-              <div className="bg-muted/30 rounded-lg p-4 mb-6">
-                <p className="text-sm whitespace-pre-line">{currentConfig.blueprintDescription}</p>
-              </div>
-
-              <p className="text-xs text-muted-foreground mb-4">
-                * При заказе от 200 000 ₽ — скидка на весь заказ уже включена в оптовую цену
-              </p>
-
-              <Button 
-                size="lg" 
-                className="w-full"
-                onClick={handleAddToCart}
-              >
-                {isCustomConfig ? 'Запросить расчёт' : 'В корзину'}
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Discount Banner */}
       <div className="bg-primary/5 py-4 overflow-hidden">
@@ -699,6 +665,13 @@ export const ProductPage = () => {
         onOpenChange={setQuoteDialogOpen}
         productName={product.name}
         productId={product.id}
+      />
+
+      {/* Custom Size Dialog */}
+      <CustomSizeDialog
+        open={customSizeDialogOpen}
+        onOpenChange={setCustomSizeDialogOpen}
+        productName={product.name}
       />
     </div>
   );
