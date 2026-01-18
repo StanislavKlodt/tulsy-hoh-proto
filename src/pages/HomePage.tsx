@@ -362,7 +362,7 @@ export const HomePage = () => {
       {/* FAQ */}
       <section className="section-padding bg-background">
         <div className="container-main">
-          <h2 className="text-3xl font-serif font-bold mb-8 uppercase tracking-wide">Полезно знать перед заказом</h2>
+          <h2 className="text-3xl font-serif font-bold mb-8">Полезно знать перед заказом</h2>
           <div className="grid md:grid-cols-2 gap-8">
             {/* Left column */}
             <div>
