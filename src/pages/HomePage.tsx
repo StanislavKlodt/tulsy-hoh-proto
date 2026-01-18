@@ -119,21 +119,18 @@ export const HomePage = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4">
-                Шоурум в Москве — более 1000 м²
+                Шоурум в Москве
               </h2>
               <p className="text-muted-foreground mb-6">
                 Москва, ул. Выборгская, 16к2<br />
-                Пн-Сб: 10:00-20:00
+                Ежедневно с 10:00 до 18:00 без перерывов и выходных
               </p>
               <p className="text-foreground mb-8">
-                Приезжайте посмотреть мебель вживую, оценить качество материалов и подобрать ткани для вашего проекта.
+                Приезжайте посмотреть мебель вживую, оценить качество материалов и подобрать ткани для вашего проекта. Также у нас в наличии большой ассортимент оборудования для ресторанов — как новое, так и б/у.
               </p>
-              <div className="flex flex-wrap gap-4">
-                <Button asChild>
-                  <Link to="/showroom">Записаться в шоурум</Link>
-                </Button>
-                <Button variant="outline">Заказать онлайн-обзор</Button>
-              </div>
+              <Button asChild>
+                <Link to="/showroom">Записаться в шоурум</Link>
+              </Button>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <img 
