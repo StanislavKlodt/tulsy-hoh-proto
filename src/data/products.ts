@@ -349,12 +349,25 @@ export const products: Product[] = [
 export const categories = [
   { name: 'Диваны', slug: 'divany', icon: 'sofa', count: 5, image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&h=300&fit=crop&bg=f5f5f5' },
   { name: 'Кресла', slug: 'kresla', icon: 'armchair', count: 3, image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=300&fit=crop&bg=f5f5f5' },
-  { name: 'Стулья', slug: 'stulya', icon: 'chair', count: 4, image: 'https://images.unsplash.com/photo-1503602642458-232111445657?w=400&h=300&fit=crop&bg=f5f5f5' },
+  { name: 'Стулья', slug: 'stulya', icon: 'chair', count: 4, image: 'https://images.unsplash.com/photo-1503602642458-232111445657?w=400&h=300&fit=crop&bg=f5f5f5', subcategories: [
+    { name: 'Стандартные', slug: 'standartnye' },
+    { name: 'Полубарные', slug: 'polubarnye' },
+    { name: 'Барные', slug: 'barnye' },
+  ] },
   { name: 'Столы', slug: 'stoly', icon: 'table', count: 3, image: 'https://images.unsplash.com/photo-1611269154421-4e27233ac5c7?w=400&h=300&fit=crop&bg=f5f5f5' },
   { name: 'Комплекты', slug: 'komplekty', icon: 'package', count: 2, image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&h=300&fit=crop&bg=f5f5f5' },
   { name: 'Столешницы', slug: 'stoleshnitsy', icon: 'square', count: 2, image: 'https://images.unsplash.com/photo-1604074131665-7a4b13870ab4?w=400&h=300&fit=crop&bg=f5f5f5' },
   { name: 'Подстолья', slug: 'podstolya', icon: 'pillar', count: 2, image: '/images/categories/podstolya.jpg' },
 ];
+
+export interface Category {
+  name: string;
+  slug: string;
+  icon: string;
+  count: number;
+  image: string;
+  subcategories?: { name: string; slug: string }[];
+}
 
 export const getProductsByCategory = (categorySlug: string) => 
   products.filter(p => p.categorySlug === categorySlug);
