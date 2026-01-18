@@ -39,7 +39,7 @@ const slides: SlideData[] = [
     ],
     buttonText: 'Выбрать комплект',
     buttonLink: '/catalog',
-    image: 'https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=1920&h=1080&fit=crop',
+    image: 'https://static.tildacdn.com/tild3763-6464-4133-b664-356636316631/file_00000000e044624.png',
   },
   {
     id: 3,
