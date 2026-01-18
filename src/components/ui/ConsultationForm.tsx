@@ -1,10 +1,8 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { toast } from 'sonner';
 
 interface ConsultationFormProps {
@@ -13,11 +11,15 @@ interface ConsultationFormProps {
 }
 
 export const ConsultationForm = ({ variant = 'full', title }: ConsultationFormProps) => {
-  const [channel, setChannel] = useState('telegram');
-  const [needVisit, setNeedVisit] = useState(false);
+  const [privacyConsent, setPrivacyConsent] = useState(false);
+  const [marketingConsent, setMarketingConsent] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!privacyConsent) {
+      toast.error('Необходимо дать согласие на обработку персональных данных');
+      return;
+    }
     toast.success('Заявка отправлена! Менеджер свяжется с вами в ближайшее время.');
   };
 
@@ -28,19 +30,40 @@ export const ConsultationForm = ({ variant = 'full', title }: ConsultationFormPr
           <Input placeholder="Ваше имя" required />
           <Input placeholder="Телефон" type="tel" required />
         </div>
-        <Input placeholder="Город доставки" />
-        <div className="flex items-center gap-4">
-          <span className="text-sm text-muted-foreground">Ответить в:</span>
-          <RadioGroup value={channel} onValueChange={setChannel} className="flex gap-4">
-            <div className="flex items-center gap-1.5">
-              <RadioGroupItem value="telegram" id="tg-compact" />
-              <Label htmlFor="tg-compact" className="text-sm cursor-pointer">Telegram</Label>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <RadioGroupItem value="email" id="email-compact" />
-              <Label htmlFor="email-compact" className="text-sm cursor-pointer">Email</Label>
-            </div>
-          </RadioGroup>
+        <div>
+          <select 
+            className="w-full h-10 px-3 rounded-md border border-input bg-background text-sm"
+          >
+            <option value="">Тип объекта</option>
+            <option value="cafe">Кафе</option>
+            <option value="restaurant">Ресторан</option>
+            <option value="hotel">Отель</option>
+            <option value="canteen">Столовая</option>
+            <option value="other">Другое</option>
+          </select>
+        </div>
+        <div className="space-y-3">
+          <div className="flex items-start gap-2">
+            <Checkbox 
+              id="privacy-compact" 
+              checked={privacyConsent}
+              onCheckedChange={(checked) => setPrivacyConsent(checked as boolean)}
+              required
+            />
+            <Label htmlFor="privacy-compact" className="text-sm cursor-pointer leading-tight">
+              Я даю согласие на обработку своих персональных данных
+            </Label>
+          </div>
+          <div className="flex items-start gap-2">
+            <Checkbox 
+              id="marketing-compact" 
+              checked={marketingConsent}
+              onCheckedChange={(checked) => setMarketingConsent(checked as boolean)}
+            />
+            <Label htmlFor="marketing-compact" className="text-sm cursor-pointer leading-tight">
+              Я даю согласие на рекламную рассылку
+            </Label>
+          </div>
         </div>
         <Button type="submit" className="w-full">Получить расчёт</Button>
       </form>
@@ -50,7 +73,7 @@ export const ConsultationForm = ({ variant = 'full', title }: ConsultationFormPr
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {title && <h3 className="text-xl font-serif font-semibold">{title}</h3>}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div>
           <Label htmlFor="name">Имя</Label>
           <Input id="name" placeholder="Ваше имя" required className="mt-1.5" />
@@ -58,10 +81,6 @@ export const ConsultationForm = ({ variant = 'full', title }: ConsultationFormPr
         <div>
           <Label htmlFor="phone">Телефон</Label>
           <Input id="phone" placeholder="+7 (___) ___-__-__" type="tel" required className="mt-1.5" />
-        </div>
-        <div>
-          <Label htmlFor="city">Город доставки</Label>
-          <Input id="city" placeholder="Москва" className="mt-1.5" />
         </div>
         <div>
           <Label htmlFor="type">Тип объекта</Label>
@@ -78,37 +97,28 @@ export const ConsultationForm = ({ variant = 'full', title }: ConsultationFormPr
           </select>
         </div>
       </div>
-      <div>
-        <Label htmlFor="comment">Комментарий</Label>
-        <Textarea 
-          id="comment" 
-          placeholder="Опишите ваш проект или задайте вопрос" 
-          className="mt-1.5"
-          rows={3}
-        />
-      </div>
-      <div>
-        <Label className="mb-3 block">Куда отправить подборку?</Label>
-        <RadioGroup value={channel} onValueChange={setChannel} className="flex flex-wrap gap-4">
-          <div className="flex items-center gap-2">
-            <RadioGroupItem value="telegram" id="telegram" />
-            <Label htmlFor="telegram" className="cursor-pointer">Telegram</Label>
-          </div>
-          <div className="flex items-center gap-2">
-            <RadioGroupItem value="email" id="email" />
-            <Label htmlFor="email" className="cursor-pointer">Email</Label>
-          </div>
-        </RadioGroup>
-      </div>
-      <div className="flex items-start gap-2">
-        <Checkbox 
-          id="visit" 
-          checked={needVisit}
-          onCheckedChange={(checked) => setNeedVisit(checked as boolean)}
-        />
-        <Label htmlFor="visit" className="text-sm cursor-pointer leading-tight">
-          Нужен выезд менеджера с образцами (для крупных объектов)
-        </Label>
+      <div className="space-y-3">
+        <div className="flex items-start gap-2">
+          <Checkbox 
+            id="privacy" 
+            checked={privacyConsent}
+            onCheckedChange={(checked) => setPrivacyConsent(checked as boolean)}
+            required
+          />
+          <Label htmlFor="privacy" className="text-sm cursor-pointer leading-tight">
+            Я даю согласие на обработку своих персональных данных
+          </Label>
+        </div>
+        <div className="flex items-start gap-2">
+          <Checkbox 
+            id="marketing" 
+            checked={marketingConsent}
+            onCheckedChange={(checked) => setMarketingConsent(checked as boolean)}
+          />
+          <Label htmlFor="marketing" className="text-sm cursor-pointer leading-tight">
+            Я даю согласие на рекламную рассылку
+          </Label>
+        </div>
       </div>
       <Button type="submit" size="lg" className="w-full md:w-auto">
         Получить консультацию
