@@ -581,45 +581,6 @@ export const ProductPage = () => {
         </div>
       </section>
 
-      {/* Why Choose Section */}
-      <section className="section-padding bg-muted/20">
-        <div className="container-main">
-          <h2 className="text-2xl md:text-3xl font-serif font-bold mb-8 text-center">
-            ПОЧЕМУ ВЫБИРАЮТ "TULSY"
-          </h2>
-          
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="text-center p-6">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
-                <Shield className="w-8 h-8 text-primary" />
-              </div>
-              <h4 className="font-medium mb-2">Гарантия 12 месяцев</h4>
-              <p className="text-sm text-muted-foreground">На всю продукцию и комплектующие</p>
-            </div>
-            <div className="text-center p-6">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
-                <Clock className="w-8 h-8 text-primary" />
-              </div>
-              <h4 className="font-medium mb-2">Быстрое производство</h4>
-              <p className="text-sm text-muted-foreground">От 7 до 14 дней на изготовление</p>
-            </div>
-            <div className="text-center p-6">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
-                <Palette className="w-8 h-8 text-primary" />
-              </div>
-              <h4 className="font-medium mb-2">200+ вариантов ткани</h4>
-              <p className="text-sm text-muted-foreground">Огромный выбор обивки и цветов</p>
-            </div>
-            <div className="text-center p-6">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
-                <Truck className="w-8 h-8 text-primary" />
-              </div>
-              <h4 className="font-medium mb-2">Доставка по всей РФ</h4>
-              <p className="text-sm text-muted-foreground">Работаем со всеми ТК страны</p>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Tags */}
       <section className="py-8">
