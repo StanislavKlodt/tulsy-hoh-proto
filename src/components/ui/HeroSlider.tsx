@@ -1,16 +1,31 @@
 import { useState, useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Factory, Warehouse, Building2, Clock } from 'lucide-react';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 import { Button } from '@/components/ui/button';
 
-const slides = [
+interface SlideData {
+  id: number;
+  title: string;
+  description?: string;
+  triggers?: { icon: React.ElementType; text: string }[];
+  buttonText: string;
+  buttonLink: string;
+  image: string;
+}
+
+const slides: SlideData[] = [
   {
     id: 1,
     title: 'Мебель для кафе, ресторанов и гостиниц',
-    description: 'Комплектуем залы под ключ: в наличии 1500+ позиций и быстрое изготовление под проект.',
+    triggers: [
+      { icon: Factory, text: 'Собственное производство и шоу-рум' },
+      { icon: Warehouse, text: 'Складской запас — более 1500 единиц' },
+      { icon: Building2, text: 'Для коммерческого использования' },
+      { icon: Clock, text: 'Индивидуальные заказы — до 10 дней' },
+    ],
     buttonText: 'Перейти в каталог',
     buttonLink: '/catalog',
     image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1920&h=1080&fit=crop',
@@ -121,13 +136,28 @@ export const HeroSlider = () => {
                       >
                         {slide.title}
                       </motion.h1>
-                      <motion.p
-                        className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl"
-                        variants={textVariants}
-                        custom={0.4}
-                      >
-                        {slide.description}
-                      </motion.p>
+                      {slide.triggers ? (
+                        <motion.div
+                          className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8"
+                          variants={textVariants}
+                          custom={0.4}
+                        >
+                          {slide.triggers.map((trigger, i) => (
+                            <div key={i} className="flex items-center gap-3 px-4 py-3 bg-card/80 backdrop-blur-sm rounded-lg">
+                              <trigger.icon className="w-5 h-5 text-primary flex-shrink-0" />
+                              <span className="text-sm font-medium text-foreground">{trigger.text}</span>
+                            </div>
+                          ))}
+                        </motion.div>
+                      ) : (
+                        <motion.p
+                          className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl"
+                          variants={textVariants}
+                          custom={0.4}
+                        >
+                          {slide.description}
+                        </motion.p>
+                      )}
                       <motion.div
                         variants={textVariants}
                         custom={0.6}
