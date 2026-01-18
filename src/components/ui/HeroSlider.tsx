@@ -54,6 +54,17 @@ const slides: SlideData[] = [
       discount: '-11 100 ₽',
     },
   },
+  {
+    id: 3,
+    title: 'Готовые комплекты с выгодой до 20%',
+    triggers: [
+      { icon: Percent, text: 'Экономим бюджет без потери качества' },
+      { icon: Truck, text: 'Отгружаем в день заказа (при наличии на складе)' },
+    ],
+    buttonText: 'Выбрать комплект',
+    buttonLink: '/catalog',
+    image: '/images/slider/komplekt.png',
+  },
 ];
 
 const textVariants = {
