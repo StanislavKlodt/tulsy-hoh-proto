@@ -108,10 +108,37 @@ export const CatalogPage = () => {
   const [selectedMaterials, setSelectedMaterials] = useState<string[]>([]);
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState<{ min: string; max: string }>({ min: '', max: '' });
+  const [lengthRange, setLengthRange] = useState<{ min: string; max: string }>({ min: '', max: '' });
+  const [widthRange, setWidthRange] = useState<{ min: string; max: string }>({ min: '', max: '' });
+  const [heightRange, setHeightRange] = useState<{ min: string; max: string }>({ min: '', max: '' });
   const [inStockOnly, setInStockOnly] = useState(false);
   
   // Get current category with subcategories
   const currentCategory = categories.find(c => c.slug === selectedCategory);
+  
+  // Helper to parse dimensions from string like "180×80×90 см" or "Ø80×75 см"
+  const parseDimensions = (dimensions: string): { length: number; width: number; height: number } | null => {
+    // Handle round tables: "Ø80×75 см"
+    const roundMatch = dimensions.match(/Ø(\d+)×(\d+)/);
+    if (roundMatch) {
+      const diameter = parseInt(roundMatch[1]);
+      return { length: diameter, width: diameter, height: parseInt(roundMatch[2]) };
+    }
+    
+    // Handle regular: "180×80×90 см" or "45×52×88 см"
+    const match = dimensions.match(/(\d+)×(\d+)×(\d+)/);
+    if (match) {
+      return { length: parseInt(match[1]), width: parseInt(match[2]), height: parseInt(match[3]) };
+    }
+    
+    // Handle two dimensions: "80×80 см"
+    const twoMatch = dimensions.match(/(\d+)×(\d+)/);
+    if (twoMatch) {
+      return { length: parseInt(twoMatch[1]), width: parseInt(twoMatch[2]), height: 0 };
+    }
+    
+    return null;
+  };
 
   const filteredProducts = useMemo(() => {
     let result = [...products];
@@ -126,6 +153,37 @@ export const CatalogPage = () => {
     }
     if (priceRange.max) {
       result = result.filter(p => p.price <= parseInt(priceRange.max));
+    }
+    
+    // Filter by dimensions
+    if (lengthRange.min || lengthRange.max) {
+      result = result.filter(p => {
+        const dims = parseDimensions(p.dimensions);
+        if (!dims) return true;
+        if (lengthRange.min && dims.length < parseInt(lengthRange.min)) return false;
+        if (lengthRange.max && dims.length > parseInt(lengthRange.max)) return false;
+        return true;
+      });
+    }
+    
+    if (widthRange.min || widthRange.max) {
+      result = result.filter(p => {
+        const dims = parseDimensions(p.dimensions);
+        if (!dims) return true;
+        if (widthRange.min && dims.width < parseInt(widthRange.min)) return false;
+        if (widthRange.max && dims.width > parseInt(widthRange.max)) return false;
+        return true;
+      });
+    }
+    
+    if (heightRange.min || heightRange.max) {
+      result = result.filter(p => {
+        const dims = parseDimensions(p.dimensions);
+        if (!dims) return true;
+        if (heightRange.min && dims.height < parseInt(heightRange.min)) return false;
+        if (heightRange.max && dims.height > parseInt(heightRange.max)) return false;
+        return true;
+      });
     }
 
     // Filter by in stock
@@ -150,18 +208,24 @@ export const CatalogPage = () => {
     }
 
     return result;
-  }, [selectedCategory, sortBy, priceRange, inStockOnly]);
+  }, [selectedCategory, sortBy, priceRange, lengthRange, widthRange, heightRange, inStockOnly]);
 
   const activeFiltersCount = 
     (selectedMaterials.length > 0 ? 1 : 0) +
     (selectedColors.length > 0 ? 1 : 0) +
     (priceRange.min || priceRange.max ? 1 : 0) +
+    (lengthRange.min || lengthRange.max ? 1 : 0) +
+    (widthRange.min || widthRange.max ? 1 : 0) +
+    (heightRange.min || heightRange.max ? 1 : 0) +
     (inStockOnly ? 1 : 0);
 
   const clearAllFilters = () => {
     setSelectedMaterials([]);
     setSelectedColors([]);
     setPriceRange({ min: '', max: '' });
+    setLengthRange({ min: '', max: '' });
+    setWidthRange({ min: '', max: '' });
+    setHeightRange({ min: '', max: '' });
     setInStockOnly(false);
   };
 
@@ -407,6 +471,117 @@ export const CatalogPage = () => {
                       placeholder="до"
                       value={priceRange.max}
                       onChange={(e) => setPriceRange({ ...priceRange, max: e.target.value })}
+                      className="w-24 px-3 py-2 border border-border rounded-md text-sm bg-background"
+                    />
+                  </div>
+                  <Button 
+                    size="sm" 
+                    className="w-full"
+                    onClick={() => setOpenFilter(null)}
+                  >
+                    Применить
+                  </Button>
+                </div>
+              </FilterDropdown>
+
+              {/* Length Filter */}
+              <FilterDropdown
+                label="Длина"
+                isOpen={openFilter === 'length'}
+                onToggle={() => setOpenFilter(openFilter === 'length' ? null : 'length')}
+                isActive={!!(lengthRange.min || lengthRange.max)}
+                onClear={() => setLengthRange({ min: '', max: '' })}
+              >
+                <div className="space-y-3">
+                  <p className="text-sm font-medium">Длина (см):</p>
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="number"
+                      placeholder="от"
+                      value={lengthRange.min}
+                      onChange={(e) => setLengthRange({ ...lengthRange, min: e.target.value })}
+                      className="w-24 px-3 py-2 border border-border rounded-md text-sm bg-background"
+                    />
+                    <span className="text-muted-foreground">—</span>
+                    <input
+                      type="number"
+                      placeholder="до"
+                      value={lengthRange.max}
+                      onChange={(e) => setLengthRange({ ...lengthRange, max: e.target.value })}
+                      className="w-24 px-3 py-2 border border-border rounded-md text-sm bg-background"
+                    />
+                  </div>
+                  <Button 
+                    size="sm" 
+                    className="w-full"
+                    onClick={() => setOpenFilter(null)}
+                  >
+                    Применить
+                  </Button>
+                </div>
+              </FilterDropdown>
+
+              {/* Width Filter */}
+              <FilterDropdown
+                label="Ширина"
+                isOpen={openFilter === 'width'}
+                onToggle={() => setOpenFilter(openFilter === 'width' ? null : 'width')}
+                isActive={!!(widthRange.min || widthRange.max)}
+                onClear={() => setWidthRange({ min: '', max: '' })}
+              >
+                <div className="space-y-3">
+                  <p className="text-sm font-medium">Ширина (см):</p>
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="number"
+                      placeholder="от"
+                      value={widthRange.min}
+                      onChange={(e) => setWidthRange({ ...widthRange, min: e.target.value })}
+                      className="w-24 px-3 py-2 border border-border rounded-md text-sm bg-background"
+                    />
+                    <span className="text-muted-foreground">—</span>
+                    <input
+                      type="number"
+                      placeholder="до"
+                      value={widthRange.max}
+                      onChange={(e) => setWidthRange({ ...widthRange, max: e.target.value })}
+                      className="w-24 px-3 py-2 border border-border rounded-md text-sm bg-background"
+                    />
+                  </div>
+                  <Button 
+                    size="sm" 
+                    className="w-full"
+                    onClick={() => setOpenFilter(null)}
+                  >
+                    Применить
+                  </Button>
+                </div>
+              </FilterDropdown>
+
+              {/* Height Filter */}
+              <FilterDropdown
+                label="Высота"
+                isOpen={openFilter === 'height'}
+                onToggle={() => setOpenFilter(openFilter === 'height' ? null : 'height')}
+                isActive={!!(heightRange.min || heightRange.max)}
+                onClear={() => setHeightRange({ min: '', max: '' })}
+              >
+                <div className="space-y-3">
+                  <p className="text-sm font-medium">Высота (см):</p>
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="number"
+                      placeholder="от"
+                      value={heightRange.min}
+                      onChange={(e) => setHeightRange({ ...heightRange, min: e.target.value })}
+                      className="w-24 px-3 py-2 border border-border rounded-md text-sm bg-background"
+                    />
+                    <span className="text-muted-foreground">—</span>
+                    <input
+                      type="number"
+                      placeholder="до"
+                      value={heightRange.max}
+                      onChange={(e) => setHeightRange({ ...heightRange, max: e.target.value })}
                       className="w-24 px-3 py-2 border border-border rounded-md text-sm bg-background"
                     />
                   </div>
