@@ -478,6 +478,21 @@ export const ProductPage = () => {
                 </div>
               </div>
               
+              {/* Усиленный каркас для HoReCa */}
+              <div className="relative rounded-xl overflow-hidden bg-primary p-6 flex flex-col justify-end flex-1 min-h-[200px]">
+                <p className="text-primary-foreground font-medium text-lg mb-2">{benefits[3].title}</p>
+                <p className="text-primary-foreground/80 text-sm">{benefits[3].description}</p>
+              </div>
+            </div>
+
+            {/* Средняя колонка - 2 карточки */}
+            <div className="flex flex-col gap-4 md:row-span-2">
+              {/* Поставка за 10 дней */}
+              <div className="relative rounded-xl overflow-hidden bg-primary p-6 flex flex-col justify-end flex-1 min-h-[200px]">
+                <p className="text-primary-foreground font-medium text-lg mb-2">{benefits[1].title}</p>
+                <p className="text-primary-foreground/80 text-sm">{benefits[1].description}</p>
+              </div>
+
               {/* Лёгкая чистка, износостойкие ткани */}
               <div className="relative rounded-xl overflow-hidden flex-1 min-h-[200px] group">
                 <img 
@@ -490,21 +505,6 @@ export const ProductPage = () => {
                   <p className="text-white font-medium text-lg mb-2">{benefits[4].title}</p>
                   <p className="text-white/80 text-sm">{benefits[4].description}</p>
                 </div>
-              </div>
-            </div>
-
-            {/* Средняя колонка - 2 текстовые карточки */}
-            <div className="flex flex-col gap-4 md:row-span-2">
-              {/* Поставка за 10 дней */}
-              <div className="relative rounded-xl overflow-hidden bg-primary p-6 flex flex-col justify-end flex-1 min-h-[200px]">
-                <p className="text-primary-foreground font-medium text-lg mb-2">{benefits[1].title}</p>
-                <p className="text-primary-foreground/80 text-sm">{benefits[1].description}</p>
-              </div>
-
-              {/* Усиленный каркас для HoReCa */}
-              <div className="relative rounded-xl overflow-hidden bg-primary p-6 flex flex-col justify-end flex-1 min-h-[200px]">
-                <p className="text-primary-foreground font-medium text-lg mb-2">{benefits[3].title}</p>
-                <p className="text-primary-foreground/80 text-sm">{benefits[3].description}</p>
               </div>
             </div>
 
