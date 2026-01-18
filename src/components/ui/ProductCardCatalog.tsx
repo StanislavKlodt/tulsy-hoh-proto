@@ -73,7 +73,7 @@ export const ProductCardCatalog = ({ product }: ProductCardCatalogProps) => {
                       <Scissors className="w-5 h-5 text-muted-foreground" />
                     </span>
                   </TooltipTrigger>
-                  <TooltipContent side="bottom" className="bg-foreground text-background">
+                  <TooltipContent side="right" className="bg-foreground text-background">
                     <p>Можем изготовить под Ваш размер</p>
                   </TooltipContent>
                 </Tooltip>
