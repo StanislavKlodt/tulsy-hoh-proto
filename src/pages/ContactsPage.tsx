@@ -75,7 +75,7 @@ export const ContactsPage = () => {
                   <div>
                     <h3 className="font-medium">Шоурум</h3>
                     <p>Москва, ул. Выборгская, 16к2</p>
-                    <p className="text-sm text-muted-foreground">м. Водный стадион</p>
+                    <p className="text-sm text-muted-foreground">м. Водный стадион, м. Балтийская</p>
                     <p className="text-sm text-muted-foreground">Ежедневно с 10:00 до 18:00</p>
                   </div>
                 </div>
