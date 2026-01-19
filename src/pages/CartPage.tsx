@@ -1,16 +1,24 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Minus, Plus, Trash2, ArrowRight } from 'lucide-react';
+import { Minus, Plus, Trash2, ArrowRight, FileText, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useCart } from '@/context/CartContext';
 import { DeliveryCalculator } from '@/components/ui/DeliveryCalculator';
+import { RelatedProductsSlider } from '@/components/cart/RelatedProductsSlider';
+import { WholesaleProgress } from '@/components/cart/WholesaleProgress';
+import { TrustBadges } from '@/components/cart/TrustBadges';
+import { DeliveryBadge, getMaxDeliveryTime } from '@/components/cart/DeliveryBadge';
+import { QuoteRequestDialog } from '@/components/ui/QuoteRequestDialog';
 
 export const CartPage = () => {
   const { items, updateQuantity, removeItem, total } = useCart();
   const [deliveryCost, setDeliveryCost] = useState<number | null>(null);
+  const [quoteDialogOpen, setQuoteDialogOpen] = useState(false);
 
   const formatPrice = (price: number) =>
     new Intl.NumberFormat('ru-RU').format(price) + ' ₽';
+
+  const maxDeliveryTime = getMaxDeliveryTime(items);
 
   if (items.length === 0) {
     return (
@@ -36,6 +44,16 @@ export const CartPage = () => {
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Items */}
           <div className="lg:col-span-2 space-y-4">
+            {/* Max delivery time alert */}
+            {maxDeliveryTime && (
+              <div className="flex items-center gap-3 p-4 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-xl">
+                <AlertCircle className="w-5 h-5 text-amber-600 flex-shrink-0" />
+                <span className="text-sm text-amber-800 dark:text-amber-200">
+                  Самый долгий срок заказа: <strong>{maxDeliveryTime}</strong>
+                </span>
+              </div>
+            )}
+
             {items.map((item) => (
               <div 
                 key={item.product.id}
@@ -49,12 +67,15 @@ export const CartPage = () => {
                   />
                 </Link>
                 <div className="flex-1 min-w-0">
-                  <Link 
-                    to={`/product/${item.product.id}`}
-                    className="font-medium hover:text-primary transition-colors line-clamp-2"
-                  >
-                    {item.product.name}
-                  </Link>
+                  <div className="flex flex-wrap items-start gap-2">
+                    <Link 
+                      to={`/product/${item.product.id}`}
+                      className="font-medium hover:text-primary transition-colors line-clamp-2"
+                    >
+                      {item.product.name}
+                    </Link>
+                    <DeliveryBadge availability={item.product.availability} />
+                  </div>
                   {item.selectedUpholstery && (
                     <p className="text-sm text-muted-foreground mt-1">
                       Обивка: {item.selectedUpholstery}
@@ -91,10 +112,16 @@ export const CartPage = () => {
                 </div>
               </div>
             ))}
+
+            {/* Related Products Slider */}
+            <RelatedProductsSlider cartItems={items} />
           </div>
 
           {/* Summary */}
           <div className="space-y-4">
+            {/* Wholesale Progress */}
+            <WholesaleProgress cartTotal={total} />
+
             {/* Delivery Calculator */}
             <DeliveryCalculator 
               cartTotal={total}
@@ -147,15 +174,39 @@ export const CartPage = () => {
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
+                
+                {/* B2B CTA */}
+                <Button 
+                  variant="outline" 
+                  className="w-full gap-2" 
+                  size="lg"
+                  onClick={() => setQuoteDialogOpen(true)}
+                >
+                  <FileText className="w-5 h-5" />
+                  Запросить КП (для юрлиц)
+                </Button>
+                <p className="text-xs text-muted-foreground text-center">
+                  Подготовим КП и варианты доставки за 15 минут в рабочее время
+                </p>
               </div>
 
               <p className="text-xs text-muted-foreground mt-4 text-center">
                 Окончательная стоимость будет подтверждена менеджером
               </p>
             </div>
+
+            {/* Trust Badges */}
+            <TrustBadges />
           </div>
         </div>
       </div>
+
+      {/* Quote Request Dialog */}
+      <QuoteRequestDialog 
+        open={quoteDialogOpen} 
+        onOpenChange={setQuoteDialogOpen}
+        productName={items.length > 1 ? `${items.length} товаров` : items[0]?.product.name}
+      />
     </div>
   );
 };
