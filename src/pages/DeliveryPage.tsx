@@ -14,7 +14,7 @@ const paymentMethods = [
   { icon: FileText, title: 'Счёт для юрлиц', desc: 'Безналичная оплата с НДС' },
   { icon: CreditCard, title: 'Банковская карта', desc: 'Visa, MasterCard, МИР' },
   { icon: CreditCard, title: 'QR-код', desc: 'Быстрая оплата через СБП' },
-  { icon: CreditCard, title: 'Наличные', desc: 'При самовывозе или доставке' },
+  { icon: CreditCard, title: 'Наличные', desc: 'При самовывозе' },
 ];
 
 const faqItems = [
