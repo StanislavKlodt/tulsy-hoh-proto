@@ -183,7 +183,7 @@ export const CartPage = () => {
                   onClick={() => setQuoteDialogOpen(true)}
                 >
                   <FileText className="w-5 h-5" />
-                  Запросить КП (для юрлиц)
+                  Запросить КП
                 </Button>
                 <p className="text-xs text-muted-foreground text-center">
                   Подготовим КП и варианты доставки за 15 минут в рабочее время
