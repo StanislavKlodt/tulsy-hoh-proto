@@ -257,7 +257,88 @@ export const CatalogPage = () => {
     podstolya: 'Чугунные и металлические подстолья для столов. Устойчивые основания под любой размер столешницы.' + customizationText,
   };
 
-  const pageTitle = selectedCategory 
+  // SEO links by category
+  const seoLinks: Record<string, { label: string; href: string }[]> = {
+    divany: [
+      { label: 'Все диваны', href: '/catalog/divany' },
+      { label: 'Диваны для ресторанов', href: '/catalog/divany' },
+      { label: 'Кожаные диваны', href: '/catalog/divany' },
+      { label: 'Модульные диваны', href: '/catalog/divany' },
+      { label: 'Диваны в стиле лофт', href: '/catalog/divany' },
+      { label: 'Диваны для кафе', href: '/catalog/divany' },
+      { label: 'Диваны для отелей', href: '/catalog/divany' },
+      { label: 'Диваны с велюровой обивкой', href: '/catalog/divany' },
+    ],
+    kresla: [
+      { label: 'Все кресла', href: '/catalog/kresla' },
+      { label: 'Кресла для лобби', href: '/catalog/kresla' },
+      { label: 'Поворотные кресла', href: '/catalog/kresla' },
+      { label: 'Лаунж-кресла', href: '/catalog/kresla' },
+      { label: 'Кресла для кафе', href: '/catalog/kresla' },
+      { label: 'Кресла в стиле модерн', href: '/catalog/kresla' },
+      { label: 'Кресла с велюровой обивкой', href: '/catalog/kresla' },
+    ],
+    stulya: [
+      { label: 'Все стулья', href: '/catalog/stulya' },
+      { label: 'Венские стулья', href: '/catalog/stulya' },
+      { label: 'Барные стулья', href: '/catalog/stulya' },
+      { label: 'Полубарные стулья', href: '/catalog/stulya' },
+      { label: 'Штабелируемые стулья', href: '/catalog/stulya' },
+      { label: 'Металлические стулья', href: '/catalog/stulya' },
+      { label: 'Деревянные стулья', href: '/catalog/stulya' },
+      { label: 'Мягкие стулья для ресторанов', href: '/catalog/stulya' },
+      { label: 'Стулья в стиле лофт', href: '/catalog/stulya' },
+    ],
+    stoly: [
+      { label: 'Все столы', href: '/catalog/stoly' },
+      { label: 'Круглые столы', href: '/catalog/stoly' },
+      { label: 'Прямоугольные столы', href: '/catalog/stoly' },
+      { label: 'Барные столы', href: '/catalog/stoly' },
+      { label: 'Столы для кафе', href: '/catalog/stoly' },
+      { label: 'Столы из массива дуба', href: '/catalog/stoly' },
+      { label: 'Столы на металлическом подстолье', href: '/catalog/stoly' },
+    ],
+    komplekty: [
+      { label: 'Все комплекты', href: '/catalog/komplekty' },
+      { label: 'Комплекты для кафе', href: '/catalog/komplekty' },
+      { label: 'Комплекты в стиле лофт', href: '/catalog/komplekty' },
+      { label: 'Классические комплекты', href: '/catalog/komplekty' },
+      { label: 'Комплект стол + стулья', href: '/catalog/komplekty' },
+    ],
+    stoleshnitsy: [
+      { label: 'Все столешницы', href: '/catalog/stoleshnitsy' },
+      { label: 'Столешницы ЛДСП', href: '/catalog/stoleshnitsy' },
+      { label: 'Столешницы из массива', href: '/catalog/stoleshnitsy' },
+      { label: 'Столешницы под дуб', href: '/catalog/stoleshnitsy' },
+      { label: 'Круглые столешницы', href: '/catalog/stoleshnitsy' },
+      { label: 'Квадратные столешницы', href: '/catalog/stoleshnitsy' },
+    ],
+    podstolya: [
+      { label: 'Все подстолья', href: '/catalog/podstolya' },
+      { label: 'Чугунные подстолья', href: '/catalog/podstolya' },
+      { label: 'Металлические подстолья', href: '/catalog/podstolya' },
+      { label: 'Подстолья для круглых столов', href: '/catalog/podstolya' },
+      { label: 'Подстолья Х-образные', href: '/catalog/podstolya' },
+      { label: 'Подстолья для барных столов', href: '/catalog/podstolya' },
+    ],
+  };
+  
+  const defaultSeoLinks = [
+    { label: 'Диваны для ресторанов', href: '/catalog/divany' },
+    { label: 'Стулья для кафе', href: '/catalog/stulya' },
+    { label: 'Барные стулья', href: '/catalog/stulya' },
+    { label: 'Кресла для лобби', href: '/catalog/kresla' },
+    { label: 'Столы для ресторанов', href: '/catalog/stoly' },
+    { label: 'Комплекты мебели', href: '/catalog/komplekty' },
+    { label: 'Столешницы ЛДСП', href: '/catalog/stoleshnitsy' },
+    { label: 'Чугунные подстолья', href: '/catalog/podstolya' },
+    { label: 'Мебель в стиле лофт', href: '/catalog' },
+    { label: 'Мебель для HoReCa', href: '/catalog' },
+  ];
+  
+  const currentSeoLinks = selectedCategory ? seoLinks[selectedCategory] || defaultSeoLinks : defaultSeoLinks;
+  
+  const pageTitle = selectedCategory
     ? categories.find(c => c.slug === selectedCategory)?.name || 'Каталог'
     : 'Мебель';
     
@@ -702,6 +783,26 @@ export const CatalogPage = () => {
               </Button>
             </div>
           )}
+        </div>
+      </section>
+
+      {/* SEO Links Section */}
+      <section className="py-8 border-t">
+        <div className="container-main">
+          <p className="text-xs text-muted-foreground uppercase tracking-wide mb-4">
+            Покупатели часто ищут
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {currentSeoLinks.map((link, index) => (
+              <Link
+                key={index}
+                to={link.href}
+                className="px-4 py-2 text-sm border border-border rounded-full hover:border-foreground transition-colors"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
