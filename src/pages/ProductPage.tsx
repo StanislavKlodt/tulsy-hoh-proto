@@ -8,8 +8,7 @@ import { QuoteRequestDialog } from '@/components/ui/QuoteRequestDialog';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { ConsultationForm } from '@/components/ui/ConsultationForm';
 import { CustomSizeDialog } from '@/components/ui/CustomSizeDialog';
-import { FabricSamplesDialog } from '@/components/ui/FabricSamplesDialog';
-import { ManagerVisitDialog } from '@/components/ui/ManagerVisitDialog';
+import { FabricHelpDialog } from '@/components/ui/FabricHelpDialog';
 
 import { getProductById, products } from '@/data/products';
 import { useCart } from '@/context/CartContext';
@@ -169,8 +168,7 @@ export const ProductPage = () => {
   const [quantity, setQuantity] = useState(1);
   const [quoteDialogOpen, setQuoteDialogOpen] = useState(false);
   const [customSizeDialogOpen, setCustomSizeDialogOpen] = useState(false);
-  const [fabricSamplesOpen, setFabricSamplesOpen] = useState(false);
-  const [managerVisitOpen, setManagerVisitOpen] = useState(false);
+  const [fabricHelpOpen, setFabricHelpOpen] = useState(false);
   const [platformFilter, setPlatformFilter] = useState<'all' | 'yandex' | '2gis'>('all');
   
 
@@ -386,28 +384,15 @@ export const ProductPage = () => {
               {/* Service Blocks */}
               <div className="mb-6 space-y-3">
                 <button
-                  onClick={() => setFabricSamplesOpen(true)}
+                  onClick={() => setFabricHelpOpen(true)}
                   className="w-full flex items-center gap-4 p-4 rounded-xl bg-primary/10 hover:bg-primary/15 transition-colors text-left"
                 >
                   <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
                     <Palette className="w-5 h-5 text-primary" />
                   </div>
                   <div>
-                    <p className="font-medium text-foreground">Закажите образцы тканей</p>
-                    <p className="text-sm text-muted-foreground">Выберите идеальный вариант обивки для вашей мебели</p>
-                  </div>
-                </button>
-
-                <button
-                  onClick={() => setManagerVisitOpen(true)}
-                  className="w-full flex items-center gap-4 p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors text-left"
-                >
-                  <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center shrink-0">
-                    <UserCheck className="w-5 h-5 text-muted-foreground" />
-                  </div>
-                  <div>
-                    <p className="font-medium text-foreground">Выезд менеджера с образцами ткани</p>
-                    <p className="text-sm text-muted-foreground">Для крупных проектов</p>
+                    <p className="font-medium text-foreground">Поможем выбрать ткань</p>
+                    <p className="text-sm text-muted-foreground">Отправим образцы или привезём на объект</p>
                   </div>
                 </button>
 
@@ -785,16 +770,10 @@ export const ProductPage = () => {
         productName={product.name}
       />
 
-      {/* Fabric Samples Dialog */}
-      <FabricSamplesDialog
-        open={fabricSamplesOpen}
-        onOpenChange={setFabricSamplesOpen}
-      />
-
-      {/* Manager Visit Dialog */}
-      <ManagerVisitDialog
-        open={managerVisitOpen}
-        onOpenChange={setManagerVisitOpen}
+      {/* Fabric Help Dialog */}
+      <FabricHelpDialog
+        open={fabricHelpOpen}
+        onOpenChange={setFabricHelpOpen}
       />
     </div>
   );
