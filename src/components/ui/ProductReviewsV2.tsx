@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import { Star, ChevronLeft, ChevronRight, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { WriteReviewDialog } from '@/components/ui/WriteReviewDialog';
 
 interface Review {
   id: number;
@@ -157,6 +158,7 @@ const reviewImages = productReviews.filter(r => r.image).map(r => r.image!);
 export const ProductReviewsV2 = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [showAll, setShowAll] = useState(false);
+  const [reviewDialogOpen, setReviewDialogOpen] = useState(false);
   const stripRef = useRef<HTMLDivElement>(null);
 
   const scrollStrip = (direction: 'left' | 'right') => {
@@ -286,6 +288,13 @@ export const ProductReviewsV2 = () => {
                 className="pl-9 pr-4 py-2 border rounded-lg text-sm bg-background focus:outline-none focus:ring-2 focus:ring-primary/20 w-[200px]"
               />
             </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setReviewDialogOpen(true)}
+            >
+              Оставить отзыв
+            </Button>
           </div>
         </div>
 
@@ -350,6 +359,11 @@ export const ProductReviewsV2 = () => {
             </button>
           </div>
         )}
+        <WriteReviewDialog
+          open={reviewDialogOpen}
+          onOpenChange={setReviewDialogOpen}
+          productName="Диван прямой Клаймар Velvet Beige"
+        />
       </div>
     </section>
   );
