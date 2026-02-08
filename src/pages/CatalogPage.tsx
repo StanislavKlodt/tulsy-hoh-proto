@@ -816,7 +816,7 @@ export const CatalogPage = () => {
             Ответьте на несколько вопросов — мы подготовим персональную подборку мебели для вашего заведения
           </p>
           <Button asChild size="lg">
-            <Link to="/quiz">Подобрать мебель под зал</Link>
+            <Link to="/quiz">Укомплектовать заведение</Link>
           </Button>
         </div>
       </section>

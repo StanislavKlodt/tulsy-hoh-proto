@@ -73,7 +73,7 @@ const benefits = [
   {
     id: 1,
     title: 'Проверено профессионалами',
-    description: 'Мебель, созданная с учётом практики и обратной связи от реальных клиентов — то, что работает в зале каждый день',
+    description: 'Мебель, созданная с учётом практики и обратной связи от реальных клиентов — то, что работает в заведении каждый день',
     image: '/images/benefits/provereno-professionalami.png',
     type: 'image' as const,
   },
@@ -609,7 +609,7 @@ export const ProductPage = () => {
       <section className="py-12 bg-primary/5">
         <div className="container-main text-center">
           <h3 className="text-2xl font-serif font-bold mb-4">
-            Получите подборку под ваш зал
+            Укомплектуем ваше заведение под ключ
           </h3>
           <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
             Ответьте на несколько вопросов — мы подготовим персональную подборку

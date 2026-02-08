@@ -84,7 +84,7 @@ export const ProjectsPage = () => {
             Получите подборку мебели и расчёт стоимости для вашего проекта
           </p>
           <Button asChild size="lg">
-            <Link to="/quiz">Подобрать мебель под зал</Link>
+            <Link to="/quiz">Укомплектовать заведение</Link>
           </Button>
         </div>
       </section>
