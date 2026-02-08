@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { Star, ChevronLeft, ChevronRight, Search } from 'lucide-react';
+import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { WriteReviewDialog } from '@/components/ui/WriteReviewDialog';
 
@@ -279,23 +279,13 @@ export const ProductReviewsV2 = () => {
           <p className="text-sm text-muted-foreground">
             Показано {Math.min(displayed.length, productReviews.length)} из {TOTAL_REVIEWS} отзывов
           </p>
-          <div className="flex items-center gap-3">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <input
-                type="text"
-                placeholder="Поиск по отзывам"
-                className="pl-9 pr-4 py-2 border rounded-lg text-sm bg-background focus:outline-none focus:ring-2 focus:ring-primary/20 w-[200px]"
-              />
-            </div>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setReviewDialogOpen(true)}
-            >
-              Оставить отзыв
-            </Button>
-          </div>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setReviewDialogOpen(true)}
+          >
+            Оставить отзыв
+          </Button>
         </div>
 
         {/* Reviews list */}
