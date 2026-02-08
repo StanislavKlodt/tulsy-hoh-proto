@@ -126,13 +126,13 @@ export const ProductReviews = () => {
             {reviewImages.map((img, i) => (
               <div
                 key={i}
-                className="w-[72px] h-[72px] rounded-lg overflow-hidden shrink-0 border"
+                className="w-[100px] h-[100px] md:w-[120px] md:h-[120px] rounded-lg overflow-hidden shrink-0 border"
               >
                 <img src={img} alt="" className="w-full h-full object-cover" />
               </div>
             ))}
             {TOTAL_REVIEWS - reviewImages.length > 0 && (
-              <div className="w-[72px] h-[72px] rounded-lg bg-foreground text-background flex items-center justify-center shrink-0 text-sm font-medium">
+              <div className="w-[100px] h-[100px] md:w-[120px] md:h-[120px] rounded-lg bg-foreground text-background flex items-center justify-center shrink-0 text-base font-medium">
                 +{TOTAL_REVIEWS - reviewImages.length}
               </div>
             )}
