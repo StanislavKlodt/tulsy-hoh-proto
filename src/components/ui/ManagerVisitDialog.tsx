@@ -19,6 +19,7 @@ export const ManagerVisitDialog = ({ open, onOpenChange }: ManagerVisitDialogPro
   const [address, setAddress] = useState('');
   const [comment, setComment] = useState('');
   const [consent, setConsent] = useState(false);
+  const [marketing, setMarketing] = useState(false);
 
   const handleSubmit = () => {
     if (!name || !phone) {
@@ -105,6 +106,17 @@ export const ManagerVisitDialog = ({ open, onOpenChange }: ManagerVisitDialogPro
             />
             <Label htmlFor="manager-consent" className="text-sm font-normal cursor-pointer">
               Даю <a href="#" className="text-primary underline">согласие</a> на обработку персональных данных
+            </Label>
+          </div>
+          <div className="flex items-start gap-3">
+            <Checkbox
+              id="manager-marketing"
+              checked={marketing}
+              onCheckedChange={(checked) => setMarketing(checked as boolean)}
+              className="mt-0.5"
+            />
+            <Label htmlFor="manager-marketing" className="text-sm font-normal cursor-pointer">
+              Я даю согласие на рекламную рассылку
             </Label>
           </div>
 
