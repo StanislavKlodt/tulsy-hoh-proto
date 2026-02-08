@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronRight, ChevronLeft, Check, Truck, FileText, UserCheck, Package, Shield, Clock, Palette, Scissors, Heart, Video } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+
 import { ProductCard } from '@/components/ui/ProductCard';
 import { QuoteRequestDialog } from '@/components/ui/QuoteRequestDialog';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
@@ -428,75 +428,45 @@ export const ProductPageV2 = () => {
         </div>
       </section>
 
-      {/* Tabs */}
+      {/* Description */}
+      <section className="pb-10">
+        <div className={containerClass}>
+          <h2 className="text-2xl font-serif font-bold mb-4">Описание</h2>
+          <div className="prose max-w-none">
+            <p className="text-foreground">{product.description}</p>
+            <p className="text-muted-foreground mt-4">
+              Мебель разработана специально для коммерческого использования в заведениях HoReCa.
+              Усиленный каркас, износостойкие материалы, удобная эргономика — всё для комфорта
+              ваших гостей и долгой службы.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Specs */}
       <section className="pb-16">
         <div className={containerClass}>
-          <Tabs defaultValue="description" className="w-full">
-            <TabsList className="w-full justify-start border-b rounded-none h-auto p-0 bg-transparent">
-              <TabsTrigger 
-                value="description"
-                className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent py-3"
-              >
-                Описание
-              </TabsTrigger>
-              <TabsTrigger 
-                value="specs"
-                className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent py-3"
-              >
-                Характеристики
-              </TabsTrigger>
-              <TabsTrigger 
-                value="delivery"
-                className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent py-3"
-              >
-                Доставка
-              </TabsTrigger>
-            </TabsList>
-            <TabsContent value="description" className="pt-6">
-              <div className="prose max-w-none">
-                <p className="text-foreground">{product.description}</p>
-                <p className="text-muted-foreground mt-4">
-                  Мебель разработана специально для коммерческого использования в заведениях HoReCa.
-                  Усиленный каркас, износостойкие материалы, удобная эргономика — всё для комфорта
-                  ваших гостей и долгой службы.
-                </p>
+          <h2 className="text-2xl font-serif font-bold mb-4">Характеристики</h2>
+          <dl className="grid sm:grid-cols-2 gap-4">
+            <div className="flex justify-between py-2 border-b">
+              <dt className="text-muted-foreground">Габариты</dt>
+              <dd className="font-medium">{product.dimensions}</dd>
+            </div>
+            <div className="flex justify-between py-2 border-b">
+              <dt className="text-muted-foreground">Материал каркаса</dt>
+              <dd className="font-medium">{product.material}</dd>
+            </div>
+            {product.upholstery && (
+              <div className="flex justify-between py-2 border-b">
+                <dt className="text-muted-foreground">Обивка</dt>
+                <dd className="font-medium">{product.upholstery}</dd>
               </div>
-            </TabsContent>
-            <TabsContent value="specs" className="pt-6">
-              <dl className="grid sm:grid-cols-2 gap-4">
-                <div className="flex justify-between py-2 border-b">
-                  <dt className="text-muted-foreground">Габариты</dt>
-                  <dd className="font-medium">{product.dimensions}</dd>
-                </div>
-                <div className="flex justify-between py-2 border-b">
-                  <dt className="text-muted-foreground">Материал каркаса</dt>
-                  <dd className="font-medium">{product.material}</dd>
-                </div>
-                {product.upholstery && (
-                  <div className="flex justify-between py-2 border-b">
-                    <dt className="text-muted-foreground">Обивка</dt>
-                    <dd className="font-medium">{product.upholstery}</dd>
-                  </div>
-                )}
-                <div className="flex justify-between py-2 border-b">
-                  <dt className="text-muted-foreground">Категория</dt>
-                  <dd className="font-medium">{product.category}</dd>
-                </div>
-              </dl>
-            </TabsContent>
-            <TabsContent value="delivery" className="pt-6">
-              <p className="text-foreground mb-4">
-                Доставка осуществляется транспортными компаниями, Яндекс Доставкой или партнёрами.
-              </p>
-              <p className="text-muted-foreground">
-                Стоимость доставки рассчитывается индивидуально в зависимости от региона и объёма заказа.
-                Менеджер поможет подобрать оптимальный вариант после оформления заявки.
-              </p>
-              <Link to="/delivery" className="text-primary hover:underline inline-block mt-4">
-                Подробнее о доставке →
-              </Link>
-            </TabsContent>
-          </Tabs>
+            )}
+            <div className="flex justify-between py-2 border-b">
+              <dt className="text-muted-foreground">Категория</dt>
+              <dd className="font-medium">{product.category}</dd>
+            </div>
+          </dl>
         </div>
       </section>
 
