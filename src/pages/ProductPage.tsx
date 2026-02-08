@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ChevronRight, ChevronLeft, Check, Truck, FileText, UserCheck, Star, Quote, Package, Shield, Clock, Palette, Scissors, Heart } from 'lucide-react';
+import { ChevronRight, ChevronLeft, Check, Truck, FileText, UserCheck, Star, Quote, Package, Shield, Clock, Palette, Scissors, Heart, ArrowRight, Video } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ProductCard } from '@/components/ui/ProductCard';
@@ -9,6 +9,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { ConsultationForm } from '@/components/ui/ConsultationForm';
 import { CustomSizeDialog } from '@/components/ui/CustomSizeDialog';
 import { FabricHelpDialog } from '@/components/ui/FabricHelpDialog';
+import { FabricConsultationDialog } from '@/components/ui/FabricConsultationDialog';
 
 import { getProductById, products } from '@/data/products';
 import { useCart } from '@/context/CartContext';
@@ -169,6 +170,7 @@ export const ProductPage = () => {
   const [quoteDialogOpen, setQuoteDialogOpen] = useState(false);
   const [customSizeDialogOpen, setCustomSizeDialogOpen] = useState(false);
   const [fabricHelpOpen, setFabricHelpOpen] = useState(false);
+  const [fabricConsultationOpen, setFabricConsultationOpen] = useState(false);
   const [platformFilter, setPlatformFilter] = useState<'all' | 'yandex' | '2gis'>('all');
   
 
@@ -394,6 +396,20 @@ export const ProductPage = () => {
                     <p className="font-medium text-foreground">Поможем выбрать ткань</p>
                     <p className="text-sm text-muted-foreground">Отправим образцы или привезём на объект</p>
                   </div>
+                </button>
+
+                <button
+                  onClick={() => setFabricConsultationOpen(true)}
+                  className="w-full flex items-center justify-between p-4 rounded-xl border hover:bg-muted/50 transition-colors text-left group"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="w-3 h-3 rounded-full bg-destructive shrink-0" />
+                    <div>
+                      <p className="font-medium text-foreground">Поможем подобрать ткань</p>
+                      <p className="text-sm text-muted-foreground">Отправим фото или видео в мессенджер</p>
+                    </div>
+                  </div>
+                  <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
                 </button>
 
                 <button
@@ -774,6 +790,12 @@ export const ProductPage = () => {
       <FabricHelpDialog
         open={fabricHelpOpen}
         onOpenChange={setFabricHelpOpen}
+      />
+
+      {/* Fabric Consultation Dialog */}
+      <FabricConsultationDialog
+        open={fabricConsultationOpen}
+        onOpenChange={setFabricConsultationOpen}
       />
     </div>
   );
