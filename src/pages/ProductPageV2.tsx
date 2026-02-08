@@ -176,6 +176,7 @@ export const ProductPageV2 = () => {
   };
 
   const images = [
+    '/images/products/sofa-v2-main.webp',
     product.image,
     product.image.replace('w=600', 'w=601'),
     product.image.replace('w=600', 'w=602'),
@@ -183,7 +184,6 @@ export const ProductPageV2 = () => {
     product.image.replace('w=600', 'w=604'),
     product.image.replace('w=600', 'w=605'),
     product.image.replace('w=600', 'w=606'),
-    product.image.replace('w=600', 'w=607'),
   ];
 
   const maxVisibleThumbs = 6;
