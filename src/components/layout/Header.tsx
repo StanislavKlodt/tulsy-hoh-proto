@@ -31,7 +31,11 @@ const cities = [
   'Другой город',
 ];
 
-export const Header = () => {
+interface HeaderProps {
+  containerClass?: string;
+}
+
+export const Header = ({ containerClass }: HeaderProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [cityOpen, setCityOpen] = useState(false);
   const [selectedCity, setSelectedCity] = useState('Москва');
@@ -58,7 +62,7 @@ export const Header = () => {
     <header className="sticky top-0 z-50 bg-card/95 backdrop-blur-md border-b border-border">
       {/* Top bar with city selector */}
       <div className="border-b border-border/50 bg-muted/30">
-        <div className="container-main">
+        <div className={containerClass || "container-main"}>
           <div className="flex items-center justify-between h-8 text-xs">
             {/* City selector */}
             <Popover open={cityOpen} onOpenChange={setCityOpen}>
@@ -100,7 +104,7 @@ export const Header = () => {
         </div>
       </div>
       
-      <div className="container-main">
+      <div className={containerClass || "container-main"}>
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
