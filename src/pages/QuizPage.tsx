@@ -110,7 +110,7 @@ export const QuizPage = () => {
       <section className="bg-foreground text-background py-16">
         <div className="container-main text-center">
           <h1 className="text-3xl md:text-4xl font-serif font-bold mb-4">
-            Подберём мебель под ваш зал
+            Укомплектуем ваше заведение под ключ
           </h1>
           <p className="text-background/70 max-w-2xl mx-auto">
             Ответьте на несколько вопросов — менеджер подготовит персональную подборку и рассчитает стоимость

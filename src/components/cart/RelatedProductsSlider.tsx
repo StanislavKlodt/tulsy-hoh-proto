@@ -97,7 +97,7 @@ export const RelatedProductsSlider = ({ cartItems }: RelatedProductsSliderProps)
         <div>
           <h2 className="text-xl font-semibold">С этим покупают</h2>
           <p className="text-sm text-muted-foreground mt-1">
-            Чаще всего берут вместе, чтобы укомплектовать зал
+            Чаще всего берут вместе, чтобы укомплектовать заведение
           </p>
         </div>
         <div className="flex gap-2">
