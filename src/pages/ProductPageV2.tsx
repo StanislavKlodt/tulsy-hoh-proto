@@ -181,6 +181,8 @@ export const ProductPageV2 = () => {
     product.image.replace('w=600', 'w=602'),
   ];
 
+  const containerClass = "max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-16";
+
   return (
     <div className="min-h-screen bg-background">
       {/* V2 Banner */}
@@ -190,7 +192,7 @@ export const ProductPageV2 = () => {
 
       {/* Breadcrumbs */}
       <div className="bg-muted/30 py-4">
-        <div className="container-main">
+        <div className={containerClass}>
           <nav className="flex items-center gap-2 text-sm text-muted-foreground flex-wrap">
             <Link to="/" className="hover:text-primary">Главная</Link>
             <ChevronRight className="w-4 h-4" />
@@ -207,7 +209,7 @@ export const ProductPageV2 = () => {
 
       {/* Main Product Section */}
       <section className="py-8 md:py-12">
-        <div className="container-main">
+        <div className={containerClass}>
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
             {/* Gallery */}
             <div>
@@ -404,7 +406,7 @@ export const ProductPageV2 = () => {
 
       {/* Tabs */}
       <section className="pb-16">
-        <div className="container-main">
+        <div className={containerClass}>
           <Tabs defaultValue="description" className="w-full">
             <TabsList className="w-full justify-start border-b rounded-none h-auto p-0 bg-transparent">
               <TabsTrigger 
@@ -479,7 +481,7 @@ export const ProductPageV2 = () => {
 
       {/* What You Get Section */}
       <section className="section-padding">
-        <div className="container-main">
+        <div className={containerClass}>
           <h2 className="text-2xl md:text-3xl font-serif font-bold mb-8">Что вы получаете</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:grid-rows-2">
@@ -541,7 +543,7 @@ export const ProductPageV2 = () => {
 
       {/* Consultation Form Section */}
       <section id="consultation-form-v2" className="section-padding">
-        <div className="container-main">
+        <div className={containerClass}>
           <div className="grid lg:grid-cols-2 gap-8 items-center">
             <div>
               <h2 className="text-2xl md:text-3xl font-serif font-bold mb-4">
@@ -567,7 +569,7 @@ export const ProductPageV2 = () => {
 
       {/* Tags */}
       <section className="py-8">
-        <div className="container-main">
+        <div className={containerClass}>
           <div className="flex flex-wrap items-center gap-4">
             <span className="text-sm text-muted-foreground">Идеально для:</span>
             {product.tags.map((tag) => (
@@ -582,7 +584,7 @@ export const ProductPageV2 = () => {
       {/* Related Products */}
       {relatedProducts.length > 0 && (
         <section className="section-padding bg-muted/30">
-          <div className="container-main">
+          <div className={containerClass}>
             <h2 className="text-2xl font-serif font-bold mb-6">С этим покупают</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {relatedProducts.map((p) => (
@@ -595,7 +597,7 @@ export const ProductPageV2 = () => {
 
       {/* Final CTA */}
       <section className="py-12 bg-primary/5">
-        <div className="container-main text-center">
+        <div className={`${containerClass} text-center`}>
           <h3 className="text-2xl font-serif font-bold mb-4">
             Получите подборку под ваш зал
           </h3>
