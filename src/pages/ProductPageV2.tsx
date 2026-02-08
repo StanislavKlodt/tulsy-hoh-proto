@@ -10,7 +10,7 @@ import { ConsultationForm } from '@/components/ui/ConsultationForm';
 import { CustomSizeDialog } from '@/components/ui/CustomSizeDialog';
 import { FabricHelpDialog } from '@/components/ui/FabricHelpDialog';
 import { FabricConsultationDialog } from '@/components/ui/FabricConsultationDialog';
-import { ProductReviews } from '@/components/ui/ProductReviews';
+import { ProductReviewsV2 } from '@/components/ui/ProductReviewsV2';
 
 import { getProductById, products } from '@/data/products';
 import { useCart } from '@/context/CartContext';
@@ -470,8 +470,22 @@ export const ProductPageV2 = () => {
         </div>
       </section>
 
+      {/* Related Products - moved up after specs */}
+      {relatedProducts.length > 0 && (
+        <section className="section-padding bg-muted/30">
+          <div className={containerClass}>
+            <h2 className="text-2xl font-serif font-bold mb-6">С этим покупают</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {relatedProducts.map((p) => (
+                <ProductCard key={p.id} product={p} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Product Reviews Section */}
-      <ProductReviews />
+      <ProductReviewsV2 />
 
       {/* What You Get Section */}
       <section className="section-padding">
@@ -575,19 +589,6 @@ export const ProductPageV2 = () => {
         </div>
       </section>
 
-      {/* Related Products */}
-      {relatedProducts.length > 0 && (
-        <section className="section-padding bg-muted/30">
-          <div className={containerClass}>
-            <h2 className="text-2xl font-serif font-bold mb-6">С этим покупают</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {relatedProducts.map((p) => (
-                <ProductCard key={p.id} product={p} />
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* Final CTA */}
       <section className="py-12 bg-primary/5">
