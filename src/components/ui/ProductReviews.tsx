@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -131,6 +131,16 @@ const avatarColors = [
 export const ProductReviews = () => {
   const [filter, setFilter] = useState<'all' | 'photo'>('all');
   const [currentPage, setCurrentPage] = useState(1);
+  const stripRef = useRef<HTMLDivElement>(null);
+
+  const scrollStrip = (direction: 'left' | 'right') => {
+    if (!stripRef.current) return;
+    const scrollAmount = 300;
+    stripRef.current.scrollBy({
+      left: direction === 'left' ? -scrollAmount : scrollAmount,
+      behavior: 'smooth',
+    });
+  };
 
   const filtered = filter === 'photo'
     ? productReviews.filter(r => r.image)
@@ -157,20 +167,38 @@ export const ProductReviews = () => {
 
         {/* Photo strip */}
         {reviewImages.length > 0 && (
-          <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
-            {reviewImages.map((img, i) => (
-              <div
-                key={i}
-                className="w-[100px] h-[100px] md:w-[120px] md:h-[120px] rounded-lg overflow-hidden shrink-0 border"
-              >
-                <img src={img} alt="" className="w-full h-full object-cover" />
-              </div>
-            ))}
-            {TOTAL_REVIEWS - reviewImages.length > 0 && (
-              <div className="w-[100px] h-[100px] md:w-[120px] md:h-[120px] rounded-lg bg-foreground text-background flex items-center justify-center shrink-0 text-base font-medium">
-                +{TOTAL_REVIEWS - reviewImages.length}
-              </div>
-            )}
+          <div className="relative group/strip mb-6">
+            <button
+              onClick={() => scrollStrip('left')}
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-8 h-8 bg-background/90 border rounded-full flex items-center justify-center shadow-md hover:bg-muted transition-colors opacity-0 group-hover/strip:opacity-100"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <div
+              ref={stripRef}
+              className="flex gap-2 overflow-x-auto scrollbar-hide"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            >
+              {reviewImages.map((img, i) => (
+                <div
+                  key={i}
+                  className="w-[100px] h-[100px] md:w-[120px] md:h-[120px] rounded-lg overflow-hidden shrink-0 border"
+                >
+                  <img src={img} alt="" className="w-full h-full object-cover" />
+                </div>
+              ))}
+              {TOTAL_REVIEWS - reviewImages.length > 0 && (
+                <div className="w-[100px] h-[100px] md:w-[120px] md:h-[120px] rounded-lg bg-foreground text-background flex items-center justify-center shrink-0 text-base font-medium">
+                  +{TOTAL_REVIEWS - reviewImages.length}
+                </div>
+              )}
+            </div>
+            <button
+              onClick={() => scrollStrip('right')}
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-8 h-8 bg-background/90 border rounded-full flex items-center justify-center shadow-md hover:bg-muted transition-colors opacity-0 group-hover/strip:opacity-100"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
           </div>
         )}
 
