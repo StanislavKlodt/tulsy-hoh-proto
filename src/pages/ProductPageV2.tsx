@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ChevronRight, ChevronLeft, Check, Truck, FileText, UserCheck, Package, Shield, Clock, Palette, Scissors, Heart, Video } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -104,7 +104,6 @@ const benefits = [
 ];
 
 export const ProductPageV2 = () => {
-  const { id } = useParams<{ id: string }>();
   const { addItem } = useCart();
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedFabric, setSelectedFabric] = useState(0);
@@ -115,7 +114,7 @@ export const ProductPageV2 = () => {
   const [fabricHelpOpen, setFabricHelpOpen] = useState(false);
   const [fabricConsultationOpen, setFabricConsultationOpen] = useState(false);
 
-  const product = getProductById(id || '');
+  const product = getProductById('sofa-1');
 
   if (!product) {
     return (
