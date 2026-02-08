@@ -20,6 +20,7 @@ import ProductionPage from "./pages/ProductionPage";
 import DeliveryPage from "./pages/DeliveryPage";
 import ContactsPage from "./pages/ContactsPage";
 import NotFound from "./pages/NotFound";
+import ProductPageV2 from "./pages/ProductPageV2";
 
 const queryClient = new QueryClient();
 
@@ -38,6 +39,7 @@ const App = () => (
               <Route path="/catalog/:slug" element={<CatalogPage />} />
               <Route path="/catalog/:slug/:subcategory" element={<CatalogPage />} />
               <Route path="/product/:id" element={<ProductPage />} />
+              <Route path="/product/:id/v2" element={<ProductPageV2 />} />
               <Route path="/cart" element={<CartPage />} />
               <Route path="/checkout" element={<CheckoutPage />} />
               <Route path="/quiz" element={<QuizPage />} />
