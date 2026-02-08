@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ChevronRight, ChevronLeft, Check, Truck, FileText, UserCheck, Star, Quote, Package, Shield, Clock, Palette } from 'lucide-react';
+import { ChevronRight, ChevronLeft, Check, Truck, FileText, UserCheck, Star, Quote, Package, Shield, Clock, Palette, Scissors, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ProductCard } from '@/components/ui/ProductCard';
@@ -8,6 +8,8 @@ import { QuoteRequestDialog } from '@/components/ui/QuoteRequestDialog';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { ConsultationForm } from '@/components/ui/ConsultationForm';
 import { CustomSizeDialog } from '@/components/ui/CustomSizeDialog';
+import { FabricSamplesDialog } from '@/components/ui/FabricSamplesDialog';
+import { ManagerVisitDialog } from '@/components/ui/ManagerVisitDialog';
 
 import { getProductById, products } from '@/data/products';
 import { useCart } from '@/context/CartContext';
@@ -167,6 +169,8 @@ export const ProductPage = () => {
   const [quantity, setQuantity] = useState(1);
   const [quoteDialogOpen, setQuoteDialogOpen] = useState(false);
   const [customSizeDialogOpen, setCustomSizeDialogOpen] = useState(false);
+  const [fabricSamplesOpen, setFabricSamplesOpen] = useState(false);
+  const [managerVisitOpen, setManagerVisitOpen] = useState(false);
   const [platformFilter, setPlatformFilter] = useState<'all' | 'yandex' | '2gis'>('all');
   
 
@@ -374,36 +378,78 @@ export const ProductPage = () => {
                     />
                   ))}
                 </div>
-                <button 
-                  onClick={() => document.getElementById('consultation-form')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="text-primary text-sm font-medium mt-3 hover:underline"
+                <p className="text-primary text-sm mt-3">
+                  Ещё 300+ вариантов тканей и материалов доступно для этой модели
+                </p>
+              </div>
+
+              {/* Service Blocks */}
+              <div className="mb-6 space-y-3">
+                <button
+                  onClick={() => setFabricSamplesOpen(true)}
+                  className="w-full flex items-center gap-4 p-4 rounded-xl bg-primary/10 hover:bg-primary/15 transition-colors text-left"
                 >
-                  Ещё 200+ вариантов — подобрать с менеджером
+                  <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
+                    <Palette className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <p className="font-medium text-foreground">Закажите образцы тканей</p>
+                    <p className="text-sm text-muted-foreground">Выберите идеальный вариант обивки для вашей мебели</p>
+                  </div>
+                </button>
+
+                <button
+                  onClick={() => setManagerVisitOpen(true)}
+                  className="w-full flex items-center gap-4 p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors text-left"
+                >
+                  <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center shrink-0">
+                    <UserCheck className="w-5 h-5 text-muted-foreground" />
+                  </div>
+                  <div>
+                    <p className="font-medium text-foreground">Выезд менеджера с образцами ткани</p>
+                    <p className="text-sm text-muted-foreground">Для крупных проектов</p>
+                  </div>
+                </button>
+
+                <button
+                  onClick={() => document.getElementById('consultation-form')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="w-full flex items-center gap-4 p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors text-left"
+                >
+                  <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center shrink-0">
+                    <Scissors className="w-5 h-5 text-muted-foreground" />
+                  </div>
+                  <div>
+                    <p className="font-medium text-foreground">Изготовление в ткани заказчика</p>
+                    <p className="text-sm text-muted-foreground">Предоставьте свой материал — мы сделаем мебель</p>
+                  </div>
                 </button>
               </div>
 
               {/* Quantity and CTA */}
-              <div className="flex flex-wrap gap-4 mb-8">
+              <div className="flex items-center gap-3">
                 <div className="flex items-center border rounded-lg">
                   <button
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="px-4 py-2 hover:bg-muted transition-colors"
+                    className="px-4 py-2.5 hover:bg-muted transition-colors"
                   >
                     −
                   </button>
-                  <span className="px-4 py-2 min-w-[50px] text-center">{quantity}</span>
+                  <span className="px-4 py-2.5 min-w-[50px] text-center">{quantity}</span>
                   <button
                     onClick={() => setQuantity(quantity + 1)}
-                    className="px-4 py-2 hover:bg-muted transition-colors"
+                    className="px-4 py-2.5 hover:bg-muted transition-colors"
                   >
                     +
                   </button>
                 </div>
-                <Button size="lg" onClick={handleAddToCart} className="flex-1 sm:flex-none">
+                <Button size="lg" onClick={handleAddToCart} className="flex-1">
                   {isCustomSize ? 'Запросить расчёт' : 'В корзину'}
                 </Button>
                 <Button variant="outline" size="lg" onClick={() => setQuoteDialogOpen(true)}>
                   Запросить КП
+                </Button>
+                <Button variant="outline" size="icon" className="h-10 w-10 shrink-0">
+                  <Heart className="w-5 h-5" />
                 </Button>
               </div>
 
@@ -737,6 +783,18 @@ export const ProductPage = () => {
         open={customSizeDialogOpen}
         onOpenChange={setCustomSizeDialogOpen}
         productName={product.name}
+      />
+
+      {/* Fabric Samples Dialog */}
+      <FabricSamplesDialog
+        open={fabricSamplesOpen}
+        onOpenChange={setFabricSamplesOpen}
+      />
+
+      {/* Manager Visit Dialog */}
+      <ManagerVisitDialog
+        open={managerVisitOpen}
+        onOpenChange={setManagerVisitOpen}
       />
     </div>
   );
