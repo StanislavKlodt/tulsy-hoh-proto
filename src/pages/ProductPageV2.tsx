@@ -218,45 +218,48 @@ export const ProductPageV2 = () => {
       {/* Main Product Section */}
       <section className="py-8 md:py-12">
         <div className={containerClass}>
-          <div className="grid lg:grid-cols-[auto_1fr_1fr] gap-6 lg:gap-8">
-            {/* Gallery - Wayfair style: thumbs left + big photo */}
-            <div className="flex lg:flex-col gap-2 order-2 lg:order-1 overflow-x-auto lg:overflow-y-auto lg:max-h-[700px]" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-              {images.slice(0, maxVisibleThumbs).map((img, i) => (
-                <button
-                  key={i}
-                  onClick={() => setSelectedImage(i)}
-                  className={`shrink-0 w-16 h-16 lg:w-[72px] lg:h-[72px] rounded-lg overflow-hidden border-2 transition-colors ${
-                    selectedImage === i ? 'border-primary' : 'border-border hover:border-muted-foreground'
-                  }`}
-                >
-                  <img src={img} alt="" className="w-full h-full object-cover" />
-                </button>
-              ))}
-              {remainingCount > 0 && (
-                <button
-                  onClick={() => setSelectedImage(maxVisibleThumbs)}
-                  className="shrink-0 w-16 h-16 lg:w-[72px] lg:h-[72px] rounded-lg overflow-hidden border-2 border-border hover:border-muted-foreground relative"
-                >
-                  <img src={images[maxVisibleThumbs]} alt="" className="w-full h-full object-cover" />
-                  <div className="absolute inset-0 bg-foreground/60 flex items-center justify-center">
-                    <span className="text-white text-xs font-medium">+{remainingCount}</span>
-                  </div>
-                </button>
-              )}
-            </div>
+          <div className="grid lg:grid-cols-[auto_1fr_1fr] gap-6 lg:gap-8 items-start">
+            {/* Gallery wrapper - sticky on desktop */}
+            <div className="contents lg:contents">
+              {/* Thumbs - sticky */}
+              <div className="flex lg:flex-col gap-2 order-2 lg:order-1 overflow-x-auto lg:overflow-y-auto lg:max-h-[700px] lg:sticky lg:top-[140px] lg:self-start" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+                {images.slice(0, maxVisibleThumbs).map((img, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setSelectedImage(i)}
+                    className={`shrink-0 w-16 h-16 lg:w-[72px] lg:h-[72px] rounded-lg overflow-hidden border-2 transition-colors ${
+                      selectedImage === i ? 'border-primary' : 'border-border hover:border-muted-foreground'
+                    }`}
+                  >
+                    <img src={img} alt="" className="w-full h-full object-cover" />
+                  </button>
+                ))}
+                {remainingCount > 0 && (
+                  <button
+                    onClick={() => setSelectedImage(maxVisibleThumbs)}
+                    className="shrink-0 w-16 h-16 lg:w-[72px] lg:h-[72px] rounded-lg overflow-hidden border-2 border-border hover:border-muted-foreground relative"
+                  >
+                    <img src={images[maxVisibleThumbs]} alt="" className="w-full h-full object-cover" />
+                    <div className="absolute inset-0 bg-foreground/60 flex items-center justify-center">
+                      <span className="text-white text-xs font-medium">+{remainingCount}</span>
+                    </div>
+                  </button>
+                )}
+              </div>
 
-            {/* Main image */}
-            <div className="order-1 lg:order-2">
-              <div className="aspect-square rounded-xl overflow-hidden">
-                <img
-                  src={images[selectedImage]}
-                  alt={product.name}
-                  className="w-full h-full object-cover"
-                />
+              {/* Main image - sticky */}
+              <div className="order-1 lg:order-2 lg:sticky lg:top-[140px] lg:self-start">
+                <div className="aspect-square rounded-xl overflow-hidden">
+                  <img
+                    src={images[selectedImage]}
+                    alt={product.name}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               </div>
             </div>
 
-            {/* Product Info */}
+            {/* Product Info - scrolls naturally */}
             <div className="order-3">
               <h1 className="text-2xl md:text-3xl font-serif font-bold mb-4">
                 {product.name}
