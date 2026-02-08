@@ -400,16 +400,15 @@ export const ProductPage = () => {
 
                 <button
                   onClick={() => setFabricConsultationOpen(true)}
-                  className="w-full flex items-center justify-between p-4 rounded-xl border hover:bg-muted/50 transition-colors text-left group"
+                  className="w-full flex items-center gap-4 p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors text-left"
                 >
-                  <div className="flex items-center gap-3">
-                    <span className="w-3 h-3 rounded-full bg-destructive shrink-0" />
-                    <div>
-                      <p className="font-medium text-foreground">Поможем подобрать ткань</p>
-                      <p className="text-sm text-muted-foreground">Отправим фото или видео в мессенджер</p>
-                    </div>
+                  <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center shrink-0">
+                    <Video className="w-5 h-5 text-muted-foreground" />
                   </div>
-                  <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
+                  <div>
+                    <p className="font-medium text-foreground">Поможем подобрать ткань</p>
+                    <p className="text-sm text-muted-foreground">Отправим фото или видео в мессенджер</p>
+                  </div>
                 </button>
 
                 <button
