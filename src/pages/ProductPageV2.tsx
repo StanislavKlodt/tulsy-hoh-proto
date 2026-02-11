@@ -262,7 +262,7 @@ export const ProductPageV2 = () => {
       {/* Main Product Section */}
       <section className="py-8 md:py-12">
         <div className={containerClass}>
-          <div className="grid lg:grid-cols-[auto_1fr_1fr] gap-6 lg:gap-8 items-start">
+          <div className="grid lg:grid-cols-[auto_3fr_2fr] gap-6 lg:gap-8 items-start">
             {/* Gallery wrapper - sticky on desktop */}
             <div className="contents lg:contents">
               {/* Thumbs - sticky */}
