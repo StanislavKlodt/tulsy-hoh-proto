@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronRight, ChevronLeft, Check, Truck, FileText, UserCheck, Package, Shield, Clock, Palette, Scissors, Heart, Video } from 'lucide-react';
+import { ChevronRight, ChevronLeft, Check, Truck, FileText, UserCheck, Package, Shield, Clock, Palette, Scissors, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
@@ -157,6 +157,20 @@ export const ProductPageV2 = () => {
   const [customSizeDialogOpen, setCustomSizeDialogOpen] = useState(false);
   const [fabricHelpOpen, setFabricHelpOpen] = useState(false);
   const [fabricConsultationOpen, setFabricConsultationOpen] = useState(false);
+  const [fabricSectionOpen, setFabricSectionOpen] = useState(true);
+  const mainImageRef = useRef<HTMLDivElement>(null);
+  const [mainImageHeight, setMainImageHeight] = useState<number | undefined>(undefined);
+
+  useEffect(() => {
+    const updateHeight = () => {
+      if (mainImageRef.current) {
+        setMainImageHeight(mainImageRef.current.offsetHeight);
+      }
+    };
+    updateHeight();
+    window.addEventListener('resize', updateHeight);
+    return () => window.removeEventListener('resize', updateHeight);
+  }, [selectedImage]);
 
   const product = getProductById('sofa-1');
 
@@ -266,7 +280,7 @@ export const ProductPageV2 = () => {
             {/* Gallery wrapper - sticky on desktop */}
             <div className="contents lg:contents">
               {/* Thumbs - sticky */}
-              <div className="flex lg:flex-col gap-2 order-2 lg:order-1 overflow-x-auto lg:overflow-y-auto lg:max-h-[700px] lg:sticky lg:top-[140px] lg:self-start" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+              <div className="flex lg:flex-col gap-2 order-2 lg:order-1 overflow-x-auto lg:overflow-y-auto lg:sticky lg:top-[140px] lg:self-start" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', maxHeight: mainImageHeight ? `${mainImageHeight}px` : undefined }}>
                 {images.slice(0, maxVisibleThumbs).map((img, i) => (
                   <button
                     key={i}
@@ -292,7 +306,7 @@ export const ProductPageV2 = () => {
               </div>
 
               {/* Main image - sticky */}
-              <div className="order-1 lg:order-2 lg:sticky lg:top-[140px] lg:self-start">
+              <div className="order-1 lg:order-2 lg:sticky lg:top-[140px] lg:self-start" ref={mainImageRef}>
                 <div className="aspect-[3/2] rounded-xl overflow-hidden">
                   <img
                     src={images[selectedImage]}
@@ -376,46 +390,56 @@ export const ProductPageV2 = () => {
                 </div>
               </div>
 
-              {/* Fabric selection - divan.ru style */}
+              {/* Fabric selection - collapsible divan.ru style */}
               <div className="mb-6 border rounded-xl">
-                <div className="p-4 border-b flex items-center justify-between">
+                <button
+                  onClick={() => setFabricSectionOpen(!fabricSectionOpen)}
+                  className="w-full p-4 flex items-center justify-between hover:bg-muted/30 transition-colors rounded-t-xl"
+                >
                   <span className="font-medium">Выбор ткани ({fabricSwatches.length})</span>
-                  <span className="text-sm text-muted-foreground">{fabricSwatches[selectedFabric].name}</span>
-                </div>
-                <div className="p-4 space-y-6">
-                  {fabricCategories.map((category) => (
-                    <div key={category.name}>
-                      <h5 className="text-sm font-semibold text-muted-foreground mb-3">{category.name}</h5>
-                      <div className="grid grid-cols-4 sm:grid-cols-6 gap-3">
-                        {category.swatches.map((swatch) => {
-                          const globalIndex = fabricSwatches.findIndex(s => s.name === swatch.name);
-                          return (
-                            <button
-                              key={swatch.name}
-                              onClick={() => setSelectedFabric(globalIndex)}
-                              className={`flex flex-col items-center gap-1.5 group`}
-                            >
-                              <div
-                                className={`w-14 h-14 rounded-md border-2 transition-all ${
-                                  selectedFabric === globalIndex ? 'border-foreground ring-1 ring-foreground' : 'border-border group-hover:border-muted-foreground'
-                                }`}
-                                style={{ backgroundColor: swatch.color }}
-                              />
-                              <span className="text-[11px] text-muted-foreground text-center leading-tight line-clamp-2">
-                                {swatch.name.replace(/^(Велюр|Рогожка|Экокожа)\s/, '')}
-                              </span>
-                            </button>
-                          );
-                        })}
-                      </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm text-muted-foreground">{fabricSwatches[selectedFabric].name}</span>
+                    <ChevronRight className={`w-4 h-4 text-muted-foreground transition-transform ${fabricSectionOpen ? 'rotate-90' : ''}`} />
+                  </div>
+                </button>
+                {fabricSectionOpen && (
+                  <>
+                    <div className="p-4 border-t space-y-6">
+                      {fabricCategories.map((category) => (
+                        <div key={category.name}>
+                          <h5 className="text-sm font-semibold text-muted-foreground mb-3">{category.name}</h5>
+                          <div className="grid grid-cols-4 sm:grid-cols-6 gap-3">
+                            {category.swatches.map((swatch) => {
+                              const globalIndex = fabricSwatches.findIndex(s => s.name === swatch.name);
+                              return (
+                                <button
+                                  key={swatch.name}
+                                  onClick={() => setSelectedFabric(globalIndex)}
+                                  className={`flex flex-col items-center gap-1.5 group`}
+                                >
+                                  <div
+                                    className={`w-14 h-14 rounded-md border-2 transition-all ${
+                                      selectedFabric === globalIndex ? 'border-foreground ring-1 ring-foreground' : 'border-border group-hover:border-muted-foreground'
+                                    }`}
+                                    style={{ backgroundColor: swatch.color }}
+                                  />
+                                  <span className="text-[11px] text-muted-foreground text-center leading-tight line-clamp-2">
+                                    {swatch.name.replace(/^(Велюр|Рогожка|Экокожа)\s/, '')}
+                                  </span>
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-                <div className="px-4 pb-4">
-                  <p className="text-primary text-sm">
-                    Ещё 300+ вариантов тканей и материалов доступно для этой модели
-                  </p>
-                </div>
+                    <div className="px-4 pb-4">
+                      <p className="text-primary text-sm">
+                        Ещё 300+ вариантов тканей и материалов доступно для этой модели
+                      </p>
+                    </div>
+                  </>
+                )}
               </div>
 
               {/* Service Blocks */}
@@ -428,21 +452,8 @@ export const ProductPageV2 = () => {
                     <Palette className="w-5 h-5 text-primary" />
                   </div>
                   <div>
-                    <p className="font-medium text-foreground">Поможем выбрать ткань</p>
-                    <p className="text-sm text-muted-foreground">Отправим образцы или привезём на объект</p>
-                  </div>
-                </button>
-
-                <button
-                  onClick={() => setFabricConsultationOpen(true)}
-                  className="w-full flex items-center gap-4 p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors text-left"
-                >
-                  <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center shrink-0">
-                    <Video className="w-5 h-5 text-muted-foreground" />
-                  </div>
-                  <div>
                     <p className="font-medium text-foreground">Поможем подобрать ткань</p>
-                    <p className="text-sm text-muted-foreground">Отправим фото или видео в мессенджер</p>
+                    <p className="text-sm text-muted-foreground">Отправим фото или видео в мессенджер, при необходимости привезём каталог тканей</p>
                   </div>
                 </button>
 
