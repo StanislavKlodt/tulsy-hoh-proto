@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import logoTulsy from '@/assets/logo-tulsy.png';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Search, Heart, ShoppingCart, Phone, Send, MapPin, ChevronDown, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -108,7 +109,7 @@ export const Header = ({ containerClass }: HeaderProps) => {
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
-            <span className="text-2xl md:text-3xl font-serif font-bold text-foreground">TULSY</span>
+            <img src={logoTulsy} alt="TULSY — Мебель для кафе" className="h-10 md:h-12 w-auto" />
           </Link>
 
           {/* Desktop Navigation */}
