@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import logoTulsy from '@/assets/logo-tulsy.png';
 import { Phone, Send, Mail, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -96,7 +97,7 @@ export const Footer = () => {
             <Link to="/partners-list" className="hover:text-background transition-colors">Перечень партнеров ПД</Link>
           </div>
           <div className="flex justify-center items-center gap-2">
-            <span className="text-xl font-serif font-bold text-background">TULSY</span>
+            <img src={logoTulsy} alt="TULSY" className="h-8 w-auto invert" />
             <span>© 2025 Все права защищены</span>
           </div>
         </div>
