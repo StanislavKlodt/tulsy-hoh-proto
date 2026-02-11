@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronRight, ChevronLeft, Check, Truck, FileText, UserCheck, Package, Shield, Clock, Palette, Scissors, Heart, Video } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 import { ProductCard } from '@/components/ui/ProductCard';
 import { QuoteRequestDialog } from '@/components/ui/QuoteRequestDialog';
@@ -16,13 +17,56 @@ import { getProductById, products } from '@/data/products';
 import { useCart } from '@/context/CartContext';
 import { toast } from 'sonner';
 
-const fabricSwatches = [
-  { name: 'Велюр серый', color: '#6B7280' },
-  { name: 'Велюр зелёный', color: '#065F46' },
-  { name: 'Рогожка бежевая', color: '#D4B896' },
-  { name: 'Эко-кожа чёрная', color: '#1F2937' },
-  { name: 'Эко-кожа коричневая', color: '#78350F' },
+interface FabricSwatch {
+  name: string;
+  color: string;
+}
+
+interface FabricCategory {
+  name: string;
+  swatches: FabricSwatch[];
+}
+
+const fabricCategories: FabricCategory[] = [
+  {
+    name: 'Стандарт',
+    swatches: [
+      { name: 'Рогожка серая', color: '#9CA3AF' },
+      { name: 'Рогожка бежевая', color: '#D4B896' },
+      { name: 'Рогожка тёмно-серая', color: '#4B5563' },
+      { name: 'Рогожка оливковая', color: '#6B7F3A' },
+      { name: 'Рогожка песочная', color: '#C2A97E' },
+      { name: 'Рогожка графит', color: '#374151' },
+    ],
+  },
+  {
+    name: 'Велюр',
+    swatches: [
+      { name: 'Велюр серый', color: '#6B7280' },
+      { name: 'Велюр зелёный', color: '#065F46' },
+      { name: 'Велюр синий', color: '#1E3A5F' },
+      { name: 'Велюр терракотовый', color: '#A0522D' },
+      { name: 'Велюр пудровый', color: '#D4A5A5' },
+      { name: 'Велюр графитовый', color: '#2D3748' },
+      { name: 'Велюр оливковый', color: '#556B2F' },
+      { name: 'Велюр дымчатый', color: '#708090' },
+    ],
+  },
+  {
+    name: 'Экокожа',
+    swatches: [
+      { name: 'Экокожа чёрная', color: '#1F2937' },
+      { name: 'Экокожа коричневая', color: '#78350F' },
+      { name: 'Экокожа белая', color: '#F5F5F0' },
+      { name: 'Экокожа бежевая', color: '#C8B08C' },
+      { name: 'Экокожа серая', color: '#6B7280' },
+      { name: 'Экокожа тёмно-коричневая', color: '#3E2723' },
+    ],
+  },
 ];
+
+// Flatten for backward compat
+const fabricSwatches = fabricCategories.flatMap(c => c.swatches);
 
 interface SizeOption {
   id: string;
@@ -249,7 +293,7 @@ export const ProductPageV2 = () => {
 
               {/* Main image - sticky */}
               <div className="order-1 lg:order-2 lg:sticky lg:top-[140px] lg:self-start">
-                <div className="aspect-square rounded-xl overflow-hidden">
+                <div className="aspect-[3/2] rounded-xl overflow-hidden">
                   <img
                     src={images[selectedImage]}
                     alt={product.name}
@@ -332,25 +376,46 @@ export const ProductPageV2 = () => {
                 </div>
               </div>
 
-              {/* Fabric selection */}
-              <div className="mb-6">
-                <h4 className="font-medium mb-3">Обивка: {fabricSwatches[selectedFabric].name}</h4>
-                <div className="flex gap-2 flex-wrap">
-                  {fabricSwatches.map((swatch, i) => (
-                    <button
-                      key={swatch.name}
-                      onClick={() => setSelectedFabric(i)}
-                      className={`w-10 h-10 rounded-full border-2 transition-all ${
-                        selectedFabric === i ? 'border-primary ring-2 ring-primary/20' : 'border-border'
-                      }`}
-                      style={{ backgroundColor: swatch.color }}
-                      title={swatch.name}
-                    />
+              {/* Fabric selection - divan.ru style */}
+              <div className="mb-6 border rounded-xl">
+                <div className="p-4 border-b flex items-center justify-between">
+                  <span className="font-medium">Выбор ткани ({fabricSwatches.length})</span>
+                  <span className="text-sm text-muted-foreground">{fabricSwatches[selectedFabric].name}</span>
+                </div>
+                <div className="p-4 space-y-6">
+                  {fabricCategories.map((category) => (
+                    <div key={category.name}>
+                      <h5 className="text-sm font-semibold text-muted-foreground mb-3">{category.name}</h5>
+                      <div className="grid grid-cols-4 sm:grid-cols-6 gap-3">
+                        {category.swatches.map((swatch) => {
+                          const globalIndex = fabricSwatches.findIndex(s => s.name === swatch.name);
+                          return (
+                            <button
+                              key={swatch.name}
+                              onClick={() => setSelectedFabric(globalIndex)}
+                              className={`flex flex-col items-center gap-1.5 group`}
+                            >
+                              <div
+                                className={`w-14 h-14 rounded-md border-2 transition-all ${
+                                  selectedFabric === globalIndex ? 'border-foreground ring-1 ring-foreground' : 'border-border group-hover:border-muted-foreground'
+                                }`}
+                                style={{ backgroundColor: swatch.color }}
+                              />
+                              <span className="text-[11px] text-muted-foreground text-center leading-tight line-clamp-2">
+                                {swatch.name.replace(/^(Велюр|Рогожка|Экокожа)\s/, '')}
+                              </span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
                   ))}
                 </div>
-                <p className="text-primary text-sm mt-3">
-                  Ещё 300+ вариантов тканей и материалов доступно для этой модели
-                </p>
+                <div className="px-4 pb-4">
+                  <p className="text-primary text-sm">
+                    Ещё 300+ вариантов тканей и материалов доступно для этой модели
+                  </p>
+                </div>
               </div>
 
               {/* Service Blocks */}
@@ -428,45 +493,57 @@ export const ProductPageV2 = () => {
         </div>
       </section>
 
-      {/* Description */}
-      <section className="pb-10">
-        <div className={containerClass}>
-          <h2 className="text-2xl font-serif font-bold mb-4">Описание</h2>
-          <div className="prose max-w-none">
-            <p className="text-foreground">{product.description}</p>
-            <p className="text-muted-foreground mt-4">
-              Мебель разработана специально для коммерческого использования в заведениях HoReCa.
-              Усиленный каркас, износостойкие материалы, удобная эргономика — всё для комфорта
-              ваших гостей и долгой службы.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Specs */}
+      {/* Description & Specs as Tabs */}
       <section className="pb-16">
         <div className={containerClass}>
-          <h2 className="text-2xl font-serif font-bold mb-4">Характеристики</h2>
-          <dl className="grid sm:grid-cols-2 gap-4">
-            <div className="flex justify-between py-2 border-b">
-              <dt className="text-muted-foreground">Габариты</dt>
-              <dd className="font-medium">{product.dimensions}</dd>
-            </div>
-            <div className="flex justify-between py-2 border-b">
-              <dt className="text-muted-foreground">Материал каркаса</dt>
-              <dd className="font-medium">{product.material}</dd>
-            </div>
-            {product.upholstery && (
-              <div className="flex justify-between py-2 border-b">
-                <dt className="text-muted-foreground">Обивка</dt>
-                <dd className="font-medium">{product.upholstery}</dd>
+          <Tabs defaultValue="description" className="w-full">
+            <TabsList className="w-full justify-start bg-transparent border-b rounded-none h-auto p-0 gap-0">
+              <TabsTrigger 
+                value="description" 
+                className="rounded-none border-b-2 border-transparent data-[state=active]:border-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none px-6 py-3 text-base font-medium"
+              >
+                Описание
+              </TabsTrigger>
+              <TabsTrigger 
+                value="specs" 
+                className="rounded-none border-b-2 border-transparent data-[state=active]:border-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none px-6 py-3 text-base font-medium"
+              >
+                Характеристики
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value="description" className="mt-6">
+              <div className="prose max-w-none">
+                <p className="text-foreground">{product.description}</p>
+                <p className="text-muted-foreground mt-4">
+                  Мебель разработана специально для коммерческого использования в заведениях HoReCa.
+                  Усиленный каркас, износостойкие материалы, удобная эргономика — всё для комфорта
+                  ваших гостей и долгой службы.
+                </p>
               </div>
-            )}
-            <div className="flex justify-between py-2 border-b">
-              <dt className="text-muted-foreground">Категория</dt>
-              <dd className="font-medium">{product.category}</dd>
-            </div>
-          </dl>
+            </TabsContent>
+            <TabsContent value="specs" className="mt-6">
+              <dl className="grid sm:grid-cols-2 gap-4">
+                <div className="flex justify-between py-2 border-b">
+                  <dt className="text-muted-foreground">Габариты</dt>
+                  <dd className="font-medium">{product.dimensions}</dd>
+                </div>
+                <div className="flex justify-between py-2 border-b">
+                  <dt className="text-muted-foreground">Материал каркаса</dt>
+                  <dd className="font-medium">{product.material}</dd>
+                </div>
+                {product.upholstery && (
+                  <div className="flex justify-between py-2 border-b">
+                    <dt className="text-muted-foreground">Обивка</dt>
+                    <dd className="font-medium">{product.upholstery}</dd>
+                  </div>
+                )}
+                <div className="flex justify-between py-2 border-b">
+                  <dt className="text-muted-foreground">Категория</dt>
+                  <dd className="font-medium">{product.category}</dd>
+                </div>
+              </dl>
+            </TabsContent>
+          </Tabs>
         </div>
       </section>
 
