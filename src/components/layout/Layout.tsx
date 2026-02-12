@@ -7,7 +7,7 @@ interface LayoutProps {
   children: ReactNode;
 }
 
-const WIDE_ROUTES = ['/product/sofa-1/v2'];
+const WIDE_ROUTES = ['/product/'];
 const WIDE_CONTAINER = "max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-16";
 
 export const Layout = ({ children }: LayoutProps) => {
