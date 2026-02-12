@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { ChevronRight, ChevronLeft, Check, Truck, FileText, UserCheck, Package, Shield, Clock, Palette, Scissors, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -148,6 +148,7 @@ const benefits = [
 ];
 
 export const ProductPageV2 = () => {
+  const { id } = useParams<{ id: string }>();
   const { addItem } = useCart();
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedFabric, setSelectedFabric] = useState(0);
@@ -172,7 +173,7 @@ export const ProductPageV2 = () => {
     return () => window.removeEventListener('resize', updateHeight);
   }, [selectedImage]);
 
-  const product = getProductById('sofa-1');
+  const product = getProductById(id || '');
 
   if (!product) {
     return (
@@ -234,7 +235,6 @@ export const ProductPageV2 = () => {
   };
 
   const images = [
-    '/images/products/sofa-v2-main.webp',
     product.image,
     product.image.replace('w=600', 'w=601'),
     product.image.replace('w=600', 'w=602'),
@@ -251,11 +251,6 @@ export const ProductPageV2 = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* V2 Banner */}
-      <div className="bg-amber-500 text-white text-center py-2 text-sm font-medium">
-        ⚡ Вариант V2 — альтернативный дизайн карточки товара
-      </div>
-
       {/* Breadcrumbs */}
       <div className="bg-muted/30 py-4">
         <div className={containerClass}>
