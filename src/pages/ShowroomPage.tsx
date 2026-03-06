@@ -83,10 +83,10 @@ export const ShowroomPage = () => {
                 </div>
                 <div className="border-t pt-4">
                   <a 
-                    href="tel:+74951234567" 
+                    href="tel:+79269890852" 
                     className="text-primary font-medium hover:underline"
                   >
-                    +7 (495) 123-45-67
+                    +7 (926) 989-08-52
                   </a>
                 </div>
               </div>

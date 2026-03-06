@@ -199,11 +199,11 @@ export const Header = ({ containerClass }: HeaderProps) => {
                   ))}
                   <hr className="my-4" />
                   <a 
-                    href="tel:+74951234567" 
+                    href="tel:+79269890852" 
                     className="flex items-center gap-2 text-foreground hover:text-primary"
                   >
                     <Phone className="w-5 h-5" />
-                    +7 (495) 123-45-67
+                    +7 (926) 989-08-52
                   </a>
                   <a 
                     href="https://t.me/tulsy" 
