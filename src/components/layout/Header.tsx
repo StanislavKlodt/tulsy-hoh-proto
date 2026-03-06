@@ -97,8 +97,8 @@ export const Header = ({ containerClass }: HeaderProps) => {
             {/* Quick info */}
             <div className="hidden sm:flex items-center gap-4 text-muted-foreground">
               <span>Шоурум: ежедневно 10:00–18:00</span>
-              <a href="tel:+74951234567" className="hover:text-foreground transition-colors">
-                +7 (495) 123-45-67
+              <a href="tel:+79269890852" className="hover:text-foreground transition-colors">
+                +7 (926) 989-08-52
               </a>
             </div>
           </div>
