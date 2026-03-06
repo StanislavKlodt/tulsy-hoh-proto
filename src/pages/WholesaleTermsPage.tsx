@@ -138,7 +138,8 @@ export const WholesaleTermsPage = () => {
 
         <div className="border-t pt-6 text-xs text-muted-foreground text-center">
           <p>
-            Настоящие условия являются публичной офертой в соответствии со ст. 437 ГК РФ.
+            Настоящий документ носит исключительно информационный характер и не является
+            публичной офертой в соответствии со ст. 437 ГК РФ.
           </p>
           <p className="mt-2">
             <Link to="/catalog" className="text-primary hover:underline">
