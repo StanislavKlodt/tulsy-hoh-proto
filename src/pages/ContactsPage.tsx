@@ -27,7 +27,7 @@ export const ContactsPage = () => {
               
               <div className="space-y-6">
                 <a 
-                  href="tel:+74951234567"
+                  href="tel:+79269890852"
                   className="flex items-start gap-4 p-4 bg-card rounded-xl border hover:border-primary/50 transition-colors"
                 >
                   <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
