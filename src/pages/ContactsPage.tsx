@@ -35,7 +35,7 @@ export const ContactsPage = () => {
                   </div>
                   <div>
                     <h3 className="font-medium">Телефон</h3>
-                    <p className="text-lg">+7 (495) 123-45-67</p>
+                    <p className="text-lg">+7 (926) 989-08-52</p>
                     <p className="text-sm text-muted-foreground">Ежедневно с 10:00 до 18:00</p>
                   </div>
                 </a>
