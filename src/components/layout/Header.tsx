@@ -133,11 +133,11 @@ export const Header = ({ containerClass }: HeaderProps) => {
           <div className="flex items-center gap-2 md:gap-4">
             {/* Phone - desktop only */}
             <a 
-              href="tel:+74951234567" 
+              href="tel:+79269890852" 
               className="hidden xl:flex items-center gap-2 text-sm font-medium text-foreground hover:text-primary transition-colors"
             >
               <Phone className="w-4 h-4" />
-              +7 (495) 123-45-67
+              +7 (926) 989-08-52
             </a>
 
             {/* Messengers */}
