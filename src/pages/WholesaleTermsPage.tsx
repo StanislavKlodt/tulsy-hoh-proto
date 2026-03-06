@@ -125,12 +125,12 @@ export const WholesaleTermsPage = () => {
             <p>
               5.2. По вопросам, связанным с расчётом скидок, вы можете обратиться к нашим
               менеджерам по телефону{' '}
-              <a href="tel:+74951234567" className="text-primary hover:underline">
-                +7 (495) 123-45-67
+              <a href="tel:+79269890852" className="text-primary hover:underline">
+                +7 (926) 989-08-52
               </a>{' '}
               или по электронной почте{' '}
-              <a href="mailto:info@tulsy.ru" className="text-primary hover:underline">
-                info@tulsy.ru
+              <a href="mailto:info@tecona.ru" className="text-primary hover:underline">
+                info@tecona.ru
               </a>.
             </p>
           </div>

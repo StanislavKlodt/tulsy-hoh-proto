@@ -97,8 +97,8 @@ export const Header = ({ containerClass }: HeaderProps) => {
             {/* Quick info */}
             <div className="hidden sm:flex items-center gap-4 text-muted-foreground">
               <span>Шоурум: ежедневно 10:00–18:00</span>
-              <a href="tel:+74951234567" className="hover:text-foreground transition-colors">
-                +7 (495) 123-45-67
+              <a href="tel:+79269890852" className="hover:text-foreground transition-colors">
+                +7 (926) 989-08-52
               </a>
             </div>
           </div>
@@ -133,11 +133,11 @@ export const Header = ({ containerClass }: HeaderProps) => {
           <div className="flex items-center gap-2 md:gap-4">
             {/* Phone - desktop only */}
             <a 
-              href="tel:+74951234567" 
+              href="tel:+79269890852" 
               className="hidden xl:flex items-center gap-2 text-sm font-medium text-foreground hover:text-primary transition-colors"
             >
               <Phone className="w-4 h-4" />
-              +7 (495) 123-45-67
+              +7 (926) 989-08-52
             </a>
 
             {/* Messengers */}
@@ -199,11 +199,11 @@ export const Header = ({ containerClass }: HeaderProps) => {
                   ))}
                   <hr className="my-4" />
                   <a 
-                    href="tel:+74951234567" 
+                    href="tel:+79269890852" 
                     className="flex items-center gap-2 text-foreground hover:text-primary"
                   >
                     <Phone className="w-5 h-5" />
-                    +7 (495) 123-45-67
+                    +7 (926) 989-08-52
                   </a>
                   <a 
                     href="https://t.me/tulsy" 

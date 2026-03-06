@@ -52,15 +52,15 @@ export const Footer = () => {
             <h4 className="font-semibold mb-4">Контакты</h4>
             <ul className="space-y-3 text-sm">
               <li>
-                <a href="tel:+74951234567" className="flex items-center gap-2 text-background/70 hover:text-background transition-colors">
+                <a href="tel:+79269890852" className="flex items-center gap-2 text-background/70 hover:text-background transition-colors">
                   <Phone className="w-4 h-4" />
-                  +7 (495) 123-45-67
+                  +7 (926) 989-08-52
                 </a>
               </li>
               <li>
-                <a href="mailto:info@tulsy.ru" className="flex items-center gap-2 text-background/70 hover:text-background transition-colors">
+                <a href="mailto:info@tecona.ru" className="flex items-center gap-2 text-background/70 hover:text-background transition-colors">
                   <Mail className="w-4 h-4" />
-                  info@tulsy.ru
+                  info@tecona.ru
                 </a>
               </li>
               <li className="flex items-start gap-2 text-background/70">

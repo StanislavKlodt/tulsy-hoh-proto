@@ -27,7 +27,7 @@ export const ContactsPage = () => {
               
               <div className="space-y-6">
                 <a 
-                  href="tel:+74951234567"
+                  href="tel:+79269890852"
                   className="flex items-start gap-4 p-4 bg-card rounded-xl border hover:border-primary/50 transition-colors"
                 >
                   <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
@@ -35,7 +35,7 @@ export const ContactsPage = () => {
                   </div>
                   <div>
                     <h3 className="font-medium">Телефон</h3>
-                    <p className="text-lg">+7 (495) 123-45-67</p>
+                    <p className="text-lg">+7 (926) 989-08-52</p>
                     <p className="text-sm text-muted-foreground">Ежедневно с 10:00 до 18:00</p>
                   </div>
                 </a>
@@ -56,7 +56,7 @@ export const ContactsPage = () => {
                 </a>
 
                 <a 
-                  href="mailto:info@tulsy.ru"
+                  href="mailto:info@tecona.ru"
                   className="flex items-start gap-4 p-4 bg-card rounded-xl border hover:border-primary/50 transition-colors"
                 >
                   <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
@@ -64,7 +64,7 @@ export const ContactsPage = () => {
                   </div>
                   <div>
                     <h3 className="font-medium">Email</h3>
-                    <p className="text-lg">info@tulsy.ru</p>
+                    <p className="text-lg">info@tecona.ru</p>
                   </div>
                 </a>
 
