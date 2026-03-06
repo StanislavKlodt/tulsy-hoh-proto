@@ -19,6 +19,7 @@ import ShowroomPage from "./pages/ShowroomPage";
 import ProductionPage from "./pages/ProductionPage";
 import DeliveryPage from "./pages/DeliveryPage";
 import ContactsPage from "./pages/ContactsPage";
+import WholesaleTermsPage from "./pages/WholesaleTermsPage";
 import NotFound from "./pages/NotFound";
 import ProductPageV2 from "./pages/ProductPageV2";
 
@@ -50,6 +51,7 @@ const App = () => (
               <Route path="/production" element={<ProductionPage />} />
               <Route path="/delivery" element={<DeliveryPage />} />
               <Route path="/contacts" element={<ContactsPage />} />
+              <Route path="/wholesale-terms" element={<WholesaleTermsPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Layout>

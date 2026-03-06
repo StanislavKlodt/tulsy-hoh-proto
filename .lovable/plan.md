@@ -1,30 +1,40 @@
 
 
-## Plan: Create Wholesale Discount Terms Page
+## Объединение двух попапов в один
 
-### What we'll build
-A formal, legally-styled page at `/wholesale-terms` describing the tiered discount structure. The page will follow the same visual style as `DeliveryPage` (header section, structured content, clean typography).
+### Что будет сделано
 
-### Content structure
-1. **Header** — "Условия предоставления оптовых скидок"
-2. **Effective date** — "Действуют с [дата]"
-3. **General provisions** — introductory legal language
-4. **Discount tiers table** — three tiers in a styled table:
-   - До 200 000 ₽ — без скидки
-   - 200 000 – 400 000 ₽ — 5%
-   - 400 000 – 700 000 ₽ — 10%
-5. **Key rules** — numbered list:
-   - Скидка от общей суммы заказа, независимо от категорий
-   - В расчёте участвуют только неакционные товары
-   - Акционные товары не суммируются в оптовый порог
-6. **Additional notes / disclaimers** — standard legal footer text
+Два отдельных диалога ("Закажите образцы тканей" и "Выезд менеджера с образцами ткани") объединяются в один универсальный попап.
 
-### Technical changes
+**Заголовок:** "Поможем выбрать ткань"
+**Подзаголовок:** "Отправим образцы почтой или менеджер привезёт их лично на ваш объект"
 
-1. **New file: `src/pages/WholesaleTermsPage.tsx`** — page component with formal content
-2. **Edit: `src/App.tsx`** — add route `/wholesale-terms` and import
-3. **Update memory** — adjust pricing thresholds from 150k to 200k to match new rules
+Внутри попапа — переключатель (radio-группа) между двумя режимами:
+- **Отправить почтой** — поля: Имя, Телефон, Адрес доставки
+- **Выезд менеджера** — поля: Имя, Телефон, Адрес объекта, Комментарий (необязательно)
 
-### Notes
-- The `WholesaleProgress` component in cart currently uses 150k threshold — this may need updating separately to match the new official terms (will flag but not change unless requested).
+Плюс две стандартные галочки согласий внизу и кнопка отправки.
 
+### Изменения на странице товара
+
+Два сервисных блока-кнопки ("Закажите образцы тканей" и "Выезд менеджера с образцами ткани") заменяются на один блок "Поможем выбрать ткань", который открывает объединённый попап. Третий блок ("Изготовление в ткани заказчика") остаётся без изменений.
+
+---
+
+### Технические детали
+
+1. **Новый компонент** `src/components/ui/FabricHelpDialog.tsx`:
+   - Radio-группа с двумя вариантами: "Отправить почтой" / "Выезд менеджера"
+   - Общие поля: имя, телефон, адрес
+   - Дополнительное поле "Комментарий" появляется только при выборе "Выезд менеджера"
+   - Две галочки: согласие на обработку ПД и рекламная рассылка
+   - Иконка Palette в заголовке
+
+2. **Удаление старых файлов:**
+   - `src/components/ui/FabricSamplesDialog.tsx`
+   - `src/components/ui/ManagerVisitDialog.tsx`
+
+3. **Обновление `src/pages/ProductPage.tsx`:**
+   - Замена двух стейтов (`fabricSamplesOpen`, `managerVisitOpen`) на один (`fabricHelpOpen`)
+   - Замена двух кнопок на одну с текстом "Поможем выбрать ткань" и подписью "Отправим образцы или привезём на объект"
+   - Замена импортов и использования диалогов на единый `FabricHelpDialog`
